@@ -1,18 +1,12 @@
-const express = require('express');
+import { startDB } from './db.js';
+import express from 'express';
+import routes from './routes/index.js';
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('hello world')
-})
-
-app.post('/message', (req, res) => {
-  const body = req.body;
-  console.log(body);
-  res.send("check")
-})
+app.use('/', routes);
 
 app.listen(4000, () => {
   console.log('Server is running on port 4000')
