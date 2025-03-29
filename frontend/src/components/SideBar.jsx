@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import '../App.css';
+import '../styles/SideBar.css';
 import LOGO from '../assets/LOGO.svg';
 import people from '../assets/people.svg';
 
