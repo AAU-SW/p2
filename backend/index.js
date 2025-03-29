@@ -1,5 +1,8 @@
+import { startDB } from './db.js';
 const express = require('express');
 const app = express();
+
+startDB().catch(err => console.log(err));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
