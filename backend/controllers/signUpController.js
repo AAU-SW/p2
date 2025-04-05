@@ -1,5 +1,5 @@
-import { User } from "../models/users";
-import { createSecretToken } from "../util/secretToken";
+import { User } from "../models/users.js";
+import { createSecretToken } from "../util/secretToken.js";
 
 export const signUp = async (req, res, next) => {
   try {
@@ -7,6 +7,7 @@ export const signUp = async (req, res, next) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       res.status(400).json({ message: "User already exists" });
+      next();
     }
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
@@ -20,5 +21,7 @@ export const signUp = async (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error })
+    next();
   }
 };
