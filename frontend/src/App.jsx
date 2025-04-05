@@ -8,6 +8,14 @@ import { Expenses } from "./pages/Expenses";
 import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/Sidebar";
+
+export const user = {
+  userName: "Kevin",
+  age: "18",
+  email: "kevin@gmail.com",
+  phone: "+4512345678",
+}
+
 const App = () => {
   return (
     <main style={{ display: 'flex'}}>
