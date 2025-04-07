@@ -4,13 +4,11 @@ import {Table} from '../components/Table';
 export const TimePlan = () => {
     return (
       <div>
-          <section className="header">
-            <h1>Timeplanning</h1>
-            <p>"Eksempel motto-tekst"</p>
+          <section>
+            <h1 className="header">Timeplanning</h1>
+            <a className="sub-header">"Eksempel motto-tekst"</a>
           </section>
-        <section className="table-container">
           <Table />
-        </section>
       </div>
     )
 }
