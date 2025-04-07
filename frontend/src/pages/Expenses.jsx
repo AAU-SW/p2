@@ -1,3 +1,4 @@
+
 import { SideBar } from '../components/SideBar'; 
 import {Button} from '../components/Button';
 
@@ -9,3 +10,4 @@ export const Expenses = () => {
       </div>
     )
   }
+
