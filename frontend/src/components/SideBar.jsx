@@ -1,47 +1,83 @@
-import { useState } from "react";
 import { Link } from "wouter";
-import '../styles/SideBar.css';
-import LOGO from '../assets/LOGO.svg';
-import people from '../assets/people.svg';
+import LOGO from "../assets/LOGO.svg";
+import people from "../assets/people.svg";
 
-export const SideBar = () => {
-    const [collapsed, setCollapsed] = useState(false); 
-
-    return (
-    <div>
-        <div className="SideBar">
-        <img src={LOGO} className="SideBarImg"/>
-            <ul> 
-                <li className="liSideBar"> 
-                    <img src={people}/> 
-                    <Link href="/" className="liSidebarA">Overview</Link>
-                </li>
-                <li className="liSideBar"> 
-                    <img src={people}/> 
-                    <Link href="/advice" className="liSidebarA">Advice</Link>
-                </li>
-                <li className="liSideBar"> 
-                    <img src={people}/> 
-                    <Link href="/activities" className="liSidebarA">Activities</Link>
-                </li>
-                <li className="liSideBar"> 
-                    <img src={people}/> 
-                    <Link href="/expenses" className="liSidebarA">Expenses</Link>
-                </li>
-            </ul>
+export const Sidebar = () => {
+  return (
+    <div
+      style={{
+        width: "300px",
+        height: "100%",
+        borderRadius: "0 16px 16px 0",
+        display: "block",
+        background: "linear-gradient(to top, #0d313d, #4ca6c4)",
+      }}
+    >
+      <div
+        className="sidebar"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+        }}
+      >
+        <img
+          src={LOGO}
+          className="logo"
+          style={{ height: "53px", padding: "32px 16px" }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "100%",
+            paddingBottom: "32px",
+          }}
+        >
+          <ul
+            style={{
+              listStyle: "none",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <SidebarLink text="Overview" icon={people} href="/" />
+            <SidebarLink text="Advice" icon={people} href="/advice" />
+            <SidebarLink text="Activities" icon={people} href="/activities" />
+            <SidebarLink text="Expenses" icon={people} href="/expenses" />
+          </ul>
+          <ul
+            style={{
+              listStyle: "none",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <SidebarLink text="Settings" icon={people} href="/settings" />
+            <SidebarLink text="Log out" icon={people} href="/Log-out" />
+          </ul>
         </div>
-        <div className="bottom-menu"> 
-            <ul>
-                <li className="bottom-menu-li"> 
-                    <img src={people}/> 
-                    <Link href="/settings" className="liSidebarA">Settings</Link>
-                </li>
-                <li className="bottom-menu-li">
-                    <img src={people}/> 
-                    <Link href="/Log-out" className="liSidebarA">Log out</Link>
-                </li>
-            </ul>
-        </div>
+      </div>
     </div>
-    );
-}
+  );
+};
+
+const SidebarLink = ({ text, icon, href }) => {
+  return (
+    <li style={{ color: "white" }}>
+      <Link
+        href={href}
+        style={{
+          color: "#C0C2FF",
+          display: "flex",
+          alignItems: "center",
+          gap: "16px",
+        }}
+      >
+        <img src={icon} />
+        <p>{text}</p>
+      </Link>
+    </li>
+  );
+};

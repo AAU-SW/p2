@@ -1,8 +1,6 @@
-import { SideBar } from '../components/SideBar'; 
+import { Sidebar } from '../components/Sidebar';
 export const Home = () => {
   return (
-    <SideBar>
-      
-    </SideBar>
+    <></>
   )
 }
