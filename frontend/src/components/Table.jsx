@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const Table = () => {
     const [rows, setRows] = useState([]);
@@ -20,24 +21,56 @@ export const Table = () => {
         unit: "hour",
     });
 
+    useEffect(() => {
+        const fetchTimeplans = async () => {
+            try {
+                const response = await axios.get("http://localhost:4000/timeplans/get", {
+                    headers: {
+                        Authorization: `Bearer ${token}`, 
+                    },
+                });
+                setRows(response.data);
+            } catch (error) {
+                console.error("Error fetching timeplans:", error);
+            }
+        };
 
-    function handleSubmit(e) {
+        fetchTimeplans();
+    }, []); 
+    
+
+
+    async function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
 
         const job = formData.get("job");
         const hours = parseFloat(formData.get("hours")) || 0;
-        const pay = parseFloat(formData.get("pay")) || 0;
-        setRows([...rows, { job, hours, pay }]);
+        const wage = parseFloat(formData.get("wage")) || 0;
 
+
+        try {
+            const response = await axios.post(
+                "http://localhost:4000/timeplans/post",
+                {job, hours, wage },
+                {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setRows([...rows, response.data]);
+        } catch(error){
+            console.error("Error adding new schema");
+        }
         form.reset();
     }
     let totalHours = 0;
     let totalPay = 0;
     for (let i = 0; i < currentRows.length; i++) {
         totalHours += currentRows[i].hours;
-        totalPay += currentRows[i].pay * currentRows[i].hours;
+        totalPay += currentRows[i].wage * currentRows[i].hours;
     }
 
 
@@ -59,9 +92,9 @@ export const Table = () => {
                         {currentRows.map((row, index) => (
                             <tr key={index}>
                                 <td>{row.job}</td>
-                                <td>{`${DKKFormat.format(row.pay)}/hr`}</td>
+                                <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
                                 <td>{HourFormat.format(row.hours)}</td>
-                                <td>{DKKFormat.format(row.pay * row.hours)}</td>
+                                <td>{DKKFormat.format(row.wage * row.hours)}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -93,7 +126,7 @@ export const Table = () => {
                     </a>
                     <input name="job" placeholder="Job" required />
                     <input name="hours" type="number" placeholder="Hours" required />
-                    <input name="pay" type="number" placeholder="Wage" required />
+                    <input name="wage" type="number" placeholder="Wage" required />
 
                     <button className="add-job-button" type="submit" onClick={() => setModal(false)}>Add worked hours</button>
                 </form>
