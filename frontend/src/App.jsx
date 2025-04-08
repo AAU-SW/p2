@@ -2,7 +2,7 @@ import { Route, Switch } from "wouter";
 import "./App.css";
 import { SignUp } from "./pages/SignUp";
 import { Home } from "./pages/Home";
-import { Activities } from "./pages/Activities";
+import { Activities } from "./pages/Activities"; 
 import { Advice } from "./pages/Advice";
 import { Expenses } from "./pages/Expenses";
 import { LogOut } from "./pages/LogOut";
