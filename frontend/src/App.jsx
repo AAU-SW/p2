@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Activities } from "./pages/Activities";
 import { Advice } from "./pages/Advice";
 import { Expenses } from "./pages/Expenses";
+import { MyBudget } from "./pages/MyBudget";
 import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/Sidebar";
@@ -36,6 +37,9 @@ const App = () => {
           </Route>
           <Route path="/expenses">
             <Expenses></Expenses>
+          </Route>
+          <Route path="/mybudget">
+            <MyBudget/>
           </Route>
           <Route path="/log-out">
             <LogOut></LogOut>

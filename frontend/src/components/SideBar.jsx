@@ -46,6 +46,7 @@ export const Sidebar = () => {
             <SidebarLink text="Advice" icon={people} href="/advice" />
             <SidebarLink text="Activities" icon={people} href="/activities" />
             <SidebarLink text="Expenses" icon={people} href="/expenses" />
+            <SidebarLink text="My Budget" icon={people} href="/mybudget" />
           </ul>
           <ul
             style={{
