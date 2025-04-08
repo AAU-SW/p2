@@ -6,9 +6,18 @@ import { Activities } from "./pages/Activities";
 import { Advice } from "./pages/Advice";
 import { TimePlan } from "./pages/TimePlan";
 import { Expenses } from "./pages/Expenses";
+import { MyBudget } from "./pages/MyBudget";
 import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
-import { Sidebar } from "./components/SideBar";
+import { Sidebar } from "./components/Sidebar";
+
+export const user = {
+  userName: "Kevin",
+  age: "18",
+  email: "kevin@gmail.com",
+  phone: "+4512345678",
+}
+
 const App = () => {
   return (
     <main style={{ display: 'flex'}}>
@@ -32,6 +41,9 @@ const App = () => {
           </Route>
           <Route path="/expenses">
             <Expenses></Expenses>
+          </Route>
+          <Route path="/mybudget">
+            <MyBudget/>
           </Route>
           <Route path="/log-out">
             <LogOut></LogOut>
