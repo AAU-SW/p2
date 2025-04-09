@@ -1,5 +1,6 @@
 import { Route, Switch } from "wouter";
 import "./App.css";
+import { SignIn } from "./components/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { Home } from "./pages/Home";
 import { Activities } from "./pages/Activities";
@@ -25,6 +26,9 @@ const App = () => {
         <Switch>
           <Route path="/">
             <Home />
+          </Route>
+          <Route path="/sign-in">
+            <SignIn />
           </Route>
           <Route path="/sign-up">
             <SignUp />
