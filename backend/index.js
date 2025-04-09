@@ -1,6 +1,7 @@
 import { startDB } from "./db.js";
 import cors from "cors";
 import express from 'express';
+import cookieParser from "cookie-parser";
 import routes from './routes/index.js';
 import morgan from 'morgan';
 
@@ -16,6 +17,7 @@ app.use(
     credentials: true,
   }),
 );
+app.use(cookieParser());
 
 app.use("/", routes);
 
