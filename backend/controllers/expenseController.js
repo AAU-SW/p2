@@ -1,14 +1,32 @@
-// GET route /:user-id/expenses
-import { Expense } from '../models/expenses.js';
-import { User } from '../models/user.js';
+import { expenses } from "../models/expenses.js";
+import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
 
+export const Add_expense = async (req, res, next) => {
+    try {
+        const { Expense, Amount, Date } = req.body;
 
+        if (!Expense || !Amount || !Date) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
 
+        const newExpense = await expenses.create({ Expense, Amount, Date });
 
-//Get all the entries from the expenses table where the user-id field is the same as the user-id parameter.
+        // informs user of successful creation
+        res.status(201).json(newExpense);
 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to add expense" });
+    }
+};
 
-// POST route /expenses
-//add expect the fields required for a new entry in the expenses table.
-// add a new entry in the expenses table.
-// Respond with the newly created entry.
+export const getExpenses = async (req, res) => {
+    try {
+        const userId = getUserIdByCookies(req)
+        const expenses = await expenses.find({user: userId});
+        res.status(200).json(expenses);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch expenses" });
+    }
+}

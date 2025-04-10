@@ -1,16 +1,23 @@
 //database table 
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
 
 const expenseSchema = new mongoose.Schema({
-    userId: {
-        type: String,
+    user: {
+        type: moongoose.Schema.Types.ObjectId,
+        ref: 'User', 
         required: true,
         // add function that points to user/model 
     },
-
+    expense: {
+        type: String,
+        required: true,
+    },
     amount: {
         type: Number,
+        required: true,
+    },
+    date: {
+        type: Date,
         required: true,
     },
 })
