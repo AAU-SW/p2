@@ -1,9 +1,9 @@
-import express from 'express'
-import { signup_post } from '../controllers/signinController.js';
+import express from "express";
+import authRouter from "./authRouter.js";
 const router = express.Router();
 
-/* GET sign up page. */
-router.post('/signup', signup_post);
+router.use("/auth", authRouter);
+
 export default router;
 
 
