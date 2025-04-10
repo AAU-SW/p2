@@ -21,6 +21,7 @@ export const user = {
 }
 
 const App = () => {
+  // Følgende funktion skal slettes når Login page er sat op, men er her for nu for at teste funktioner med egen bruger:
   useEffect(() => {
     const login = async () => {
       try {
@@ -38,6 +39,7 @@ const App = () => {
     }
     login();
   }, []);
+
   return (
     <main style={{ display: 'flex' }}>
       <Sidebar />
