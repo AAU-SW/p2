@@ -1,4 +1,5 @@
 import { Route, Switch } from "wouter";
+import { useEffect } from "react";
 import "./App.css";
 import { SignUp } from "./pages/SignUp";
 import { Home } from "./pages/Home";
@@ -10,6 +11,7 @@ import { MyBudget } from "./pages/MyBudget";
 import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/Sidebar";
+import axios from "axios";
 
 export const user = {
   userName: "Kevin",
@@ -19,8 +21,25 @@ export const user = {
 }
 
 const App = () => {
+  useEffect(() => {
+    const login = async () => {
+      try {
+        const response = await axios.post("http://localhost:4000/auth/Login",
+          {
+            email: "mathavs0810@gmail.com",
+            password: "Test123",
+          }, {
+            withCredentials: true,
+          });
+        console.log("Login Succesful:", response.data);
+      } catch (error) {
+        console.error("Error during login", error.response);
+      }
+    }
+    login();
+  }, []);
   return (
-    <main style={{ display: 'flex'}}>
+    <main style={{ display: 'flex' }}>
       <Sidebar />
       <div>
         <Switch>
@@ -43,7 +62,7 @@ const App = () => {
             <Expenses></Expenses>
           </Route>
           <Route path="/mybudget">
-            <MyBudget/>
+            <MyBudget />
           </Route>
           <Route path="/log-out">
             <LogOut></LogOut>

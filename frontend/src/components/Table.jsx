@@ -25,18 +25,16 @@ export const Table = () => {
         const fetchTimeplans = async () => {
             try {
                 const response = await axios.get("http://localhost:4000/timeplans/get", {
-                    headers: {
-                        Authorization: `Bearer ${token}`, 
-                    },
+                    withCredentials: true, // Include cookies if needed
                 });
-                setRows(response.data);
+                setRows(response.data); // Update the rows state with the fetched data
             } catch (error) {
                 console.error("Error fetching timeplans:", error);
             }
         };
-
+    
         fetchTimeplans();
-    }, []); 
+    }, []);
     
 
 
@@ -48,17 +46,15 @@ export const Table = () => {
         const job = formData.get("job");
         const hours = parseFloat(formData.get("hours")) || 0;
         const wage = parseFloat(formData.get("wage")) || 0;
-
+        
 
         try {
             const response = await axios.post(
                 "http://localhost:4000/timeplans/post",
-                {job, hours, wage },
-                {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                }
+                    {job, hours, wage },
+                    {
+                    withCredentials: true
+                    }
             );
             setRows([...rows, response.data]);
         } catch(error){
@@ -89,14 +85,22 @@ export const Table = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentRows.map((row, index) => (
+                        {currentRows.length > 0 ? (
+                        currentRows.map((row, index) => (
                             <tr key={index}>
                                 <td>{row.job}</td>
                                 <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
                                 <td>{HourFormat.format(row.hours)}</td>
                                 <td>{DKKFormat.format(row.wage * row.hours)}</td>
                             </tr>
-                        ))}
+                        ))
+                    ) : ( 
+                        <tr>
+                            <td colSpan="4" style={{ textAlign: "center" }}>
+                                No data available
+                            </td>
+                        </tr>
+                    )}
                     </tbody>
                     <tfoot>
                         <tr>
