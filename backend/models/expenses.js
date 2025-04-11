@@ -1,12 +1,13 @@
-//database table 
+//database table
 import mongoose from 'mongoose';
 
 const expenseSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'User',
+
         required: true,
-        // add function that points to user/model 
+        // add function that points to user/model
     },
     expense: {
         type: String,
@@ -22,4 +23,6 @@ const expenseSchema = new mongoose.Schema({
     },
 })
 
+
 export const Expense = mongoose.model('Expense', expenseSchema);
+
