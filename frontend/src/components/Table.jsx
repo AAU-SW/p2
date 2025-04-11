@@ -7,14 +7,16 @@ export const Table = () => {
     const [fixedRows, setFixedRows] = useState([]);
     // Pop-up modal
     const [modal, setModal] = useState(false);
+    // Table State
+    const [table, setTable] = useState(true)
 
-    const [type, setType] = useState("Variable income"); 
+    const [type, setType] = useState("Variable income");
     // Pagination bar
     const [currentPage, setCurrentPage] = useState(1);
-    const rowsPerPage = 3;
+    const rowsPerPage = 4;
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    const currentRows = rows.slice(startIndex, endIndex); 
+    const currentRows = rows.slice(startIndex, endIndex);
     const totalPages = Math.ceil(rows.length / rowsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -32,7 +34,7 @@ export const Table = () => {
         const fetchTimeplans = async () => {
             try {
                 const response = await axios.get("http://localhost:4000/timeplans/get", {
-                    withCredentials: true, 
+                    withCredentials: true,
                 });
                 const fixedIncome = response.data.filter(item => item.type === "Fixed income");
                 const variableIncome = response.data.filter(item => item.type === "Variable income");
@@ -43,10 +45,10 @@ export const Table = () => {
                 console.error("Error fetching timeplans:", error);
             }
         };
-    
+
         fetchTimeplans();
     }, [type]); // Re-fetch data when the type changes
-    
+    console.log(fixedRows);
 
     // handleSubmit function used for the modal.
     async function handleSubmit(e) {
@@ -59,18 +61,24 @@ export const Table = () => {
         const job = formData.get("job");
         const hours = parseFloat(formData.get("hours")) || 0;
         const wage = parseFloat(formData.get("wage")) || 0;
-        
+        const fixedIncome = parseFloat(formData.get("fixedIncome"));
+        const jobInterval = formData.get("jobInterval");
+
         // Post of submitted timeplan
         try {
             const response = await axios.post(
                 "http://localhost:4000/timeplans/post",
-                    {type, job, hours, wage },
-                    {
+                { type, job, hours, wage, fixedIncome, jobInterval },
+                {
                     withCredentials: true
-                    }
+                }
             );
-            setRows([...rows, response.data]); // Adds a new row to the current array of rows
-        } catch(error){
+            if (type === "Fixed income") {
+                setFixedRows([...fixedRows, response.data]); // Add to fixedRows
+            } else {
+                setRows([...rows, response.data]); // Add to rows
+            }// Adds a new row to the current array of rows
+        } catch (error) {
             console.error("Error adding new schema");
         }
         form.reset(); // Ensures input forms is reset after submitting.
@@ -87,44 +95,60 @@ export const Table = () => {
 
     return (
         <div>
-            <button class="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add new hourly pay</button>
+            <div style={{ display: "flex" }}>
+                <button className="add-job-button" onClick={() => setTable(true)}>Fixed</button>
+                <button className="add-job-button" onClick={() => setTable(false)}>Variable</button>
+                <button class="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add income</button>
+            </div>
             <section className="table-container">
-                <h1>Variabel Incomes</h1>
+                <h3>Incomes</h3>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Job</th>
-                            <th>Wage</th>
-                            <th>Hours</th>
-                            <th>Total pay</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentRows.length > 0 ? (
-                        currentRows.map((row, index) => (
-                            <tr key={index}>
-                                <td>{row.job}</td>
-                                <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
-                                <td>{HourFormat.format(row.hours)}</td>
-                                <td>{DKKFormat.format(row.wage * row.hours)}</td>
-                            </tr>
-                        ))
-                    ) : ( 
-                        <tr>
-                            <td colSpan="4" style={{ textAlign: "center" }}>
-                                No data available
-                            </td>
-                        </tr>
-                    )}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td scope="row">Total</td>
-                            <td></td>
-                            <td>{HourFormat.format(totalHours)}</td>
-                            <td>{DKKFormat.format(totalPay)}</td>
-                        </tr>
-                    </tfoot>
+                    {table ? (
+                        <>
+                            <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Interval</th>
+                                    <th>Total pay</th>
+                                </tr>
+                            </thead><tbody>
+                                {fixedRows.length > 0 ? (
+                                    fixedRows.map((row, index1) => (
+                                        <tr key={index1}>
+                                            <td>{row.job}</td>
+                                            <td>{row.jobInterval}</td>
+                                            <td>{DKKFormat.format(row.fixedIncome)}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <NoData />
+                                )}
+                            </tbody>
+                        </>
+                    ) : (
+                        <>
+                            <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Wage</th>
+                                    <th>Hours</th>
+                                    <th>Total pay</th>
+                                </tr>
+                            </thead><tbody>
+                                {currentRows.length > 0 ? (
+                                    currentRows.map((row, index) => (
+                                        <tr key={index}>
+                                            <td>{row.job}</td>
+                                            <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
+                                            <td>{HourFormat.format(row.hours)}</td>
+                                            <td>{DKKFormat.format(row.wage * row.hours)}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <NoData />
+                                )}
+                            </tbody>
+                        </>)}
                 </table>
                 <div className="pagination-bar">
                     {Array.from({ length: totalPages }, (_, index) => (
@@ -137,45 +161,15 @@ export const Table = () => {
                         </button>
                     ))}
                 </div>
-         
-            <h3>Fixed incomes</h3>
-                <table>
-                     <thead>
-                        <tr>
-                            <th>Job</th>
-                            <th>Wage</th>
-                            <th>Hours</th>
-                            <th>Total pay</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {fixedRows.length > 0 ? (
-                        fixedRows.map((row, index1) => (
-                            <tr key={index1}>
-                                <td>{row.job}</td>
-                                <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
-                                <td>{HourFormat.format(row.hours)}</td>
-                                <td>{DKKFormat.format(row.wage * row.hours)}</td>
-                            </tr>
-                        ))
-                    ) : ( 
-                        <tr>
-                            <td colSpan="4" style={{ textAlign: "center" }}>
-                                No data available
-                            </td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
-                </section>
+            </section>
 
             <dialog open={modal} className={modal ? "backdrop" : ""}>
                 <form className="inputForms" onSubmit={handleSubmit}>
                     <a className="form-header"> Add hours
                         <button className="unstyledButton" onClick={() => setModal(false)}>x</button>
                     </a>
-                    <select 
-                        name="type" 
+                    <select
+                        name="type"
                         required
                         value={type}
                         onChange={(e) => setType(e.target.value)}
@@ -183,21 +177,20 @@ export const Table = () => {
                         <option value="" disabled selected>Select type of income</option>
                         <option value="Fixed income">Fixed income</option>
                         <option value="Variable income">Variable income</option>
-                    </select> 
+                    </select>
                     {type === "Variable income" ? (
-                    <>
-                        <InputFields />
-                    </>
+                        <>
+                            <InputFields />
+                        </>
                     ) : (
-                    <>
-                        <select>
-                            <option value="" disabled selected>Select repeateance</option>
-                            <option value="Repeated monthly" selected>Monthly</option>
-                        </select>
-                        <InputFields/>
-                    </>
+                        <>
+                            <select name="jobInterval">
+                                <option value="" disabled selected>Select repeateance</option>
+                                <option value="Monthly" selected>Monthly</option>
+                            </select>
+                            <FixedIncomeInputFields />
+                        </>
                     )}
-
                     <button className="add-job-button" type="submit" onClick={() => setModal(false)}>Add worked hours</button>
                 </form>
             </dialog>
@@ -207,11 +200,28 @@ export const Table = () => {
 
 
 export const InputFields = () => {
-    return(
-    <>                        
-        <input name="job" placeholder="Job" required />
-        <input name="hours" type="number" placeholder="Hours" required />
-        <input name="wage" type="number" placeholder="Wage" required />
-    </>
-)
+    return (
+        <>
+            <input name="job" placeholder="Job" required />
+            <input name="hours" type="number" placeholder="Hours" required />
+            <input name="wage" type="number" placeholder="Wage" required />
+        </>
+    )
+}
+export const FixedIncomeInputFields = () => {
+    return (
+        <>
+            <input name="job" placeholder="Job" required />
+            <input name="fixedIncome" type="number" placeholder="Income" required />
+        </>
+    )
+}
+export const NoData = () => {
+    return (
+        <tr>
+            <td colSpan="4" style={{ textAlign: "center" }}>
+                No data available
+            </td>
+        </tr>
+    )
 }

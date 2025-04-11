@@ -11,11 +11,15 @@ const timeplanSchema = new mongoose.Schema({
   },
   wage: {
     type: Number,
-    required: [true, "Your wage is required"],
   },
   hours: {
     type: Number,
-    required: [true, "Your hours is required"],
+  },
+  jobInterval:{
+    type: String,
+  },
+  fixedIncome:{
+    type: Number,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId, // Reference to the User model
