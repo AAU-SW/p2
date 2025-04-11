@@ -34,7 +34,7 @@ export const getExpenses = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ error: "Unauthorized: Invalid or missing user ID" });
         }
-        const expenses = await expenses.find({ user: userId }); // Finds the timeplan of the logged user.
+        const expenses = await Expense.find({ user: userId }); // Finds the timeplan of the logged user.
         res.status(200).json(expenses);
     } catch (error) {
         res.status(500).json({ error: error.message });
