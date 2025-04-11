@@ -20,8 +20,9 @@ export const postTimeplan = async (req, res,) => {
         if (!userId) {
             return res.status(401).json({ error: "Unauthorized: Invalid or missing user ID" });
         }
-        const { job, wage, hours } = req.body; // Required values to submit a timeplan model
+        const { type, job, wage, hours } = req.body; // Required values to submit a timeplan model
         const newTimeplan = new Timeplan({
+            type,
             job,
             wage,
             hours,

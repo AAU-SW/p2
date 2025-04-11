@@ -4,11 +4,14 @@ import axios from "axios";
 export const Table = () => {
     // Tabel styring
     const [rows, setRows] = useState([]);
+    const [fixedRows, setFixedRows] = useState([]);
     // Pop-up modal
     const [modal, setModal] = useState(false);
+
+    const [type, setType] = useState("Variable income"); 
     // Pagination bar
     const [currentPage, setCurrentPage] = useState(1);
-    const rowsPerPage = 6;
+    const rowsPerPage = 3;
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
     const currentRows = rows.slice(startIndex, endIndex); 
@@ -31,14 +34,18 @@ export const Table = () => {
                 const response = await axios.get("http://localhost:4000/timeplans/get", {
                     withCredentials: true, 
                 });
-                setRows(response.data); // Updates the rows with the response
+                const fixedIncome = response.data.filter(item => item.type === "Fixed income");
+                const variableIncome = response.data.filter(item => item.type === "Variable income");
+                setFixedRows(fixedIncome);
+                setRows(variableIncome);
+                //setRows(type === "Fixed income" ? fixedIncome : variableIncome);
             } catch (error) {
                 console.error("Error fetching timeplans:", error);
             }
         };
     
         fetchTimeplans();
-    }, []);
+    }, [type]); // Re-fetch data when the type changes
     
 
     // handleSubmit function used for the modal.
@@ -48,6 +55,7 @@ export const Table = () => {
         const formData = new FormData(form);
 
         // Retrieval of data from form, and ensuring that numbers is floats.
+        const type = formData.get("type");
         const job = formData.get("job");
         const hours = parseFloat(formData.get("hours")) || 0;
         const wage = parseFloat(formData.get("wage")) || 0;
@@ -56,7 +64,7 @@ export const Table = () => {
         try {
             const response = await axios.post(
                 "http://localhost:4000/timeplans/post",
-                    {job, hours, wage },
+                    {type, job, hours, wage },
                     {
                     withCredentials: true
                     }
@@ -81,7 +89,7 @@ export const Table = () => {
         <div>
             <button class="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add new hourly pay</button>
             <section className="table-container">
-
+                <h1>Variabel Incomes</h1>
                 <table>
                     <thead>
                         <tr>
@@ -129,15 +137,66 @@ export const Table = () => {
                         </button>
                     ))}
                 </div>
-            </section>
+         
+            <h3>Fixed incomes</h3>
+                <table>
+                     <thead>
+                        <tr>
+                            <th>Job</th>
+                            <th>Wage</th>
+                            <th>Hours</th>
+                            <th>Total pay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {fixedRows.length > 0 ? (
+                        fixedRows.map((row, index1) => (
+                            <tr key={index1}>
+                                <td>{row.job}</td>
+                                <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
+                                <td>{HourFormat.format(row.hours)}</td>
+                                <td>{DKKFormat.format(row.wage * row.hours)}</td>
+                            </tr>
+                        ))
+                    ) : ( 
+                        <tr>
+                            <td colSpan="4" style={{ textAlign: "center" }}>
+                                No data available
+                            </td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
+                </section>
+
             <dialog open={modal} className={modal ? "backdrop" : ""}>
                 <form className="inputForms" onSubmit={handleSubmit}>
-                    <a className="form-header">Add hours
+                    <a className="form-header"> Add hours
                         <button className="unstyledButton" onClick={() => setModal(false)}>x</button>
                     </a>
-                    <input name="job" placeholder="Job" required />
-                    <input name="hours" type="number" placeholder="Hours" required />
-                    <input name="wage" type="number" placeholder="Wage" required />
+                    <select 
+                        name="type" 
+                        required
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                    >
+                        <option value="" disabled selected>Select type of income</option>
+                        <option value="Fixed income">Fixed income</option>
+                        <option value="Variable income">Variable income</option>
+                    </select> 
+                    {type === "Variable income" ? (
+                    <>
+                        <InputFields />
+                    </>
+                    ) : (
+                    <>
+                        <select>
+                            <option value="" disabled selected>Select repeateance</option>
+                            <option value="Repeated monthly" selected>Monthly</option>
+                        </select>
+                        <InputFields/>
+                    </>
+                    )}
 
                     <button className="add-job-button" type="submit" onClick={() => setModal(false)}>Add worked hours</button>
                 </form>
@@ -145,3 +204,14 @@ export const Table = () => {
         </div>
     );
 };
+
+
+export const InputFields = () => {
+    return(
+    <>                        
+        <input name="job" placeholder="Job" required />
+        <input name="hours" type="number" placeholder="Hours" required />
+        <input name="wage" type="number" placeholder="Wage" required />
+    </>
+)
+}

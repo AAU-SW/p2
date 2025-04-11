@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const timeplanSchema = new mongoose.Schema({
+  type: {
+    type: String, 
+    required: [true, "Type of work is required"],
+  },
   job: {
     type: String,
     required: [true, "Your job type is required"],

@@ -94,6 +94,16 @@ tfoot{
     outline: none; /* Remove default outline */
     transition: border-color 0.3s ease; /* Smooth transition for focus */
 }
+.inputForms select {
+    padding: 10px; /* Add padding inside the select field */
+    font-size: 14px; /* Adjust font size */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease; /* Smooth transition for focus */
+    background-color: white; /* Ensure consistent background */
+    appearance: none; /* Remove default dropdown arrow styling */
+}
 
 .backdrop{
     position: fixed;

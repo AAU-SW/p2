@@ -8,7 +8,8 @@ export const TimePlan = () => {
             <h1 className="header">Timeplanning</h1>
             <a className="sub-header">"Eksempel motto-tekst"</a>
           </section>
-          <Table />
+          <Table /> 
+
       </div>
     )
 }

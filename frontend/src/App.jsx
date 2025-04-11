@@ -10,7 +10,7 @@ import { Expenses } from "./pages/Expenses";
 import { MyBudget } from "./pages/MyBudget";
 import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
-import { Sidebar } from "./components/Sidebar";
+import { Sidebar } from "./components/SideBar";
 import axios from "axios";
 
 export const user = {
