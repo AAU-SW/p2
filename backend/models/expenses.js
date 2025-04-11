@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const expenseSchema = new mongoose.Schema({
     user: {
         type: moongoose.Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'user', 
         required: true,
         // add function that points to user/model 
     },
@@ -22,4 +22,4 @@ const expenseSchema = new mongoose.Schema({
     },
 })
 
-export const Expense = mongoose.model('Expense', expenseSchema);
+export const expense = mongoose.model('expense', expenseSchema);

@@ -4,8 +4,8 @@ import "../styles/expenseTable.css";
 export const ExpenseTable = () => {
     const [rows, setRows] = useState([
         // dummy data untill db is ready
-        { Expense: "Rent", Amount: 5000, Date: "2025-04-09" },
-        { Expense: "Netflix", Amount: 79, Date: "2025-04-05" }
+        { expense: "Rent", amount: 5000, date: "2025-04-09" },
+        { expense: "Netflix", amount: 79, date: "2025-04-05" }
     ]);
     const [modal, setModal] = useState(false);
 
@@ -28,16 +28,16 @@ export const ExpenseTable = () => {
         const form = e.target;
         const formData = new FormData(form);
 
-        const Expense = formData.get("Expense");
-        const Amount = parseFloat(formData.get("Amount")) || 0;
-        const Date = formData.get("Date");
-        setRows([...rows, { Expense, Amount, Date }]);
+        const expense = formData.get("expense");
+        const amount = parseFloat(formData.get("amount")) || 0;
+        const date = formData.get("date");
+        setRows([...rows, { expense, amount, date }]);
 
         form.reset();
 
     }
     
-    const totalAmount = rows.reduce((sum, row) => sum + row.Amount, 0);
+    const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
     return (
         <div>
             <button className="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add new expense</button>
@@ -46,17 +46,17 @@ export const ExpenseTable = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Expense</th>
-                            <th>Amount</th>
-                            <th>Date</th>
+                            <th>expense</th>
+                            <th>amount</th>
+                            <th>date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentRows.map((row, index) => (
                             <tr key={index}>
-                                <td>{row.Expense}</td>
-                                <td>{row.Amount.toLocaleString()} DKK</td>
-                                <td>{row.Date}</td>
+                                <td>{row.expense}</td>
+                                <td>{row.amount.toLocaleString()} DKK</td>
+                                <td>{row.date}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -85,9 +85,9 @@ export const ExpenseTable = () => {
                     <a className="form-header">Add new expense
                         <button className="unstyledButton" onClick={() => setModal(false)}>x</button>
                     </a>
-                    <input name="Expense" placeholder="E.g. rent, subscribtions" required />
-                    <input name="Amount" type="number" placeholder="DKK" required />
-                    <input name="Date" type="date" placeholder="DD/MM-YYYY" required />
+                    <input name="expense" placeholder="E.g. rent, subscribtions" required />
+                    <input name="amount" type="number" placeholder="DKK" required />
+                    <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
                     <button className="add-expense-button" type="submit" onClick={() => setModal(false)}>Submit</button>
                 </form>

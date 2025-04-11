@@ -1,7 +1,7 @@
 import { ExpenseTable } from '../components/expenseTable';
 import { useState } from 'react';
 
-export const Expenses = () => {
+export const expenses = () => {
   
     return (
       <div>
