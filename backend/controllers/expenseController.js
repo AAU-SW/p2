@@ -1,8 +1,8 @@
-import { expenses } from "../models/expense.js";
+import { Expense } from "../models/expenses.js";
 import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
 
 // post request to add a new expense
-export const add_expense = async (req, res) => {
+export const addExpense = async (req, res) => {
     try {
         const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
         if (!userId) {
@@ -14,7 +14,7 @@ export const add_expense = async (req, res) => {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const newExpense = new expense({
+        const newExpense = new Expense({
             expense,
             amount,
             date,
