@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const Table = () => {
-    // Tabel styring
-    const [rows, setRows] = useState([]);
-    const [fixedRows, setFixedRows] = useState([]);
+export const Table = ({}) => {
     // Pop-up modal
     const [modal, setModal] = useState(false);
     // Table State
+    const [allRows, setAllRows] = useState([])
     const [table, setTable] = useState(true)
 
     const [type, setType] = useState("Variable income");
@@ -16,8 +14,14 @@ export const Table = () => {
     const rowsPerPage = 4;
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    const currentRows = rows.slice(startIndex, endIndex);
-    const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+    const dataToDisplay = table
+    ? allRows.filter(row => row.type === "Fixed income")
+    : allRows.filter(row => row.type === "Variable income");
+
+    const currentRows = dataToDisplay.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(dataToDisplay.length / rowsPerPage);
+    
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -36,19 +40,14 @@ export const Table = () => {
                 const response = await axios.get("http://localhost:4000/timeplans/get", {
                     withCredentials: true,
                 });
-                const fixedIncome = response.data.filter(item => item.type === "Fixed income");
-                const variableIncome = response.data.filter(item => item.type === "Variable income");
-                setFixedRows(fixedIncome);
-                setRows(variableIncome);
-                //setRows(type === "Fixed income" ? fixedIncome : variableIncome);
+                setAllRows(response.data);
             } catch (error) {
                 console.error("Error fetching timeplans:", error);
             }
         };
 
         fetchTimeplans();
-    }, [type]); // Re-fetch data when the type changes
-    console.log(fixedRows);
+    }, []);
 
     // handleSubmit function used for the modal.
     async function handleSubmit(e) {
@@ -74,10 +73,10 @@ export const Table = () => {
                 }
             );
             if (type === "Fixed income") {
-                setFixedRows([...fixedRows, response.data]); // Add to fixedRows
+                setFixedRows([...fixedRows, response.data]); 
             } else {
-                setRows([...rows, response.data]); // Add to rows
-            }// Adds a new row to the current array of rows
+                setRows([...rows, response.data]); 
+            }
         } catch (error) {
             console.error("Error adding new schema");
         }
@@ -92,6 +91,7 @@ export const Table = () => {
         totalPay += currentRows[i].wage * currentRows[i].hours;
     }
 
+      
 
     return (
         <div>
@@ -112,8 +112,8 @@ export const Table = () => {
                                     <th>Total pay</th>
                                 </tr>
                             </thead><tbody>
-                                {fixedRows.length > 0 ? (
-                                    fixedRows.map((row, index1) => (
+                                {currentRows.length > 0 ? (
+                                    currentRows.map((row, index1) => (
                                         <tr key={index1}>
                                             <td>{row.job}</td>
                                             <td>{row.jobInterval}</td>

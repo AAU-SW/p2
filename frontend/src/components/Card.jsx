@@ -24,7 +24,7 @@ export const CardHeader = ({ children, title }) => {
   );
 };
 
-export const CardDetails = ({ children, title }) => {
+export const CardDetails = ({ children }) => {
   return (
     <div className="card-details"> 
       {children}

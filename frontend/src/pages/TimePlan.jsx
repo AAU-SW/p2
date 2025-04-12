@@ -1,9 +1,10 @@
 import '../styles/TimePlan.css';
-import {Table} from '../components/Table';
+import {Table } from '../components/Table';
 import { Card , CardContent, CardHeader, CardDetails } from '../components/Card';
 
 
 export const TimePlan = () => {
+
     return (
       <div>
           <section>
@@ -13,7 +14,7 @@ export const TimePlan = () => {
           <Card>
             <CardContent>
               <CardHeader title="Total hours"></CardHeader>
-              <CardDetails>5 hours</CardDetails>
+              <CardDetails>test</CardDetails>
             </CardContent>
             <CardContent>
               <CardHeader title="Variable Income"></CardHeader>
