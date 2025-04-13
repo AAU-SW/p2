@@ -82,7 +82,12 @@ export const Table = ({widgetData}) => {
         }
         form.reset(); // Ensures input forms is reset after submitting.
     }
-    
+
+    let totalHours = 0;
+    for (let i = 0; i < currentRows.length; i++) {
+        totalHours += currentRows[i].hours;
+    }
+
     const fixedIncome = allRows
     .filter(row => row.type === "Fixed income")
     .reduce((sum, row) => sum + (row.fixedIncome || 0), 0);
