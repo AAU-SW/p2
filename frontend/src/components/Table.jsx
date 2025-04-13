@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const Table = ({}) => {
+export const Table = ({widgetData}) => {
     // Pop-up modal
     const [modal, setModal] = useState(false);
     // Table State
@@ -21,7 +21,7 @@ export const Table = ({}) => {
 
     const currentRows = dataToDisplay.slice(startIndex, endIndex);
     const totalPages = Math.ceil(dataToDisplay.length / rowsPerPage);
-    
+
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -91,7 +91,17 @@ export const Table = ({}) => {
         totalPay += currentRows[i].wage * currentRows[i].hours;
     }
 
-      
+    const fixedIncome = allRows
+    .filter(row => row.type === "Fixed income")
+    .reduce((sum, row) => sum + (row.fixedIncome || 0), 0);
+
+    const variableIncome = allRows
+    .filter(row => row.type === "Variable income")
+    .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);  
+
+    useEffect(() => {
+        widgetData({ fixedIncome, variableIncome, totalHours });
+    }, [fixedIncome, variableIncome, totalHours, widgetData]);
 
     return (
         <div>

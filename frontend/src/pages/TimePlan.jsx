@@ -1,9 +1,21 @@
 import '../styles/TimePlan.css';
 import {Table } from '../components/Table';
 import { Card , CardContent, CardHeader, CardDetails } from '../components/Card';
+import { useState } from "react";
 
 
 export const TimePlan = () => {
+    const [data, setData] = useState({
+      fixedIncome: 0,
+      variableIncome: 0,
+      totalHours: 0,
+    });
+
+    const handleDataExport = (exportedData) => {
+        setData(exportedData);
+    };
+
+    const DKKFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" });
 
     return (
       <div>
@@ -14,20 +26,20 @@ export const TimePlan = () => {
           <Card>
             <CardContent>
               <CardHeader title="Total hours"></CardHeader>
-              <CardDetails>test</CardDetails>
+              <CardDetails>{data.totalHours}</CardDetails>
             </CardContent>
             <CardContent>
               <CardHeader title="Variable Income"></CardHeader>
-              <CardDetails>10,00kr</CardDetails>
+              <CardDetails>{DKKFormat.format(data.variableIncome)}</CardDetails>
             </CardContent>
             <CardContent>
               <CardHeader title="Fixed Income"></CardHeader>
-              <CardDetails>2,00kr</CardDetails>
+              <CardDetails>{DKKFormat.format(data.fixedIncome)}</CardDetails>
             </CardContent>
           </Card>
 
           <Card>
-            <Table /> 
+            <Table widgetData={handleDataExport} /> 
           </Card>
 
       </div>
