@@ -1,7 +1,7 @@
 import '../styles/TimePlan.css';
 import {Table } from '../components/Table';
 import { Card , CardContent, CardHeader, CardDetails } from '../components/Card';
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 
 export const TimePlan = () => {
@@ -11,9 +11,9 @@ export const TimePlan = () => {
       totalHours: 0,
     });
 
-    const handleDataExport = (exportedData) => {
+    const handleDataExport = useCallback((exportedData) => {
         setData(exportedData);
-    };
+      },[]);
 
     const DKKFormat = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK" });
 

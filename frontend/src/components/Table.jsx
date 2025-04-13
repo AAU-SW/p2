@@ -83,10 +83,7 @@ export const Table = ({widgetData}) => {
         form.reset(); // Ensures input forms is reset after submitting.
     }
 
-    let totalHours = 0;
-    for (let i = 0; i < currentRows.length; i++) {
-        totalHours += currentRows[i].hours;
-    }
+    const totalHours = currentRows.reduce((sum, row) => sum + (row.hours || 0), 0);
 
     const fixedIncome = allRows
     .filter(row => row.type === "Fixed income")
