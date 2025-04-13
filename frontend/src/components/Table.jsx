@@ -82,15 +82,7 @@ export const Table = ({widgetData}) => {
         }
         form.reset(); // Ensures input forms is reset after submitting.
     }
-
-    // Used for calculating total amount of hours, and pay in the footers of table.
-    let totalHours = 0;
-    let totalPay = 0;
-    for (let i = 0; i < currentRows.length; i++) {
-        totalHours += currentRows[i].hours;
-        totalPay += currentRows[i].wage * currentRows[i].hours;
-    }
-
+    
     const fixedIncome = allRows
     .filter(row => row.type === "Fixed income")
     .reduce((sum, row) => sum + (row.fixedIncome || 0), 0);
