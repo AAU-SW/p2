@@ -1,6 +1,14 @@
 import { Link } from "wouter";
 import LOGO from "../assets/LOGO.svg";
-import people from "../assets/people.svg";
+import {
+  FaHome,
+  FaMoneyBill,
+  FaChartPie,
+  FaCog,
+  FaSignOutAlt,
+  FaChartLine,
+} from "react-icons/fa";
+import { MdPeople } from "react-icons/md";
 
 export const Sidebar = () => {
   return (
@@ -42,11 +50,23 @@ export const Sidebar = () => {
               flexDirection: "column",
             }}
           >
-            <SidebarLink text="Overview" icon={people} href="/" />
-            <SidebarLink text="Advice" icon={people} href="/advice" />
-            <SidebarLink text="Activities" icon={people} href="/activities" />
-            <SidebarLink text="Expenses" icon={people} href="/expenses" />
-            <SidebarLink text="My Budget" icon={people} href="/mybudget" />
+            <SidebarLink text="Overview" icon={<FaHome />} href="/" />
+            <SidebarLink text="Advice" icon={<MdPeople />} href="/advice" />
+            <SidebarLink
+              text="Activities"
+              icon={<FaChartLine />}
+              href="/activities"
+            />
+            <SidebarLink
+              text="Expenses"
+              icon={<FaMoneyBill />}
+              href="/expenses"
+            />
+            <SidebarLink
+              text="My Budget"
+              icon={<FaChartPie />}
+              href="/mybudget"
+            />
           </ul>
           <ul
             style={{
@@ -55,8 +75,12 @@ export const Sidebar = () => {
               flexDirection: "column",
             }}
           >
-            <SidebarLink text="Settings" icon={people} href="/settings" />
-            <SidebarLink text="Log out" icon={people} href="/Log-out" />
+            <SidebarLink text="Settings" icon={<FaCog />} href="/settings" />
+            <SidebarLink
+              text="Log out"
+              icon={<FaSignOutAlt />}
+              href="/Log-out"
+            />
           </ul>
         </div>
       </div>
@@ -76,7 +100,7 @@ const SidebarLink = ({ text, icon, href }) => {
           gap: "16px",
         }}
       >
-        <img src={icon} />
+        <div style={{ fontSize: "24px", display: "flex" }}>{icon}</div>
         <p>{text}</p>
       </Link>
     </li>
