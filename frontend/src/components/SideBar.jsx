@@ -1,8 +1,25 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import LOGO from "../assets/LOGO.svg";
 import people from "../assets/people.svg";
 
 export const Sidebar = () => {
+  const [_, navigate] = useLocation();
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/auth/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (!res.ok) {
+        console.error("Error logging out");
+      } else {
+        navigate("/sign-up");
+      }
+    } catch (err) {
+      console.error("Error logging out: ", err);
+    }
+  };
+
   return (
     <div
       style={{
@@ -56,7 +73,11 @@ export const Sidebar = () => {
             }}
           >
             <SidebarLink text="Settings" icon={people} href="/settings" />
-            <SidebarLink text="Log out" icon={people} href="/Log-out" />
+            <SidebarLink
+              text="Log out"
+              icon={people}
+              onClick={() => handleLogout()}
+            />
           </ul>
         </div>
       </div>
@@ -64,21 +85,42 @@ export const Sidebar = () => {
   );
 };
 
-const SidebarLink = ({ text, icon, href }) => {
+const SidebarLink = ({ text, icon, href, onClick }) => {
   return (
     <li style={{ color: "white" }}>
-      <Link
-        href={href}
-        style={{
-          color: "#C0C2FF",
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-        }}
-      >
-        <img src={icon} />
-        <p>{text}</p>
-      </Link>
+      {href ? (
+        <Link
+          href={href}
+          style={{
+            color: "#C0C2FF",
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            textDecoration: "none",
+          }}
+        >
+          <img src={icon} />
+          <p>{text}</p>
+        </Link>
+      ) : (
+        <button
+          onClick={() => onClick()}
+          style={{
+            color: "#C0C2FF",
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            padding: 0,
+            margin: 0,
+          }}
+        >
+          <img src={icon} />
+          <p style={{ fontSize: "16px" }}>{text}</p>
+        </button>
+      )}
     </li>
   );
 };
