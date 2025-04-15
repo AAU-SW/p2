@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const Table = ({widgetData}) => {
+export const Table = ({setWidgetData}) => {
     // Pop-up modal
     const [modal, setModal] = useState(false);
     // Table State
@@ -34,18 +34,18 @@ export const Table = ({widgetData}) => {
     });
 
     // Fetching of current users timeplans
-    useEffect(() => {
-        const fetchTimeplans = async () => {
-            try {
-                const response = await axios.get("http://localhost:4000/timeplans/get", {
-                    withCredentials: true,
-                });
-                setAllRows(response.data);
-            } catch (error) {
-                console.error("Error fetching timeplans:", error);
-            }
-        };
+    const fetchTimeplans = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/timeplans/", {
+                withCredentials: true,
+            });
+            setAllRows(response.data);
+        } catch (error) {
+            console.error("Error fetching timeplans:", error);
+        }
+    };
 
+    useEffect(() => {
         fetchTimeplans();
     }, []);
 
@@ -66,24 +66,20 @@ export const Table = ({widgetData}) => {
         // Post of submitted timeplan
         try {
             const response = await axios.post(
-                "http://localhost:4000/timeplans/post",
+                "http://localhost:4000/timeplans/",
                 { type, job, hours, wage, fixedIncome, jobInterval },
                 {
                     withCredentials: true
                 }
             );
-            if (type === "Fixed income") {
-                setFixedRows([...fixedRows, response.data]); 
-            } else {
-                setRows([...rows, response.data]); 
-            }
+            await fetchTimeplans();
         } catch (error) {
             console.error("Error adding new schema");
         }
         form.reset(); // Ensures input forms is reset after submitting.
     }
 
-    const totalHours = currentRows.reduce((sum, row) => sum + (row.hours || 0), 0);
+    const totalHours = allRows.reduce((sum, row) => sum + (row.hours || 0), 0);
 
     const fixedIncome = allRows
     .filter(row => row.type === "Fixed income")
@@ -94,8 +90,8 @@ export const Table = ({widgetData}) => {
     .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);  
 
     useEffect(() => {
-        widgetData({ fixedIncome, variableIncome, totalHours });
-    }, [fixedIncome, variableIncome, totalHours, widgetData]);
+        setWidgetData({ fixedIncome, variableIncome, totalHours });
+    }, [fixedIncome, variableIncome, totalHours, setWidgetData]);
 
     return (
         <div>

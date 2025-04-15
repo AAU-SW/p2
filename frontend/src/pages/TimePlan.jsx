@@ -39,7 +39,7 @@ export const TimePlan = () => {
           </Card>
 
           <Card>
-            <Table widgetData={handleDataExport} /> 
+            <Table setWidgetData={handleDataExport} /> 
           </Card>
 
       </div>
