@@ -21,7 +21,7 @@ export const postTimeplan = async (req, res,) => {
             return res.status(401).json({ error: "Unauthorized: Invalid or missing user ID" });
         }
         const { type, job, wage = null, hours = null, jobInterval = null, fixedIncome = null } = req.body; // Required values to submit a timeplan model, optional fields default to null
-        const newTimeplan = new Timeplan({
+        const newTimeplan = await Timeplan.create({
             type,
             job,
             wage,
@@ -30,7 +30,6 @@ export const postTimeplan = async (req, res,) => {
             fixedIncome,
             user: userId,
         }); // Creation of a new timeplan, with the current logged user.
-        await newTimeplan.save();
         res.status(201).json(newTimeplan);
     } catch(error){
         res.status(500).json({error: error.message});

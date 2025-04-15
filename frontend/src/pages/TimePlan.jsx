@@ -1,5 +1,5 @@
 import '../styles/TimePlan.css';
-import {Table } from '../components/Table';
+import { TimeplanTable } from '../components/TimeplanTable';
 import { Card , CardContent, CardHeader, CardDetails } from '../components/Card';
 import { useCallback, useState } from "react";
 
@@ -39,7 +39,7 @@ export const TimePlan = () => {
           </Card>
 
           <Card>
-            <Table setWidgetData={handleDataExport} /> 
+            <TimeplanTable setWidgetData={handleDataExport} /> 
           </Card>
 
       </div>

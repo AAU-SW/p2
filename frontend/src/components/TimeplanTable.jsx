@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const Table = ({setWidgetData}) => {
+export const TimeplanTable = ({setWidgetData}) => {
     // Pop-up modal
     const [modal, setModal] = useState(false);
     // Table State
