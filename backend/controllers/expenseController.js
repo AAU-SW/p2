@@ -23,6 +23,7 @@ export const addExpense = async (req, res) => {
         await newExpense.save();
         res.status(201).json(newExpense);
     } catch(error){
+        console.error("Error adding expense:", error);
         res.status(500).json({error: error.message});
     };
 }

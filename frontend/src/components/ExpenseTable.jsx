@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "../styles/expenseTable.css";
+import axios from "axios";
 
 export const ExpenseTable = () => {
     const [rows, setRows] = useState([
         // dummy data untill db is ready
-        { expense: "Rent", amount: 5000, date: "2025-04-09" },
+        { expense: "Rent", amount: 5000, date: "2025-04-09"},
         { expense: "Netflix", amount: 79, date: "2025-04-05" }
     ]);
     const [modal, setModal] = useState(false);
@@ -21,9 +22,8 @@ export const ExpenseTable = () => {
     };
 
 
-
     // Submit input data to table 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
@@ -33,9 +33,20 @@ export const ExpenseTable = () => {
         const date = formData.get("date");
         setRows([...rows, { expense, amount, date }]);
 
-        form.reset();
+        // post of submittet expense
+        try {
+            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date });
+            
+            {
+                withCredentials: true
+            }
+            } catch(error) {
+                console.error("Error posting data:", error);
+            }
+            form.reset();
+        }
 
-    }
+
     
     const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
     return (
@@ -94,4 +105,4 @@ export const ExpenseTable = () => {
             </dialog>
         </div>
     );
-};
+}
