@@ -1,6 +1,14 @@
 import { Link, useLocation } from "wouter";
 import LOGO from "../assets/LOGO.svg";
-import people from "../assets/people.svg";
+import {
+  FaHome,
+  FaMoneyBill,
+  FaChartPie,
+  FaCog,
+  FaSignOutAlt,
+  FaChartLine,
+} from "react-icons/fa";
+import { MdPeople } from "react-icons/md";
 
 export const Sidebar = () => {
   const [_, navigate] = useLocation();
@@ -59,12 +67,23 @@ export const Sidebar = () => {
               flexDirection: "column",
             }}
           >
-            <SidebarLink text="Overview" icon={people} href="/" />
-            <SidebarLink text="Advice" icon={people} href="/advice" />
-            <SidebarLink text="Activities" icon={people} href="/activities" />
-            <SidebarLink text="Expenses" icon={people} href="/expenses" />
-            <SidebarLink text="Timeplanning" icon={people} href="/timeplan" />
-            <SidebarLink text="My Budget" icon={people} href="/mybudget" />
+            <SidebarLink text="Overview" icon={<FaHome />} href="/" />
+            <SidebarLink text="Advice" icon={<MdPeople />} href="/advice" />
+            <SidebarLink
+              text="Activities"
+              icon={<FaChartLine />}
+              href="/activities"
+            />
+            <SidebarLink
+              text="Expenses"
+              icon={<FaMoneyBill />}
+              href="/expenses"
+            />
+            <SidebarLink
+              text="My Budget"
+              icon={<FaChartPie />}
+              href="/mybudget"
+            />
           </ul>
           <ul
             style={{
@@ -73,11 +92,11 @@ export const Sidebar = () => {
               flexDirection: "column",
             }}
           >
-            <SidebarLink text="Settings" icon={people} href="/settings" />
+            <SidebarLink text="Settings" icon={<FaCog />} href="/settings" />
             <SidebarLink
               text="Log out"
-              icon={people}
-              onClick={() => handleLogout()}
+              icon={<FaSignOutAlt />}
+              href="/Log-out"
             />
           </ul>
         </div>
@@ -89,39 +108,18 @@ export const Sidebar = () => {
 const SidebarLink = ({ text, icon, href, onClick }) => {
   return (
     <li style={{ color: "white" }}>
-      {href ? (
-        <Link
-          href={href}
-          style={{
-            color: "#C0C2FF",
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            textDecoration: "none",
-          }}
-        >
-          <img src={icon} />
-          <p>{text}</p>
-        </Link>
-      ) : (
-        <button
-          onClick={() => onClick()}
-          style={{
-            color: "#C0C2FF",
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            backgroundColor: "transparent",
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            margin: 0,
-          }}
-        >
-          <img src={icon} />
-          <p style={{ fontSize: "16px" }}>{text}</p>
-        </button>
-      )}
+      <Link
+        href={href}
+        style={{
+          color: "#C0C2FF",
+          display: "flex",
+          alignItems: "center",
+          gap: "16px",
+        }}
+      >
+        <div style={{ fontSize: "24px", display: "flex" }}>{icon}</div>
+        <p>{text}</p>
+      </Link>
     </li>
   );
 };
