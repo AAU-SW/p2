@@ -7,6 +7,7 @@ import {
   FaCog,
   FaSignOutAlt,
   FaChartLine,
+  FaBusinessTime,
 } from "react-icons/fa";
 import { MdPeople } from "react-icons/md";
 
@@ -84,6 +85,11 @@ export const Sidebar = () => {
               icon={<FaChartPie />}
               href="/mybudget"
             />
+            <SidebarLink 
+                text="Timeplanning"
+                icon={<FaBusinessTime />}
+                href="/timeplan"
+            /> 
           </ul>
           <ul
             style={{
