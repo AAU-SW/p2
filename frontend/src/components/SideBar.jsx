@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import LOGO from "../assets/LOGO.svg";
 import {
   FaHome,
@@ -11,6 +11,23 @@ import {
 import { MdPeople } from "react-icons/md";
 
 export const Sidebar = () => {
+  const [_, navigate] = useLocation();
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/auth/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (!res.ok) {
+        console.error("Error logging out");
+      } else {
+        navigate("/sign-up");
+      }
+    } catch (err) {
+      console.error("Error logging out: ", err);
+    }
+  };
+
   return (
     <div
       style={{
@@ -88,7 +105,7 @@ export const Sidebar = () => {
   );
 };
 
-const SidebarLink = ({ text, icon, href }) => {
+const SidebarLink = ({ text, icon, href, onClick }) => {
   return (
     <li style={{ color: "white" }}>
       <Link
