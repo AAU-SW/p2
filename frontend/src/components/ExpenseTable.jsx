@@ -46,11 +46,10 @@ export const ExpenseTable = () => {
 
         // post of submittet expense
         try {
-            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date });
-            
+            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date },
             {
                 withCredentials: true
-            }
+            });
             } catch(error) {
                 console.error("Error posting data:", error);
             }
