@@ -100,9 +100,10 @@ export const Sidebar = () => {
           >
             <SidebarLink text="Settings" icon={<FaCog />} href="/settings" />
             <SidebarLink
+              onClick={()=> {handleLogout()}}
               text="Log out"
               icon={<FaSignOutAlt />}
-              href="/Log-out"
+              href="#"
             />
           </ul>
         </div>
@@ -116,6 +117,11 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
     <li style={{ color: "white" }}>
       <Link
         href={href}
+        onClick={(e) => {
+          if (onClick) {
+            onClick();
+          }
+        }}
         style={{
           color: "#C0C2FF",
           display: "flex",
