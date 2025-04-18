@@ -54,3 +54,19 @@ export const Login = async (req, res, next) => {
     return next();
   }
 };
+
+export const Logout = async (req, res, next) => {
+  try {
+    res.cookie("token", "none", {
+      withCredentials: true,
+      httpOnly: false,
+    });
+    res
+      .status(200)
+      .json({ message: "User logged out successfully", success: true });
+    return next();
+  } catch (error) {
+    console.error(error);
+    res.status(500);
+  }
+};

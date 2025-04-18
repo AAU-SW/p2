@@ -1,10 +1,11 @@
 import express from "express";
 import authRouter from "./authRouter.js";
-import expenseRouter from "./expenses.js";
+import timeplanRoutes from "./timeplanRoutes.js";
 const router = express.Router();
 
 router.use("/auth", authRouter);
 router.use("/expenses", expenseRouter);
+router.use("/timeplans", timeplanRoutes);
 
 export default router;
 
