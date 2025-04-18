@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../styles/expenseTable.css";
+import "../styles/ExpenseTable.css";
 import axios from "axios";
 
 export const ExpenseTable = () => {
