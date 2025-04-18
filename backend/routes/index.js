@@ -4,6 +4,8 @@ import timeplanRoutes from "./timeplanRoutes.js";
 const router = express.Router();
 
 router.use("/auth", authRouter);
+router.use("/expenses", expenseRouter);
 router.use("/timeplans", timeplanRoutes);
 
 export default router;
+
