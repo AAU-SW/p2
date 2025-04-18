@@ -3,11 +3,7 @@ import "../styles/expenseTable.css";
 import axios from "axios";
 
 export const ExpenseTable = () => {
-    const [rows, setRows] = useState([
-        // dummy data untill db is ready
-        { expense: "Rent", amount: 5000, date: "2025-04-09"},
-        { expense: "Netflix", amount: 79, date: "2025-04-05" }
-    ]);
+    const [rows, setRows] = useState([]);
     const [modal, setModal] = useState(false);
 
     // Pageination bar
@@ -21,7 +17,22 @@ export const ExpenseTable = () => {
         setCurrentPage(pageNumber);
     };
 
+    // get the data add it to the table
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/expenses", {
+                withCredentials: true
+            });
+            setRows(response.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
 
+    
     // Submit input data to table 
     async function handleSubmit(e) {
         e.preventDefault();
