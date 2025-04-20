@@ -123,6 +123,7 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
           }
         }}
         style={{
+          textDecoration: "none",
           color: "#C0C2FF",
           display: "flex",
           alignItems: "center",

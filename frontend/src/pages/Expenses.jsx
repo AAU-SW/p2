@@ -1,21 +1,23 @@
 import { ExpenseTable } from '../components/expenseTable';
 import { useState } from 'react';
+import { Card, CardHeader } from '../components/Card';
 
 export const Expenses = () => {
-    return (
-      <div>
-        <h1>Expenses</h1>
-
-      <ExpenseTable />
+  return (
+    <div>
+          <h1>Expenses</h1>
+      <Card>
+        <ExpenseTable />
+      </Card>
 
 
     </div>
   );
 }
 
-  /* Detailed view of each expense */
-  /* add monthly expenses (routes og controllers)*/
+/* Detailed view of each expense */
+/* add monthly expenses (routes og controllers)*/
 
 
-  /* Table og monthly expenses */
-  /* Filtering of monthly expenses */
+/* Table og monthly expenses */
+/* Filtering of monthly expenses */
