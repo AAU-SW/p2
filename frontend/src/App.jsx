@@ -12,6 +12,7 @@ import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/SideBar";
 import axios from "axios";
+import { Profile } from "./pages/Profile";
 
 export const user = {
   userName: "Kevin",
@@ -71,6 +72,9 @@ const App = () => {
           </Route>
           <Route path="/settings">
             <Settings></Settings>
+          </Route>
+          <Route path="/profile">
+            <Profile></Profile>
           </Route>
 
           <Route>Not Found</Route>
