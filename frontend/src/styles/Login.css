@@ -1,0 +1,73 @@
+.login-page {
+    display: flex; /* aktiverer flexbox */
+    justify-content: center; /* centrerer loginboksen vandret */
+    align-items: center; /* centrerer loginboksen lodret */
+    height: 100vh; /* fylder hele højden af viewport */
+    background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+    font-family: 'Poppins', sans-serif; /* sans-serif font */
+  }
+  
+  .login-container {
+    display: flex; /* to kolonner: formular og illustration */
+    background-color: #8ba1ea;
+    border-radius: 16px; /* rundede hjørner */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* blød skygge */
+    max-width: 1000px; 
+  }
+  
+  .login-box {
+    flex: 1; /* fylder halvdelen */
+    padding: 3rem; /* luft rundt om indholdet */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Overskrift i boksen */
+  .login-box h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #193b65; /* mørkeblå */
+  }
+  
+  /* Inputfelter til email og password */
+  form input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f5f5f5;
+  }
+  
+  /* Knapper (login og signup) – ens stil */
+  form button,
+  .signup-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #1a7dd7; /* blå */
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    font-size: 1rem;
+    border: none; 
+    margin-top: 0.7rem;
+  }
+  
+  /* Højre del: billede med illustration */
+  .illustration {
+    flex: 1;
+    background-color: #f0f6fd;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  /* billede */
+  .illustration img {
+    max-width: 100%;
+    height: auto;
+  }

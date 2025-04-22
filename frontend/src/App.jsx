@@ -1,5 +1,6 @@
 import { Route, Switch } from "wouter";
 import "./App.css";
+import { Login } from "./pages/Login";
 import { SignIn } from "./components/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { Home } from "./pages/Home";
@@ -19,6 +20,12 @@ export const user = {
 
 const App = () => {
   return (
+    <switch>
+      <Route path="/login">
+        <Login />
+      </Route>
+    
+    <Route> 
     <main style={{ display: 'flex'}}>
       <Sidebar />
       <div>
@@ -52,6 +59,8 @@ const App = () => {
         </Switch>
       </div>
     </main>
+    </Route>
+    </switch>
   );
 };
 
