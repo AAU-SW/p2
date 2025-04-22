@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/ExpenseTable.css";
 import axios from "axios";
 
-export const ExpenseTable = () => {
+export const ExpenseTable = ({ setChartData }) => {
     const [rows, setRows] = useState([]);
     const [modal, setModal] = useState(false);
 
@@ -42,11 +42,12 @@ export const ExpenseTable = () => {
         const expense = formData.get("expense");
         const amount = parseFloat(formData.get("amount")) || 0;
         const date = formData.get("date");
-        setRows([...rows, { expense, amount, date }]);
+        const expenseType = formData.get("expenseType");
+        setRows([...rows, { expense, amount, date, expenseType }]);
 
         // post of submittet expense
         try {
-            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date },
+            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date, expenseType },
             {
                 withCredentials: true
             });
@@ -56,6 +57,19 @@ export const ExpenseTable = () => {
             form.reset();
         }
 
+        useEffect(() => {
+            const totalsByType = rows.reduce((acc, row) => {
+                acc[row.expenseType] = (acc[row.expenseType] || 0) + row.amount;
+                return acc;
+            }, {});
+    
+            const chartData = Object.entries(totalsByType).map(([type, total]) => ({
+                label: type,
+                value: total,
+            }));
+    
+            setChartData(chartData);
+        }, [rows, setChartData]);
 
     
     const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
@@ -69,6 +83,7 @@ export const ExpenseTable = () => {
                         <tr>
                             <th>expense</th>
                             <th>amount</th>
+                            <th>type</th>
                             <th>date</th>
                         </tr>
                     </thead>
@@ -77,6 +92,7 @@ export const ExpenseTable = () => {
                             <tr key={index}>
                                 <td>{row.expense}</td>
                                 <td>{row.amount.toLocaleString()} DKK</td>
+                                <td>{row.expenseType}</td>
                                 <td>{row.date}</td>
                             </tr>
                         ))}
@@ -108,6 +124,14 @@ export const ExpenseTable = () => {
                     </a>
                     <input name="expense" placeholder="E.g. rent, subscribtions" required />
                     <input name="amount" type="number" placeholder="DKK" required />
+                    <select name="expenseType">
+                        <option value="" disabled selected>Select type</option>
+                        <option value="Transport" selected>Transport</option>
+                        <option value="Rent" selected>Rent</option>
+                        <option value="Utilities" selected>Utilities</option>
+                        <option value="Entertainment" selected>Entertainment</option>
+                        <option value="Other" selected>Other</option>
+                    </select>
                     <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
                     <button className="add-expense-button" type="submit" onClick={() => setModal(false)}>Submit</button>

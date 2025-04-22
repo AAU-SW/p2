@@ -1,13 +1,27 @@
 import { ExpenseTable } from '../components/expenseTable';
 import { useState } from 'react';
-import { Card, CardHeader } from '../components/Card';
+import { Card } from '../components/Card';
+import * as React from 'react';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 export const Expenses = () => {
+  const [chartData, setChartData] = useState([]);
   return (
     <div>
-          <h1>Expenses</h1>
+      <h1>Expenses</h1>
       <Card>
-        <ExpenseTable />
+        <PieChart
+          series={[
+            {
+              data: chartData,
+            },
+          ]}
+          width={200}
+          height={200}
+        />
+      </Card>
+      <Card>
+        <ExpenseTable setChartData={setChartData} />
       </Card>
 
 
