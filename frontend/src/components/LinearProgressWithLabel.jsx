@@ -1,28 +1,26 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 export const LinearProgressWithLabel = (props) => {
     return (
       <Box>
         <Box>
-          <LinearProgress variant="determinate" {...props} />
-        </Box>
-        <Box>
-          <Typography variant="body2">
-            {`${Math.round(props.value)}%`}
-          </Typography>
+        <LinearProgress
+          variant="determinate"
+          {...props}
+          sx={{
+            height: 12, // Make the progress bar thicker
+            borderRadius: 6, // Make rounded corners
+            backgroundColor: '#e0e0e0', // Light gray background
+            '& .MuiLinearProgress-bar': {
+              borderRadius: 6, // Keep the filled portion rounded too
+              backgroundColor: '#7b61ff', // Purple color
+            },
+          }}
+        />
         </Box>
       </Box>
     );
   }
   
-  LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
-    value: PropTypes.number.isRequired,
-  };
