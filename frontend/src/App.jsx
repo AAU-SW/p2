@@ -1,8 +1,7 @@
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation} from "wouter";
 import { useEffect } from "react";
 import "./App.css";
 import { Login } from "./pages/Login";
-import { SignIn } from "./components/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { Home } from "./pages/Home";
 import { Activities } from "./pages/Activities"; 
@@ -23,8 +22,11 @@ export const user = {
 }
 
 const App = () => {
+  const [location] = useLocation();
+
   // Følgende funktion skal slettes når Login page er sat op, men er her for nu for at teste funktioner med egen bruger:
-  useEffect(() => {
+ 
+useEffect(() => {
     const login = async () => {
       try {
         const response = await axios.post("http://localhost:4000/auth/Login",
@@ -40,27 +42,24 @@ const App = () => {
       }
     }
     login();
-  }, []);
-
+  }, []); 
+ 
   return (
-    <switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-    
-    <Route> 
     <main style={{ display: 'flex'}}>
-      <Sidebar />
+      {!(location === "/login" || location === "/signup") && <Sidebar />}
       <div>
         <Switch>
           <Route path="/">
             <Home />
           </Route>
-          <Route path="/sign-in">
-            <SignIn />
+          <Route path="/login"> 
+            <Login />
           </Route>
-          <Route path="/sign-up">
+          <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/home">
+            <Home></Home>
           </Route>
           <Route path="/activities">
             <Activities></Activities>
@@ -88,8 +87,6 @@ const App = () => {
         </Switch>
       </div>
     </main>
-    </Route>
-    </switch>
   );
 };
 

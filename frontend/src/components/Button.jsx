@@ -7,4 +7,6 @@ export const Button = ({ children, className = '', type = 'button', ...props }) 
       </button>
     );
   };
-  
+
+  export default Button;
+
