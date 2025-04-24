@@ -13,13 +13,6 @@ import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/SideBar";
 import axios from "axios";
 
-export const user = {
-  userName: "Kevin",
-  age: "18",
-  email: "kevin@gmail.com",
-  phone: "+4512345678",
-}
-
 const App = () => {
   // Følgende funktion skal slettes når Login page er sat op, men er her for nu for at teste funktioner med egen bruger:
   useEffect(() => {
