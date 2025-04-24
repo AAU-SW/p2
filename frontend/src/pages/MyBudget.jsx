@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BudgetWidget } from '../components/BudgetWidget';
+import { Button } from '../components/Button';
 
 export const MyBudget = () => {
   const [budgetSections, setBudgetSections] = useState([{
@@ -29,13 +30,13 @@ export const MyBudget = () => {
   {
     id: 5,
     title: "Food & Groceries",
-    currentSpending: 1000,
+    currentSpending: 0,
     maxSpending: 3000
   },
   {
     id: 6,
     title: "Food & Groceries",
-    currentSpending: 1000,
+    currentSpending: 3500,
     maxSpending: 3000
   },]);
 
@@ -45,7 +46,7 @@ export const MyBudget = () => {
         <h1 className="header">Budgetting</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
-
+    <Button label="Test"></Button>
       {budgetSections.length > 0 ? (
       <div style={{ 
         display: 'flex', 
