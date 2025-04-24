@@ -1,44 +1,29 @@
 import { useState } from 'react';
 import { BudgetWidget } from '../components/BudgetWidget';
 import { Button } from '../components/Button';
+import { Modal } from '../components/Modal';
 
 export const MyBudget = () => {
-  const [budgetSections, setBudgetSections] = useState([{
-    id: 1,
-    title: "Food & Groceries",
-    currentSpending: 1000,
-    maxSpending: 3000
-  },
-  {
-      id: 2,
-      title: "Transport",
-      currentSpending: 300,
-      maxSpending: 650
-  },
-  {
-    id: 3,
-    title: "Food & Groceries",
-    currentSpending: 1000,
-    maxSpending: 3000
-  },
-  {
-    id: 4,
-    title: "Food & Groceries",
-    currentSpending: 1000,
-    maxSpending: 3000
-  },
-  {
-    id: 5,
-    title: "Food & Groceries",
-    currentSpending: 0,
-    maxSpending: 3000
-  },
-  {
-    id: 6,
-    title: "Food & Groceries",
-    currentSpending: 3500,
-    maxSpending: 3000
-  },]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [budgetSections, setBudgetSections] = useState([]);
+
+  async function handleSubmit(e){
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const title = formData.get("type");
+    const maxSpending = formData.get("maxSpending");
+    const newBudgetSection = {
+      id: budgetSections.length + 1, // Simple ID generation
+      title: title,
+      currentSpending: 0,  // New budget starts at 0
+      maxSpending: maxSpending
+    };
+
+    setBudgetSections([...budgetSections, newBudgetSection]);
+    e.target.reset();
+    setModalOpen(false);
+  }
 
   return (
     <>
@@ -46,33 +31,54 @@ export const MyBudget = () => {
         <h1 className="header">Budgetting</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
-    <Button label="Test"></Button>
+      <Button label="Add new budget" onClick={() => setModalOpen(true)}></Button>
+      <Modal 
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Add Budget Category"
+        onSubmit={handleSubmit}
+        submitButtonText="Save Budget"
+      >
+        <div style={{display: 'flex', flexDirection:'column', width:'100%', gap: '5px'}}>
+          <select name="type" required>
+            <option>Food</option>
+            <option>Transport</option>
+            <option>Rent</option>
+            <option>Insurance</option>
+            <option>Entertainment</option>
+          </select>
+
+          <input name="maxSpending" type="number"placeholder="maxSpending"></input>
+        </div>
+      </Modal>
+
       {budgetSections.length > 0 ? (
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'row', 
-        justifyContent: 'flex-start', 
-        width: '100%', 
-        flexWrap: 'wrap' }}>
-        {budgetSections.map(widget => (
-          <BudgetWidget
-          key={widget.id}
-          title={widget.title}
-          currentSpending={widget.currentSpending}
-          maxSpending={widget.maxSpending} />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          width: '100%',
+          flexWrap: 'wrap'
+        }}>
+          {budgetSections.map(widget => (
+            <BudgetWidget
+              key={widget.id}
+              title={widget.title}
+              currentSpending={widget.currentSpending}
+              maxSpending={widget.maxSpending} />
           ))}
-      </div>
+        </div>
       ) : (
-      <NoData/> 
+        <NoData />
       )}
     </>
   )
 }
 
 const NoData = () => (
-  <div style={{ 
-    width: '100%', 
-    padding: '40px', 
+  <div style={{
+    width: '100%',
+    padding: '40px',
     textAlign: 'center',
     backgroundColor: '#f9f9f9',
     borderRadius: '8px',
