@@ -11,7 +11,7 @@ export const ExpenseTable = () => {
     const rowsPerPage = 6;
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    const currentRows = rows.slice(startIndex, endIndex); 
+    const currentRows = rows.slice(startIndex, endIndex);
     const totalPages = Math.ceil(rows.length / rowsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -32,7 +32,7 @@ export const ExpenseTable = () => {
         fetchData();
     }, []);
 
-    
+
     // Submit input data to table 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -42,22 +42,23 @@ export const ExpenseTable = () => {
         const expense = formData.get("expense");
         const amount = parseFloat(formData.get("amount")) || 0;
         const date = formData.get("date");
-        setRows([...rows, { expense, amount, date }]);
+        const expenseType = formData.get("expenseType");
+        setRows([...rows, { expense, amount, date, expenseType }]);
 
         // post of submittet expense
         try {
-            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date },
-            {
-                withCredentials: true
-            });
-            } catch(error) {
-                console.error("Error posting data:", error);
-            }
-            form.reset();
+            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date, expenseType },
+                {
+                    withCredentials: true
+                });
+        } catch (error) {
+            console.error("Error posting data:", error);
         }
+        form.reset();
+    }
 
 
-    
+
     const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
     return (
         <div>
@@ -110,6 +111,15 @@ export const ExpenseTable = () => {
                     <input name="amount" type="number" placeholder="DKK" required />
                     <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
+                    <select name="expenseType" required>
+                        <option value="" disabled selected>Select type</option>
+                        <option value="Food & Groceries">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Insurance">Insurance</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Other">Other</option>
+                    </select>
                     <button className="add-expense-button" type="submit" onClick={() => setModal(false)}>Submit</button>
                 </form>
             </dialog>

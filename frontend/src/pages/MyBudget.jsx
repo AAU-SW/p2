@@ -1,11 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BudgetWidget } from '../components/BudgetWidget';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
+import axios from 'axios';
 
 export const MyBudget = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBudgets = async () => {
+      try {
+        setLoading(true);
+        // First calculate the latest spending
+        await axios.get("http://localhost:4000/budgets/calculate", {
+          withCredentials: true
+        });
+        
+        // Then fetch the updated budgets
+        const response = await axios.get("http://localhost:4000/budgets", {
+          withCredentials: true
+        });
+        
+        setBudgetSections(response.data);
+      } catch (error) {
+        console.error("Error fetching budgets:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchBudgets();
+  }, []);
+
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -13,16 +41,23 @@ export const MyBudget = () => {
     const formData = new FormData(e.target);
     const title = formData.get("type");
     const maxSpending = formData.get("maxSpending");
-    const newBudgetSection = {
-      id: budgetSections.length + 1, // Simple ID generation
-      title: title,
-      currentSpending: 0,  // New budget starts at 0
-      maxSpending: maxSpending
-    };
-
-    setBudgetSections([...budgetSections, newBudgetSection]);
-    e.target.reset();
-    setModalOpen(false);
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/budgets",
+        {
+          title,
+          maxSpending,
+          categories: [title] // Use the title as the category
+        },
+        { withCredentials: true }
+      );
+      
+      setBudgetSections([...budgetSections, response.data]);
+      e.target.reset();
+      setModalOpen(false);
+    } catch (error) {
+      console.error("Error creating budget:", error);
+    }
   }
 
   return (
@@ -41,11 +76,12 @@ export const MyBudget = () => {
       >
         <div style={{display: 'flex', flexDirection:'column', width:'100%', gap: '5px'}}>
           <select name="type" required>
-            <option>Food</option>
-            <option>Transport</option>
-            <option>Rent</option>
-            <option>Insurance</option>
-            <option>Entertainment</option>
+            <option value="Food & Groceries">Food & Groceries</option>
+            <option value="Transport">Transport</option>
+            <option value="Rent">Rent</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Other">Other</option>
           </select>
 
           <input name="maxSpending" type="number"placeholder="maxSpending"></input>
@@ -62,7 +98,7 @@ export const MyBudget = () => {
         }}>
           {budgetSections.map(widget => (
             <BudgetWidget
-              key={widget.id}
+              key={widget._id}
               title={widget.title}
               currentSpending={widget.currentSpending}
               maxSpending={widget.maxSpending} />

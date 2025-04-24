@@ -5,9 +5,7 @@ const expenseSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-
         required: true,
-        // add function that points to user/model
     },
     expense: {
         type: String,
@@ -19,6 +17,11 @@ const expenseSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
+        required: true,
+    },
+    expenseType: {
+        type: String,
+        enum: ['Food & Groceries', 'Transport', 'Rent','Insurance','Entertainment', 'Other' ],
         required: true,
     },
 })
