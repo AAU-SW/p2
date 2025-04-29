@@ -1,0 +1,54 @@
+name: Review
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  review-frontend:
+    name: 'Review frontend'
+    defaults:
+      run:
+        working-directory:
+          frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Run lint
+        run: npm run lint
+      # Når vi implementerer testing
+      # - name: Run tests
+      #   run: npm run test
+
+  review-backend:
+    name: 'Review backend'
+    defaults:
+      run:
+        working-directory:
+          backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run lint
+        run: npm run lint
+      # Når vi implementerer testing
+      # - name: Run tests
+      #   run: npm run test
