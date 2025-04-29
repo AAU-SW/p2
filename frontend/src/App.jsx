@@ -14,13 +14,6 @@ import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/SideBar";
 import axios from "axios";
 
-export const user = {
-  userName: "Kevin",
-  age: "18",
-  email: "kevin@gmail.com",
-  phone: "+4512345678",
-}
-
 const App = () => {
   const [location] = useLocation();
 
