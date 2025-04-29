@@ -1,5 +1,5 @@
-import { Link, useLocation } from "wouter";
-import LOGO from "../assets/LOGO.svg";
+import { Link, useLocation } from 'wouter';
+import LOGO from '../assets/LOGO.svg';
 import {
   FaHome,
   FaMoneyBill,
@@ -8,64 +8,64 @@ import {
   FaSignOutAlt,
   FaChartLine,
   FaBusinessTime,
-} from "react-icons/fa";
-import { MdPeople } from "react-icons/md";
+} from 'react-icons/fa';
+import { MdPeople } from 'react-icons/md';
 
 export const Sidebar = () => {
   const [_, navigate] = useLocation();
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:4000/auth/logout", {
-        method: "GET",
-        credentials: "include",
+      const res = await fetch('http://localhost:4000/auth/logout', {
+        method: 'GET',
+        credentials: 'include',
       });
       if (!res.ok) {
-        console.error("Error logging out");
+        console.error('Error logging out');
       } else {
-        navigate("/sign-up");
+        navigate('/sign-up');
       }
     } catch (err) {
-      console.error("Error logging out: ", err);
+      console.error('Error logging out: ', err);
     }
   };
 
   return (
     <div
       style={{
-        width: "300px",
-        height: "100%",
-        borderRadius: "0 16px 16px 0",
-        display: "block",
-        background: "linear-gradient(to top, #0d313d, #4ca6c4)",
+        width: '300px',
+        height: '100%',
+        borderRadius: '0 16px 16px 0',
+        display: 'block',
+        background: 'linear-gradient(to top, #0d313d, #4ca6c4)',
       }}
     >
       <div
         className="sidebar"
         style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
         }}
       >
         <img
           src={LOGO}
           className="logo"
-          style={{ height: "53px", padding: "32px 16px" }}
+          style={{ height: '53px', padding: '32px 16px' }}
         />
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            height: "100%",
-            paddingBottom: "32px",
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+            paddingBottom: '32px',
           }}
         >
           <ul
             style={{
-              listStyle: "none",
-              display: "flex",
-              flexDirection: "column",
+              listStyle: 'none',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             <SidebarLink text="Overview" icon={<FaHome />} href="/" />
@@ -86,21 +86,23 @@ export const Sidebar = () => {
               href="/mybudget"
             />
             <SidebarLink
-                text="Timeplanning"
-                icon={<FaBusinessTime />}
-                href="/timeplan"
+              text="Timeplanning"
+              icon={<FaBusinessTime />}
+              href="/timeplan"
             />
           </ul>
           <ul
             style={{
-              listStyle: "none",
-              display: "flex",
-              flexDirection: "column",
+              listStyle: 'none',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             <SidebarLink text="Settings" icon={<FaCog />} href="/settings" />
             <SidebarLink
-              onClick={()=> {handleLogout()}}
+              onClick={() => {
+                handleLogout();
+              }}
               text="Log out"
               icon={<FaSignOutAlt />}
               href="#"
@@ -114,7 +116,7 @@ export const Sidebar = () => {
 
 const SidebarLink = ({ text, icon, href, onClick }) => {
   return (
-    <li style={{ color: "white" }}>
+    <li style={{ color: 'white' }}>
       <Link
         href={href}
         onClick={(e) => {
@@ -123,14 +125,14 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
           }
         }}
         style={{
-          textDecoration: "none",
-          color: "#C0C2FF",
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
+          textDecoration: 'none',
+          color: '#C0C2FF',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
         }}
       >
-        <div style={{ fontSize: "24px", display: "flex" }}>{icon}</div>
+        <div style={{ fontSize: '24px', display: 'flex' }}>{icon}</div>
         <p>{text}</p>
       </Link>
     </li>

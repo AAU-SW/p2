@@ -26,6 +26,8 @@ jobs:
         run: npm run build
       - name: Run lint
         run: npm run lint
+      - name: Run format check
+        run: npm run format:check
       # Når vi implementerer testing
       # - name: Run tests
       #   run: npm run test
