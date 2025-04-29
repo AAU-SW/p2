@@ -31,7 +31,7 @@ export const Login = () => {
             const data = await response.json();
             console.log('Login successful:', data);
             // Redirect to home page
-            navigate('/home');
+            navigate('/');
         } catch (error) {
             setError(error.message);
         }

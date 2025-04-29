@@ -1,5 +1,5 @@
-import { Route, Switch, useLocation} from "wouter";
-import { useEffect } from "react";
+import { Route, Switch, useLocation, Redirect} from "wouter";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
@@ -12,56 +12,86 @@ import { MyBudget } from "./pages/MyBudget";
 import { LogOut } from "./pages/LogOut";
 import { Settings } from "./pages/Settings";
 import { Sidebar } from "./components/SideBar";
-import axios from "axios";
 
 const App = () => {
   const [location] = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
+  const checkAuth = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost:4000/auth/',{
+        method: 'POST',
+        credentials: 'include',
+      });
+      
+      if(response.ok) {
+        const data = await response.json();
+        setIsAuthenticated(data.status === true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch (error){
+      console.error('Authentication check failed', error); 
+      setIsAuthenticated(false); 
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // Følgende funktion skal slettes når Login page er sat op, men er her for nu for at teste funktioner med egen bruger:
- 
+  useEffect(() => {
+    checkAuth();
+  }, [location]); // Check auth when location changes
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
  
   return (
     <main style={{ display: 'flex'}}>
       {!(location === "/login" || location === "/signup") && <Sidebar />}
       <div>
-        <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="/login"> 
-            <Login />
+      <Switch>
+          {/* Public routes */}
+          <Route path="/login">
+            {isAuthenticated ? <Redirect to="/" /> : <Login />}
           </Route>
           <Route path="/signup">
-            <SignUp />
+            {isAuthenticated ? <Redirect to="/" /> : <SignUp />}
           </Route>
-          <Route path="/home">
-            <Home></Home>
+          
+          {/* Protected routes */}
+          <Route path="/">
+            {isAuthenticated ? <Home /> : <Redirect to="/login" />}
           </Route>
           <Route path="/activities">
-            <Activities></Activities>
+            {isAuthenticated ? <Activities /> : <Redirect to="/login" />}
           </Route>
-          <Route path="/Timeplan">
-            <TimePlan></TimePlan>
+          <Route path="/timeplan">
+            {isAuthenticated ? <TimePlan /> : <Redirect to="/login" />}
           </Route>
           <Route path="/advice">
-            <Advice></Advice>
+            {isAuthenticated ? <Advice /> : <Redirect to="/login" />}
           </Route>
           <Route path="/expenses">
-            <Expenses></Expenses>
+            {isAuthenticated ? <Expenses /> : <Redirect to="/login" />}
           </Route>
           <Route path="/mybudget">
-            <MyBudget />
+            {isAuthenticated ? <MyBudget /> : <Redirect to="/login" />}
           </Route>
           <Route path="/log-out">
-            <LogOut></LogOut>
+            {isAuthenticated ? <LogOut /> : <Redirect to="/login" />}
           </Route>
           <Route path="/settings">
-            <Settings></Settings>
+            {isAuthenticated ? <Settings /> : <Redirect to="/login" />}
           </Route>
 
-          <Route>Not Found</Route>
-        </Switch>
+          {/* Not found route */}
+          <Route>
+            {isAuthenticated ? <div>Not found</div> : <Redirect to="/login" />}
+          </Route>     
+        </Switch> 
       </div>
     </main>
   );
