@@ -65,7 +65,7 @@ export const TimeplanTable = ({setWidgetData}) => {
 
         // Post of submitted timeplan
         try {
-            const response = await axios.post(
+            await axios.post(
                 "http://localhost:4000/timeplans/",
                 { type, job, hours, wage, fixedIncome, jobInterval },
                 {
@@ -74,7 +74,7 @@ export const TimeplanTable = ({setWidgetData}) => {
             );
             await fetchTimeplans();
         } catch (error) {
-            console.error("Error adding new schema");
+            console.error("Error adding new schema", error);
         }
         form.reset(); // Ensures input forms is reset after submitting.
     }
@@ -87,7 +87,7 @@ export const TimeplanTable = ({setWidgetData}) => {
 
     const variableIncome = allRows
     .filter(row => row.type === "Variable income")
-    .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);  
+    .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);
 
     useEffect(() => {
         setWidgetData({ fixedIncome, variableIncome, totalHours });

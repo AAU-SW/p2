@@ -11,7 +11,7 @@ export const ExpenseTable = () => {
     const rowsPerPage = 6;
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    const currentRows = rows.slice(startIndex, endIndex); 
+    const currentRows = rows.slice(startIndex, endIndex);
     const totalPages = Math.ceil(rows.length / rowsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -32,8 +32,8 @@ export const ExpenseTable = () => {
         fetchData();
     }, []);
 
-    
-    // Submit input data to table 
+
+    // Submit input data to table
     async function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -46,7 +46,7 @@ export const ExpenseTable = () => {
 
         // post of submittet expense
         try {
-            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date },
+            await axios.post("http://localhost:4000/expenses", { expense, amount, date },
             {
                 withCredentials: true
             });
@@ -56,8 +56,6 @@ export const ExpenseTable = () => {
             form.reset();
         }
 
-
-    
     const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
     return (
         <div>
