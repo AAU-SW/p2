@@ -19,23 +19,7 @@ const App = () => {
 
   // Følgende funktion skal slettes når Login page er sat op, men er her for nu for at teste funktioner med egen bruger:
  
-useEffect(() => {
-    const login = async () => {
-      try {
-        const response = await axios.post("http://localhost:4000/auth/Login",
-          {
-            email: "mathavs0810@gmail.com",
-            password: "Test123",
-          }, {
-            withCredentials: true,
-          });
-        console.log("Login Succesful:", response.data);
-      } catch (error) {
-        console.error("Error during login", error.response);
-      }
-    }
-    login();
-  }, []); 
+
  
   return (
     <main style={{ display: 'flex'}}>
