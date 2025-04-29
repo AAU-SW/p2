@@ -8,6 +8,7 @@
 		"dev": "nodemon index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"format": "npx @biomejs/biome format --write .",
+		"format:check": "npx @biomejs/biome format .",
 		"lint": "npx @biomejs/biome lint",
 		"lint:write": "npx @biomejs/biome lint --write ."
 	},
