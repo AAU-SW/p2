@@ -119,7 +119,7 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
         href={href}
         onClick={(e) => {
           if (onClick) {
-            onClick();
+            onClick(e);
           }
         }}
         style={{
