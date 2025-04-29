@@ -1,40 +1,40 @@
-import { Route, Switch, useLocation, Redirect} from "wouter";
-import { useEffect, useState } from "react";
-import "./App.css";
-import { Login } from "./pages/Login";
-import { SignUp } from "./pages/SignUp";
-import { Home } from "./pages/Home";
-import { Activities } from "./pages/Activities"; 
-import { Advice } from "./pages/Advice";
-import { TimePlan } from "./pages/TimePlan";
-import { Expenses } from "./pages/Expenses";
-import { MyBudget } from "./pages/MyBudget";
-import { LogOut } from "./pages/LogOut";
-import { Settings } from "./pages/Settings";
-import { Sidebar } from "./components/SideBar";
+import { Route, Switch, useLocation, Redirect } from 'wouter';
+import { useEffect, useState } from 'react';
+import './App.css';
+import { Login } from './pages/Login';
+import { SignUp } from './pages/SignUp';
+import { Home } from './pages/Home';
+import { Activities } from './pages/Activities';
+import { Advice } from './pages/Advice';
+import { TimePlan } from './pages/TimePlan';
+import { Expenses } from './pages/Expenses';
+import { MyBudget } from './pages/MyBudget';
+import { LogOut } from './pages/LogOut';
+import { Settings } from './pages/Settings';
+import { Sidebar } from './components/SideBar';
 
 const App = () => {
   const [location] = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  
+
   const checkAuth = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/auth/',{
+      const response = await fetch('http://localhost:4000/auth/', {
         method: 'POST',
         credentials: 'include',
       });
-      
-      if(response.ok) {
+
+      if (response.ok) {
         const data = await response.json();
         setIsAuthenticated(data.status === true);
       } else {
         setIsAuthenticated(false);
       }
-    } catch (error){
-      console.error('Authentication check failed', error); 
-      setIsAuthenticated(false); 
+    } catch (error) {
+      console.error('Authentication check failed', error);
+      setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }
@@ -47,12 +47,12 @@ const App = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
- 
+
   return (
-    <main style={{ display: 'flex'}}>
-      {!(location === "/login" || location === "/signup") && <Sidebar />}
+    <main style={{ display: 'flex' }}>
+      {!(location === '/login' || location === '/signup') && <Sidebar />}
       <div>
-      <Switch>
+        <Switch>
           {/* Public routes */}
           <Route path="/login">
             {isAuthenticated ? <Redirect to="/" /> : <Login />}
@@ -60,7 +60,7 @@ const App = () => {
           <Route path="/signup">
             {isAuthenticated ? <Redirect to="/" /> : <SignUp />}
           </Route>
-          
+
           {/* Protected routes */}
           <Route path="/">
             {isAuthenticated ? <Home /> : <Redirect to="/login" />}
@@ -90,8 +90,8 @@ const App = () => {
           {/* Not found route */}
           <Route>
             {isAuthenticated ? <div>Not found</div> : <Redirect to="/login" />}
-          </Route>     
-        </Switch> 
+          </Route>
+        </Switch>
       </div>
     </main>
   );
