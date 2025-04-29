@@ -85,11 +85,11 @@ export const Sidebar = () => {
               icon={<FaChartPie />}
               href="/mybudget"
             />
-            <SidebarLink 
+            <SidebarLink
                 text="Timeplanning"
                 icon={<FaBusinessTime />}
                 href="/timeplan"
-            /> 
+            />
           </ul>
           <ul
             style={{
