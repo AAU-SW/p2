@@ -1,5 +1,4 @@
-import { ExpenseTable } from '../components/expenseTable';
-import { useState } from 'react';
+import { ExpenseTable } from '../components/ExpenseTable';
 import { Card, CardHeader } from '../components/Card';
 
 export const Expenses = () => {
