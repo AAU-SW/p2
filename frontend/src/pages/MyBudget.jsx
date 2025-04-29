@@ -1,6 +1,3 @@
 export const MyBudget = () => {
-    return (
-      <></>
-    )
-  }
-  
+  return <></>;
+};
