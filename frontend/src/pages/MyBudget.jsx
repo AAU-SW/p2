@@ -24,7 +24,7 @@ export const MyBudget = () => {
         setBudgetSections(response.data);
       } catch (error) {
         console.error('Error fetching budgets:', error);
-      } 
+      }
     };
 
     fetchBudgets();

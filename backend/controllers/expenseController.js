@@ -21,7 +21,7 @@ export const addExpense = async (req, res) => {
 			amount,
 			date,
 			user: userId,
-            expenseType,
+			expenseType,
 		}); // Creation of a new expense, with the current logged user.
 		await newExpense.save();
 		res.status(201).json(newExpense);
