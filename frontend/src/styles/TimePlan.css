@@ -4,6 +4,7 @@ table {
   border-style: none;
   width: 1154px;
   text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 th {
