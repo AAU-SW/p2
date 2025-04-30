@@ -12,6 +12,7 @@ import { MyBudget } from './pages/MyBudget';
 import { LogOut } from './pages/LogOut';
 import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
+import { PrivateRoute } from './components/PrivateRoute';
 
 const App = () => {
   const [location] = useLocation();
@@ -55,42 +56,75 @@ const App = () => {
         <Switch>
           {/* Public routes */}
           <Route path="/login">
-            {isAuthenticated ? <Redirect to="/" /> : <Login />}
+            <Login />
           </Route>
           <Route path="/signup">
-            {isAuthenticated ? <Redirect to="/" /> : <SignUp />}
+            <SignUp />
           </Route>
 
           {/* Protected routes */}
-          <Route path="/">
-            {isAuthenticated ? <Home /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/activities">
-            {isAuthenticated ? <Activities /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/timeplan">
-            {isAuthenticated ? <TimePlan /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/advice">
-            {isAuthenticated ? <Advice /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/expenses">
-            {isAuthenticated ? <Expenses /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/mybudget">
-            {isAuthenticated ? <MyBudget /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/log-out">
-            {isAuthenticated ? <LogOut /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/settings">
-            {isAuthenticated ? <Settings /> : <Redirect to="/login" />}
-          </Route>
+          <PrivateRoute
+            path="/"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <Home />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/activities"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <Activities />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/timeplan"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <TimePlan />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/advice"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <Advice />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/expenses"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <Expenses />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/mybudget"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <MyBudget />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/log-out"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <LogOut />
+          </PrivateRoute>
+          
+          <PrivateRoute
+            path="/settings"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <Settings />
+          </PrivateRoute>
 
           {/* Not found route */}
-          <Route>
-            {isAuthenticated ? <div>Not found</div> : <Redirect to="/login" />}
-          </Route>
+          <PrivateRoute 
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login">
+            <div>Not found</div>
+          </PrivateRoute>
         </Switch>
       </div>
     </main>
