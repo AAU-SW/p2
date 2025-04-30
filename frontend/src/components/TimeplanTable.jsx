@@ -82,18 +82,18 @@ export const TimeplanTable = ({ setWidgetData }) => {
     form.reset(); // Ensures input forms is reset after submitting.
   }
 
-    const deleteRow = async (id) => {
-        try {
-          await axios.delete(`http://localhost:4000/timeplans/${id}`, {
-            withCredentials: true,
-          });
-          fetchTimeplans();
-        } catch (error) {
-          console.error("Error deleting row:", error);
-        }
-      };
+  const deleteRow = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/timeplans/${id}`, {
+        withCredentials: true,
+      });
+      fetchTimeplans();
+    } catch (error) {
+      console.error('Error deleting row:', error);
+    }
+  };
 
-    const totalHours = allRows.reduce((sum, row) => sum + (row.hours || 0), 0);
+  const totalHours = allRows.reduce((sum, row) => sum + (row.hours || 0), 0);
 
   const fixedIncome = allRows
     .filter((row) => row.type === 'Fixed income')
@@ -143,12 +143,16 @@ export const TimeplanTable = ({ setWidgetData }) => {
                       <td>{row.job}</td>
                       <td>{row.jobInterval}</td>
                       <td>{DKKFormat.format(row.fixedIncome)}</td>
-                                            <td>
-                                              <button className="delete-button" 
-                                                onClick={() => { deleteRow(row._id);}}
-                                                >
-                                                Delete</button>
-                                            </td>
+                      <td>
+                        <button
+                          className="delete-button"
+                          onClick={() => {
+                            deleteRow(row._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -164,7 +168,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
                   <th>Wage</th>
                   <th>Hours</th>
                   <th>Total pay</th>
-                                    <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -175,12 +179,16 @@ export const TimeplanTable = ({ setWidgetData }) => {
                       <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
                       <td>{HourFormat.format(row.hours)}</td>
                       <td>{DKKFormat.format(row.wage * row.hours)}</td>
-                                            <td>
-                                                <button className="delete-button" 
-                                                onClick={() => { deleteRow(row._id);}}
-                                                >
-                                                Delete</button>
-                                            </td>
+                      <td>
+                        <button
+                          className="delete-button"
+                          onClick={() => {
+                            deleteRow(row._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -281,7 +289,6 @@ export const NoData = () => {
   );
 };
 
-
 /* export const deleteRow = async (id) => {
     try {
         const response = await axios.delete(`http://localhost:4000/timeplans/${id}`, {
@@ -292,4 +299,3 @@ export const NoData = () => {
         console.error("Error deleting row:", error);
     }
 } */
-

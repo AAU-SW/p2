@@ -18,30 +18,29 @@ export const TimePlan = () => {
     style: 'currency',
     currency: 'DKK',
   });
-    return (
-      <div>
-          <section>
-            <h1 className="header">Timeplanning</h1>
-            <a className="sub-header">"Eksempel motto-tekst"</a>
-          </section>
-          <Card>
-            <CardContent>
-              <CardHeader title="Total hours"></CardHeader>
-              <CardDetails>{data.totalHours}</CardDetails>
-            </CardContent>
-            <CardContent>
-              <CardHeader title="Variable Income"></CardHeader>
-              <CardDetails>{DKKFormat.format(data.variableIncome)}</CardDetails>
-            </CardContent>
-            <CardContent>
-              <CardHeader title="Fixed Income"></CardHeader>
-              <CardDetails>{DKKFormat.format(data.fixedIncome)}</CardDetails>
-            </CardContent>
-          </Card>
-          <Card>
-            <TimeplanTable setWidgetData={handleDataExport} /> 
-          </Card>
-
-      </div>
-    )
-}
+  return (
+    <div>
+      <section>
+        <h1 className="header">Timeplanning</h1>
+        <a className="sub-header">"Eksempel motto-tekst"</a>
+      </section>
+      <Card>
+        <CardContent>
+          <CardHeader title="Total hours"></CardHeader>
+          <CardDetails>{data.totalHours}</CardDetails>
+        </CardContent>
+        <CardContent>
+          <CardHeader title="Variable Income"></CardHeader>
+          <CardDetails>{DKKFormat.format(data.variableIncome)}</CardDetails>
+        </CardContent>
+        <CardContent>
+          <CardHeader title="Fixed Income"></CardHeader>
+          <CardDetails>{DKKFormat.format(data.fixedIncome)}</CardDetails>
+        </CardContent>
+      </Card>
+      <Card>
+        <TimeplanTable setWidgetData={handleDataExport} />
+      </Card>
+    </div>
+  );
+};

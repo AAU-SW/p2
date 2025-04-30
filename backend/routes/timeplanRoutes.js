@@ -1,5 +1,9 @@
 import express from "express";
-import { getTimeplan, postTimeplan, deleteRow } from "../controllers/timeplanController.js";
+import {
+	getTimeplan,
+	postTimeplan,
+	deleteRow,
+} from "../controllers/timeplanController.js";
 const timeplanRouter = express.Router();
 
 // API Routes for posting and fetching timeplans.
@@ -8,4 +12,3 @@ timeplanRouter.get("/", getTimeplan);
 timeplanRouter.delete("/:id", deleteRow);
 
 export default timeplanRouter;
-

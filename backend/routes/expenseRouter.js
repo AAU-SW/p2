@@ -1,5 +1,9 @@
 import express from "express";
-import { addExpense, getExpenses, deleteRow} from "../controllers/expenseController.js";
+import {
+	addExpense,
+	getExpenses,
+	deleteRow,
+} from "../controllers/expenseController.js";
 const expenseRouter = express.Router();
 
 // API Routes for posting and fetching timeplans.
