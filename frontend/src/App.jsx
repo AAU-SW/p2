@@ -66,63 +66,69 @@ const App = () => {
           <PrivateRoute
             path="/"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <Home />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/activities"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <Activities />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/timeplan"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <TimePlan />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/advice"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <Advice />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/expenses"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <Expenses />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/mybudget"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <MyBudget />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/log-out"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <LogOut />
           </PrivateRoute>
-          
+
           <PrivateRoute
             path="/settings"
             isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+            redirectPath="/login"
+          >
             <Settings />
           </PrivateRoute>
 
           {/* Not found route */}
-          <PrivateRoute 
-            isAuthenticated={isAuthenticated}
-            redirectPath="/login">
+          <PrivateRoute isAuthenticated={isAuthenticated} redirectPath="/login">
             <div>Not found</div>
           </PrivateRoute>
         </Switch>
