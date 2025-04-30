@@ -56,7 +56,15 @@ export const ExpenseTable = () => {
             form.reset();
         }
 
-
+    const deleteRow = async (id) => {
+      try {
+        await axios.delete(`http://localhost:4000/expenses/${id}`, {
+          withCredentials: true,
+        });
+      } catch (error) {
+        console.error("Error deleting row:", error);
+      }
+    };
     
     const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
     return (
@@ -70,6 +78,7 @@ export const ExpenseTable = () => {
                             <th>expense</th>
                             <th>amount</th>
                             <th>date</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,6 +87,12 @@ export const ExpenseTable = () => {
                                 <td>{row.expense}</td>
                                 <td>{row.amount.toLocaleString()} DKK</td>
                                 <td>{row.date}</td>
+                                <td>
+                                  <button className="delete-button" 
+                                    onClick={() => { deleteRow(row._id);}}
+                                    >
+                                    Delete</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
