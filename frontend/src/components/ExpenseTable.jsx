@@ -45,7 +45,7 @@ export const ExpenseTable = () => {
 
     // post of submittet expense
     try {
-      const response = await axios.post(
+      await axios.post(
         'http://localhost:4000/expenses',
         { expense, amount, date },
         {
