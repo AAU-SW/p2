@@ -28,6 +28,9 @@ tr {
   font-family: 'Inter', sans-serif;
   font-weight: 200;
 }
+tr:hover .delete-button {
+ visibility: visible;
+}
 
 tfoot {
   background-color: #f2f2f2;
@@ -162,9 +165,12 @@ tfoot {
 }
 
 .delete-button {
-  background-color: #27667b;
-  color: white;
-  font-size: 14px;
-  border-radius: 20px; /* Rounded corners */
+  outline: none;
   border: none;
+  visibility: hidden;
 }
+.delete-button svg {
+  width:20px;
+  height: 20px;
+}
+

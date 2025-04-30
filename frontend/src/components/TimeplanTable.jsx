@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FiTrash } from "react-icons/fi";
 
 export const TimeplanTable = ({ setWidgetData }) => {
   // Pop-up modal
@@ -150,7 +151,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
                             deleteRow(row._id);
                           }}
                         >
-                          Delete
+                          <FiTrash />
                         </button>
                       </td>
                     </tr>
