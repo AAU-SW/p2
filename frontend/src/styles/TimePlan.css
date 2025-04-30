@@ -173,7 +173,7 @@ tfoot {
 .delete-button svg {
   cursor: pointer;
   opacity: 0.75;
-  color:red;
+  color: red;
   width: 20px;
   height: 20px;
 }
