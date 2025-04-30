@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FiTrash } from "react-icons/fi";
+import { FiTrash } from 'react-icons/fi';
 
 export const TimeplanTable = ({ setWidgetData }) => {
   // Pop-up modal

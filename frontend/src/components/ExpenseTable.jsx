@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
-import { FiTrash } from "react-icons/fi";
+import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
 
 export const ExpenseTable = () => {
