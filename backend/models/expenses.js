@@ -1,5 +1,5 @@
 //database table
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const expenseSchema = new mongoose.Schema({
     user: {
@@ -26,6 +26,4 @@ const expenseSchema = new mongoose.Schema({
     },
 })
 
-
-export const Expense = mongoose.model('Expense', expenseSchema);
-
+export const Expense = mongoose.model("Expense", expenseSchema);

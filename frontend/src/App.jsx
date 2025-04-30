@@ -1,42 +1,38 @@
-import { Route, Switch } from "wouter";
-import { useEffect } from "react";
-import "./App.css";
-import { SignUp } from "./pages/SignUp";
-import { Home } from "./pages/Home";
-import { Activities } from "./pages/Activities"; 
-import { Advice } from "./pages/Advice";
-import { TimePlan } from "./pages/TimePlan";
-import { Expenses } from "./pages/Expenses";
-import { MyBudget } from "./pages/MyBudget";
-import { LogOut } from "./pages/LogOut";
-import { Settings } from "./pages/Settings";
-import { Sidebar } from "./components/SideBar";
-import axios from "axios";
-
-export const user = {
-  userName: "Kevin",
-  age: "18",
-  email: "kevin@gmail.com",
-  phone: "+4512345678",
-}
+import { Route, Switch } from 'wouter';
+import { useEffect } from 'react';
+import './App.css';
+import { SignUp } from './pages/SignUp';
+import { Home } from './pages/Home';
+import { Activities } from './pages/Activities';
+import { Advice } from './pages/Advice';
+import { TimePlan } from './pages/TimePlan';
+import { Expenses } from './pages/Expenses';
+import { MyBudget } from './pages/MyBudget';
+import { LogOut } from './pages/LogOut';
+import { Settings } from './pages/Settings';
+import { Sidebar } from './components/SideBar';
+import axios from 'axios';
 
 const App = () => {
   // Følgende funktion skal slettes når Login page er sat op, men er her for nu for at teste funktioner med egen bruger:
   useEffect(() => {
     const login = async () => {
       try {
-        const response = await axios.post("http://localhost:4000/auth/Login",
+        const response = await axios.post(
+          'http://localhost:4000/auth/Login',
           {
-            email: "mathavs0810@gmail.com",
-            password: "Test123",
-          }, {
+            email: 'mathavs0810@gmail.com',
+            password: 'Test123',
+          },
+          {
             withCredentials: true,
-          });
-        console.log("Login Succesful:", response.data);
+          },
+        );
+        console.log('Login Succesful:', response.data);
       } catch (error) {
-        console.error("Error during login", error.response);
+        console.error('Error during login', error.response);
       }
-    }
+    };
     login();
   }, []);
 

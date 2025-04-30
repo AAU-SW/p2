@@ -1,3 +1,3 @@
 export const Advice = () => {
-  return (<></>)
-}
+  return <></>;
+};

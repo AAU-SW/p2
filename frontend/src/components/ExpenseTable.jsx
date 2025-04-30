@@ -1,53 +1,52 @@
-import { useState, useEffect } from "react";
-import "../styles/ExpenseTable.css";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import '../styles/ExpenseTable.css';
+import axios from 'axios';
 
 export const ExpenseTable = () => {
-    const [rows, setRows] = useState([]);
-    const [modal, setModal] = useState(false);
+  const [rows, setRows] = useState([]);
+  const [modal, setModal] = useState(false);
 
-    // Pageination bar
-    const [currentPage, setCurrentPage] = useState(1);
-    const rowsPerPage = 6;
-    const startIndex = (currentPage - 1) * rowsPerPage;
-    const endIndex = startIndex + rowsPerPage;
-    const currentRows = rows.slice(startIndex, endIndex);
-    const totalPages = Math.ceil(rows.length / rowsPerPage);
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+  // Pageination bar
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 6;
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const currentRows = rows.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-    // get the data add it to the table
-    const fetchData = async () => {
-        try {
-            const response = await axios.get("http://localhost:4000/expenses", {
-                withCredentials: true
-            });
-            setRows(response.data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-    useEffect(() => {
-        fetchData();
-    }, []);
+  // get the data add it to the table
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/expenses', {
+        withCredentials: true,
+      });
+      setRows(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  // Submit input data to table
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
 
-    // Submit input data to table 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-
-        const expense = formData.get("expense");
-        const amount = parseFloat(formData.get("amount")) || 0;
-        const date = formData.get("date");
+    const expense = formData.get('expense');
+    const amount = parseFloat(formData.get('amount')) || 0;
+    const date = formData.get('date');
         const expenseType = formData.get("expenseType");
-        setRows([...rows, { expense, amount, date, expenseType }]);
+    setRows([...rows, { expense, amount, date, expenseType }]);
 
         // post of submittet expense
         try {
-            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date, expenseType },
+          await axios.post("http://localhost:4000/expenses", { expense, amount, date, expenseType },
                 {
                     withCredentials: true
                 });
