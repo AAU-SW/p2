@@ -5,7 +5,7 @@ const timeplanRouter = express.Router();
 // API Routes for posting and fetching timeplans.
 timeplanRouter.post("/", postTimeplan);
 timeplanRouter.get("/", getTimeplan);
-timeplanRouter.delete("/", deleteRow);
+timeplanRouter.delete("/:id", deleteRow);
 
 export default timeplanRouter;
 
