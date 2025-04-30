@@ -6,6 +6,6 @@ const timeplanRouter = express.Router();
 timeplanRouter.post("/", postTimeplan);
 timeplanRouter.get("/", getTimeplan);
 
-timeplanRouter.delete("/", deleteRow);
+timeplanRouter.delete("/:id", deleteRow);
 
 export default timeplanRouter;
