@@ -43,83 +43,87 @@ export const ExpenseTable = () => {
     const date = formData.get('date');
     setRows([...rows, { expense, amount, date }]);
 
-    // post of submittet expense
-    try {
-      await axios.post(
-        'http://localhost:4000/expenses',
-        { expense, amount, date },
-        {
-          withCredentials: true,
-        },
-      );
-    } catch (error) {
-      console.error('Error posting data:', error);
-    }
-    form.reset();
-  }
+        // post of submittet expense
+        try {
+            const response = await axios.post("http://localhost:4000/expenses", { expense, amount, date },
+            {
+                withCredentials: true
+            });
+            } catch(error) {
+                console.error("Error posting data:", error);
+            }
+            form.reset();
+        }
 
-  const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
-  return (
-    <div>
-      <button
-        className="add-job-placement add-job-button"
-        onClick={() => setModal(true)}
-      >
-        + Add new expense
-      </button>
-      <section className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>expense</th>
-              <th>amount</th>
-              <th>date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentRows.map((row, index) => (
-              <tr key={index}>
-                <td>{row.expense}</td>
-                <td>{row.amount.toLocaleString()} DKK</td>
-                <td>{row.date}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td scope="row">Total</td>
-              <td>{totalAmount.toLocaleString()} DKK</td>
-              <td></td>
-            </tr>
-          </tfoot>
-        </table>
-        <div className="pagination-bar">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              className={currentPage === index + 1 ? 'active' : ''}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      </section>
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            Add new expense
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
-          <input
-            name="expense"
-            placeholder="E.g. rent, subscribtions"
-            required
-          />
-          <input name="amount" type="number" placeholder="DKK" required />
-          <input name="date" type="date" placeholder="DD/MM-YYYY" required />
+    const deleteRow = async (id) => {
+      try {
+        await axios.delete(`http://localhost:4000/expenses/${id}`, {
+          withCredentials: true,
+        });
+        fetchData();
+      } catch (error) {
+        console.error("Error deleting row:", error);
+      }
+    };
+    
+    const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
+    return (
+        <div>
+            <button className="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add new expense</button>
+            <section className="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>expense</th>
+                            <th>amount</th>
+                            <th>date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {currentRows.map((row, index) => (
+                            <tr key={index}>
+                                <td>{row.expense}</td>
+                                <td>{row.amount.toLocaleString()} DKK</td>
+                                <td>{row.date}</td>
+                                <td>
+                                  <button className="delete-button" 
+                                    onClick={() => { deleteRow(row._id);}}
+                                    >
+                                    Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td scope="row">Total</td>
+                            <td>{totalAmount.toLocaleString()} DKK</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div className="pagination-bar">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            className={currentPage === index + 1 ? "active" : ""}
+                            onClick={() => handlePageChange(index + 1)}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            </section>
+            <dialog open={modal} className={modal ? "backdrop" : ""}>
+                <form className="inputForms" onSubmit={handleSubmit}>
+                    <a className="form-header">Add new expense
+                        <button className="unstyledButton" onClick={() => setModal(false)}>x</button>
+                    </a>
+                    <input name="expense" placeholder="E.g. rent, subscribtions" required />
+                    <input name="amount" type="number" placeholder="DKK" required />
+                    <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
           <button
             className="add-expense-button"
