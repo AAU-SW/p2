@@ -39,7 +39,7 @@ const App = () => {
   return (
     <main style={{ display: 'flex' }}>
       <Sidebar />
-      <div style={{width:"100%"}}>
+      <div style={{ width: '100%' }}>
         <Switch>
           <Route path="/">
             <Home />

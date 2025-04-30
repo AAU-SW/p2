@@ -3,9 +3,9 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 
 export const LinearProgressWithLabel = (props) => {
-    return (
+  return (
+    <Box>
       <Box>
-        <Box>
         <LinearProgress
           variant="determinate"
           {...props}
@@ -19,8 +19,7 @@ export const LinearProgressWithLabel = (props) => {
             },
           }}
         />
-        </Box>
       </Box>
-    );
-  }
-  
+    </Box>
+  );
+};

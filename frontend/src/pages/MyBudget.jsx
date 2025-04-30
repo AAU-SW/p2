@@ -14,49 +14,48 @@ export const MyBudget = () => {
       try {
         setLoading(true);
         // First calculate the latest spending
-        await axios.get("http://localhost:4000/budgets/calculate", {
-          withCredentials: true
+        await axios.get('http://localhost:4000/budgets/calculate', {
+          withCredentials: true,
         });
-        
+
         // Then fetch the updated budgets
-        const response = await axios.get("http://localhost:4000/budgets", {
-          withCredentials: true
+        const response = await axios.get('http://localhost:4000/budgets', {
+          withCredentials: true,
         });
-        
+
         setBudgetSections(response.data);
       } catch (error) {
-        console.error("Error fetching budgets:", error);
+        console.error('Error fetching budgets:', error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchBudgets();
   }, []);
 
-
-  async function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const title = formData.get("type");
-    const maxSpending = formData.get("maxSpending");
+    const title = formData.get('type');
+    const maxSpending = formData.get('maxSpending');
     try {
       const response = await axios.post(
-        "http://localhost:4000/budgets",
+        'http://localhost:4000/budgets',
         {
           title,
           maxSpending,
-          categories: [title] // Use the title as the category
+          categories: [title], // Use the title as the category
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
-      
+
       setBudgetSections([...budgetSections, response.data]);
       e.target.reset();
       setModalOpen(false);
     } catch (error) {
-      console.error("Error creating budget:", error);
+      console.error('Error creating budget:', error);
     }
   }
 
@@ -66,15 +65,25 @@ export const MyBudget = () => {
         <h1 className="header">Budgetting</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
-      <Button label="Add new budget" onClick={() => setModalOpen(true)}></Button>
-      <Modal 
+      <Button
+        label="Add new budget"
+        onClick={() => setModalOpen(true)}
+      ></Button>
+      <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         title="Add Budget Category"
         onSubmit={handleSubmit}
         submitButtonText="Save Budget"
       >
-        <div style={{display: 'flex', flexDirection:'column', width:'100%', gap: '5px'}}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            gap: '5px',
+          }}
+        >
           <select name="type" required>
             <option value="Food & Groceries">Food & Groceries</option>
             <option value="Transport">Transport</option>
@@ -84,42 +93,51 @@ export const MyBudget = () => {
             <option value="Other">Other</option>
           </select>
 
-          <input name="maxSpending" type="number"placeholder="maxSpending"></input>
+          <input
+            name="maxSpending"
+            type="number"
+            placeholder="maxSpending"
+          ></input>
         </div>
       </Modal>
 
       {budgetSections.length > 0 ? (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          width: '100%',
-          flexWrap: 'wrap'
-        }}>
-          {budgetSections.map(widget => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            width: '100%',
+            flexWrap: 'wrap',
+          }}
+        >
+          {budgetSections.map((widget) => (
             <BudgetWidget
               key={widget._id}
               title={widget.title}
               currentSpending={widget.currentSpending}
-              maxSpending={widget.maxSpending} />
+              maxSpending={widget.maxSpending}
+            />
           ))}
         </div>
       ) : (
         <NoData />
       )}
     </>
-  )
-}
+  );
+};
 
 const NoData = () => (
-  <div style={{
-    width: '100%',
-    padding: '40px',
-    textAlign: 'center',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '8px',
-    margin: '20px 0'
-  }}>
+  <div
+    style={{
+      width: '100%',
+      padding: '40px',
+      textAlign: 'center',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '8px',
+      margin: '20px 0',
+    }}
+  >
     <h3>No Budget Data Available</h3>
     <p>Add budget categories to start tracking your expenses</p>
   </div>
