@@ -54,7 +54,7 @@ export const deleteRow = async (req, res) => {
             return res.status(401).json({ error: "Unauthorized: Invalid or missing user ID" });
         }
         const { id } = req.params; // Gets the id of the row to be deleted.
-        const expense = await expense.findByIdAndDelete(id); // Deletes the row with the given id.
+        const expense = await Expense.findByIdAndDelete(id); // Deletes the row with the given id.
         if (!expense) {
             return res.status(404).json({ error: "Expense not found" });
         }
