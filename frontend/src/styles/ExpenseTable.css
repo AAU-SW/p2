@@ -158,6 +158,7 @@ tfoot {
   visibility: hidden;
   outline: none;
   border: none;
+  background: transparent;
 }
 .delete-button svg {
   width: 20px;
