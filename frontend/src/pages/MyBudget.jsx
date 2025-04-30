@@ -7,12 +7,10 @@ import axios from 'axios';
 export const MyBudget = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        setLoading(true);
         // First calculate the latest spending
         await axios.get('http://localhost:4000/budgets/calculate', {
           withCredentials: true,
@@ -26,9 +24,7 @@ export const MyBudget = () => {
         setBudgetSections(response.data);
       } catch (error) {
         console.error('Error fetching budgets:', error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchBudgets();
