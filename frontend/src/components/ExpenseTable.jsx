@@ -61,6 +61,7 @@ export const ExpenseTable = () => {
         await axios.delete(`http://localhost:4000/expenses/${id}`, {
           withCredentials: true,
         });
+        fetchData(); 
       } catch (error) {
         console.error("Error deleting row:", error);
       }
