@@ -37,7 +37,6 @@ export const TimePlan = () => {
               <CardDetails>{DKKFormat.format(data.fixedIncome)}</CardDetails>
             </CardContent>
           </Card>
-
           <Card>
             <TimeplanTable setWidgetData={handleDataExport} /> 
           </Card>

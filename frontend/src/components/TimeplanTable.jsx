@@ -98,7 +98,7 @@ export const TimeplanTable = ({setWidgetData}) => {
             <div style={{ display: "flex" }}>
                 <button className="add-job-button" onClick={() => setTable(true)}>Fixed</button>
                 <button className="add-job-button" onClick={() => setTable(false)}>Variable</button>
-                <button class="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add income</button>
+                <button className="add-job-placement add-job-button" onClick={() => setModal(true)}>+ Add income</button>
             </div>
             <section className="table-container">
                 <h3>Incomes</h3>
@@ -110,6 +110,7 @@ export const TimeplanTable = ({setWidgetData}) => {
                                     <th>Job</th>
                                     <th>Interval</th>
                                     <th>Total pay</th>
+                                    <th></th>
                                 </tr>
                             </thead><tbody>
                                 {currentRows.length > 0 ? (
@@ -118,6 +119,14 @@ export const TimeplanTable = ({setWidgetData}) => {
                                             <td>{row.job}</td>
                                             <td>{row.jobInterval}</td>
                                             <td>{DKKFormat.format(row.fixedIncome)}</td>
+                                            <td>
+                                              <button className="delete-button" 
+                                                onClick={() => { deleteRow(row._id);
+                                                  fetchTimeplans();
+                                                }}
+                                                >
+                                                Delete</button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
@@ -133,6 +142,7 @@ export const TimeplanTable = ({setWidgetData}) => {
                                     <th>Wage</th>
                                     <th>Hours</th>
                                     <th>Total pay</th>
+                                    <th></th>
                                 </tr>
                             </thead><tbody>
                                 {currentRows.length > 0 ? (
@@ -142,6 +152,14 @@ export const TimeplanTable = ({setWidgetData}) => {
                                             <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
                                             <td>{HourFormat.format(row.hours)}</td>
                                             <td>{DKKFormat.format(row.wage * row.hours)}</td>
+                                            <td>
+                                                <button className="delete-button" 
+                                                onClick={() => { deleteRow(row._id);
+                                                  fetchTimeplans();
+                                                }}
+                                                >
+                                                Delete</button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
@@ -225,3 +243,25 @@ export const NoData = () => {
         </tr>
     )
 }
+
+/* export const deleteRow = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:4000/timeplans/${id}`, {
+            withCredentials: true,
+        });
+        console.log("Row deleted successfully:", response.data);
+    } catch (error) {
+        console.error("Error deleting row:", error);
+    }
+} */
+
+const deleteRow = async (id) => {
+  try {
+    await axios.delete(`http://localhost:4000/timeplans/${id}`, {
+      withCredentials: true,
+    });
+    await fetchTimeplans(); 
+  } catch (error) {
+    console.error("Error deleting row:", error);
+  }
+};
