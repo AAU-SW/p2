@@ -16,7 +16,7 @@ export const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/auth/Signup', {
+      const response = await fetch('http://localhost:4000/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
