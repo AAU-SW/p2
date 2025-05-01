@@ -289,14 +289,3 @@ export const NoData = () => {
     </tr>
   );
 };
-
-/* export const deleteRow = async (id) => {
-    try {
-        const response = await axios.delete(`http://localhost:4000/timeplans/${id}`, {
-            withCredentials: true,
-        });
-        console.log("Row deleted successfully:", response.data);
-    } catch (error) {
-        console.error("Error deleting row:", error);
-    }
-} */
