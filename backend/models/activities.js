@@ -13,6 +13,11 @@ const activitySchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  user_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+		required: [true, "user_id is required"],
+	},
 });
 
 export const Activity = mongoose.model("Activity", activitySchema);
