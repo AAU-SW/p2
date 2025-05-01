@@ -28,6 +28,9 @@ tr {
   font-family: 'Inter', sans-serif;
   font-weight: 200;
 }
+tr:hover .delete-button {
+  visibility: visible;
+}
 
 tfoot {
   background-color: #f2f2f2;
@@ -159,4 +162,18 @@ tfoot {
 .pagination-bar button.active {
   background-color: #1e4e63;
   font-weight: bold;
+}
+
+.delete-button {
+  outline: none;
+  border: none;
+  visibility: hidden;
+  background: transparent;
+}
+.delete-button svg {
+  cursor: pointer;
+  opacity: 0.75;
+  color: red;
+  width: 20px;
+  height: 20px;
 }

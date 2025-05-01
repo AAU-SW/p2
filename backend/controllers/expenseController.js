@@ -45,3 +45,23 @@ export const getExpenses = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
+
+// delete row in expense table
+export const deleteRow = async (req, res) => {
+	try {
+		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		if (!userId) {
+			return res
+				.status(401)
+				.json({ error: "Unauthorized: Invalid or missing user ID" });
+		}
+		const { id } = req.params; // Gets the id of the row to be deleted.
+		const expense = await Expense.findByIdAndDelete(id); // Deletes the row with the given id.
+		if (!expense) {
+			return res.status(404).json({ error: "Expense not found" });
+		}
+		res.status(200).json({ message: "Expense deleted successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
