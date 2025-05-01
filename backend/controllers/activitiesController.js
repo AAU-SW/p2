@@ -29,7 +29,7 @@ export const getActivities = async (req, res) => {
         .status(401)
         .json({ error: "Unauthorized: Invalid or missing user ID" });
     }
-    const Activities = await Activity.find({ user: userId }); // Finds the timeplan of the logged user.
+    const Activities = await Activity.find({ user: userId });
     res.status(200).json(Activities);
   } catch (error) {
     res.status(500).json({ error: error.message });
