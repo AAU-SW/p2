@@ -5,16 +5,16 @@ import InfographicImage from '../assets/infographics_humans.svg';
 import '../styles/Login.css';
 
 export const Login = () => {
-  // Login med email og password
-  // http://localhost:4000/auth/Login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [, navigate] = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true); // Start loading
+
       const response = await fetch('http://localhost:4000/auth/login', {
         method: 'POST',
         headers: {
@@ -33,19 +33,15 @@ export const Login = () => {
       // Redirect to home page
       navigate('/');
     } catch (error) {
-      setError(error.message);
+    } finally {
+      setLoading(false); // End loading regardless of outcome
     }
   };
-  // Eller sign up med username, email og password
-  // redirect til SignUp.jsx
-  // http://localhost:4000/auth/Signup
+
   const goToSignup = () => {
     navigate('/signup');
   };
 
-  // Render login form
-  // og sign up knap
-  // og illustration
   return (
     <div className="login-page">
       <div className="login-container">
@@ -59,6 +55,7 @@ export const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
             <input
               type="password"
@@ -66,14 +63,19 @@ export const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={loading}
             />
-            {error && <p className="error">{error}</p>}
-            <Button type="submit">Log in</Button>
 
-            <Button type="button" onClick={goToSignup}>
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Logging in...' : 'Log in'}
+            </Button>
+
+            <Button type="button" onClick={goToSignup} disabled={loading}>
               Sign Up
             </Button>
           </form>
+
+          {loading}
         </div>
         <img
           src={InfographicImage}
