@@ -30,7 +30,7 @@ export const getActivities = async (req, res) => {
         .json({ error: "Unauthorized: Invalid or missing user ID" });
     }
     const activities = await Activity.find({ user_id: userId });
-    res.status(200).json(Activities);
+    res.status(200).json(activities);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
