@@ -1,9 +1,16 @@
 import '../styles/Button.css';
 
-export const Button = ({ label, onClick }) => {
+export const Button = ({
+  children,
+  className = '',
+  type = 'button',
+  ...props
+}) => {
   return (
-    <button className="button" onClick={() => onClick()}>
-      {label}
+    <button type={type} className={`button ${className}`} {...props}>
+      {children}
     </button>
   );
 };
+
+export default Button;

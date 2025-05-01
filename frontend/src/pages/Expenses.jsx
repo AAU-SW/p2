@@ -1,5 +1,5 @@
 import { ExpenseTable } from '../components/ExpenseTable';
-import { Card, CardHeader } from '../components/Card';
+import { Card } from '../components/Card';
 
 export const Expenses = () => {
   return (
