@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FiTrash } from 'react-icons/fi';
 
 export const TimeplanTable = ({ setWidgetData }) => {
   // Pop-up modal
@@ -82,6 +83,17 @@ export const TimeplanTable = ({ setWidgetData }) => {
     form.reset(); // Ensures input forms is reset after submitting.
   }
 
+  const deleteRow = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/timeplans/${id}`, {
+        withCredentials: true,
+      });
+      fetchTimeplans();
+    } catch (error) {
+      console.error('Error deleting row:', error);
+    }
+  };
+
   const totalHours = allRows.reduce((sum, row) => sum + (row.hours || 0), 0);
 
   const fixedIncome = allRows
@@ -106,7 +118,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
           Variable
         </button>
         <button
-          class="add-job-placement add-job-button"
+          className="add-job-placement add-job-button"
           onClick={() => setModal(true)}
         >
           + Add income
@@ -122,6 +134,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
                   <th>Job</th>
                   <th>Interval</th>
                   <th>Total pay</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -131,6 +144,16 @@ export const TimeplanTable = ({ setWidgetData }) => {
                       <td>{row.job}</td>
                       <td>{row.jobInterval}</td>
                       <td>{DKKFormat.format(row.fixedIncome)}</td>
+                      <td>
+                        <button
+                          className="delete-button"
+                          onClick={() => {
+                            deleteRow(row._id);
+                          }}
+                        >
+                          <FiTrash />
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -146,6 +169,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
                   <th>Wage</th>
                   <th>Hours</th>
                   <th>Total pay</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -156,6 +180,16 @@ export const TimeplanTable = ({ setWidgetData }) => {
                       <td>{`${DKKFormat.format(row.wage)}/hr`}</td>
                       <td>{HourFormat.format(row.hours)}</td>
                       <td>{DKKFormat.format(row.wage * row.hours)}</td>
+                      <td>
+                        <button
+                          className="delete-button"
+                          onClick={() => {
+                            deleteRow(row._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (

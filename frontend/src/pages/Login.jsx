@@ -1,40 +1,47 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import Button from '../components/Button';
+import { Button } from '../components/Button';
 import InfographicImage from '../assets/infographics_humans.svg';
-import '../styles/SignUp.css';
+import '../styles/Login.css';
 
-export const SignUp = () => {
-  // Sign up med username, email og password
-  // http://localhost:4000/auth/Signup
-  const [username, setUsername] = useState('');
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [, navigate] = useLocation();
 
-  const handleSignUp = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/auth/signup', {
+      setLoading(true); // Start loading
+
+      const response = await fetch('http://localhost:4000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password }),
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Sign up failed');
+        throw new Error('Login failed');
       }
 
       const data = await response.json();
-      console.log('Sign up successful:', data);
-      // Redirect til login page (eller home page ????)
-      navigate('/login');
+      console.log('Login successful:', data);
+      // Redirect to home page
+      window.location.href = '/';
+      //navigate('/p2'); does not work as it needs full page refresh?
     } catch (error) {
-      setError(error.message);
+      console.error('Login failed', error);
+    } finally {
+      setLoading(false); // End loading regardless of outcome
     }
+  };
+
+  const goToSignup = () => {
+    navigate('/signup');
   };
 
   return (
@@ -43,20 +50,14 @@ export const SignUp = () => {
         <div className="login-box">
           <h1>Welcome to SpareTime</h1>
 
-          <form onSubmit={handleSignUp}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+          <form onSubmit={handleLogin}>
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
             <input
               type="password"
@@ -64,10 +65,19 @@ export const SignUp = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={loading}
             />
-            {error && <p className="error">{error}</p>}
-            <Button type="submit">Sign up</Button>
+
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Logging in...' : 'Log in'}
+            </Button>
+
+            <Button type="button" onClick={goToSignup} disabled={loading}>
+              Sign Up
+            </Button>
           </form>
+
+          {loading}
         </div>
         <img
           src={InfographicImage}
