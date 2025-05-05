@@ -62,9 +62,8 @@ export const MyBudget = () => {
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
       <Button
-        label="Add new budget"
         onClick={() => setModalOpen(true)}
-      ></Button>
+      >Add new budget</Button>
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

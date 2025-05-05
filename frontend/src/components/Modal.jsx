@@ -19,17 +19,18 @@ export const Modal = ({
               outline: 'none',
               background: 'none',
               cursor: 'pointer',
+              color: 'black',
             }}
             onClick={onClose}
           >
-            <RxCross2 />
+           <RxCross2 />
           </button>
         </a>
 
         {/* Modal content passed as children */}
         {children}
 
-        <Button label={submitButtonText || 'Submit'} />
+        <Button>{submitButtonText}</Button>
       </form>
     </dialog>
   );
