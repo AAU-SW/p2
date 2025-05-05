@@ -51,8 +51,8 @@ const App = () => {
 
   return (
     <main style={{ display: 'flex' }}>
-      {!(location === '/login' || location === '/signup') && <Sidebar />}
       <div style={{ width: '100%' }}>
+      {!(location === '/login' || location === '/signup') && <Sidebar />}
         <Switch>
           {/* Public routes */}
           <Route path="/login">
