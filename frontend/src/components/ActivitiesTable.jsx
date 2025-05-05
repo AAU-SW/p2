@@ -47,7 +47,7 @@ export const ActivitiesTable = () => {
 
     // post of submittet activities
     try {
-      const response = await axios.post(
+      await axios.post(
         'http://localhost:4000/activities',
         { title, price, date },
         {
