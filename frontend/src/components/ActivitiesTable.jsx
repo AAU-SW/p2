@@ -74,7 +74,10 @@ export const ActivitiesTable = () => {
   const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
   return (
     <div>
-      <button className="add-activity-button add-job-placement" onClick={() => setModal(true)}>
+      <button
+        className="add-activity-button add-job-placement"
+        onClick={() => setModal(true)}
+      >
         + Add new activity
       </button>
       <section className="table-container">
@@ -94,14 +97,14 @@ export const ActivitiesTable = () => {
                 <td>{row.price.toLocaleString()} DKK</td>
                 <td>{row.date}</td>
                 <td>
-                <button
-                  className="delete-button"
-                  onClick={() => {
-                    deleteRow(row._id);
-                  }}
-                >
-                  <FiTrash />
-                </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => {
+                      deleteRow(row._id);
+                    }}
+                  >
+                    <FiTrash />
+                  </button>
                 </td>
               </tr>
             ))}
