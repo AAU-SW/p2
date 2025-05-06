@@ -13,37 +13,43 @@ export const calculateTotalSpending = async () => {
 
     // Initialize spending by categories
     const spendingByCategory = {};
-    
+
     // Process expenses
-    expenses.forEach(expense => {
+    expenses.forEach((expense) => {
       const category = expense.expenseType;
       if (!spendingByCategory[category]) {
         spendingByCategory[category] = 0;
       }
       spendingByCategory[category] += expense.amount;
     });
-    
+
     // Process activities
-    activities.forEach(activity => {
+    activities.forEach((activity) => {
       const category = activity.activitiesType;
       if (!spendingByCategory[category]) {
         spendingByCategory[category] = 0;
       }
       spendingByCategory[category] += activity.price;
     });
-    
+
     // Calculate totals
-    const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-    const totalActivities = activities.reduce((sum, activity) => sum + activity.price, 0);
+    const totalExpenses = expenses.reduce(
+      (sum, expense) => sum + expense.amount,
+      0,
+    );
+    const totalActivities = activities.reduce(
+      (sum, activity) => sum + activity.price,
+      0,
+    );
     const combinedTotal = totalExpenses + totalActivities;
-    
+
     return {
       spendingByCategory,
       totalExpenses,
       totalActivities,
       combinedTotal,
       expenses,
-      activities
+      activities,
     };
   } catch (error) {
     console.error('Error calculating spending:', error);
@@ -58,13 +64,13 @@ export const calculateTotalSpending = async () => {
  * @returns {Array} Updated budgets with current spending
  */
 export const updateBudgetsWithSpending = (budgets, spendingByCategory) => {
-  return budgets.map(budget => {
+  return budgets.map((budget) => {
     // Find spending for this budget category
     let currentSpending = 0;
-    
+
     // Check if this budget's category appears in our spending data
     if (budget.categories && budget.categories.length > 0) {
-      budget.categories.forEach(category => {
+      budget.categories.forEach((category) => {
         if (spendingByCategory[category]) {
           currentSpending += spendingByCategory[category];
         }
@@ -73,10 +79,10 @@ export const updateBudgetsWithSpending = (budgets, spendingByCategory) => {
       // Fallback to using the budget title if categories aren't set
       currentSpending = spendingByCategory[budget.title];
     }
-    
+
     return {
       ...budget,
-      currentSpending
+      currentSpending,
     };
   });
 };
@@ -85,17 +91,20 @@ export const getBudgetsWithCurrentSpending = async () => {
   try {
     // Get spending data
     const spendingData = await calculateTotalSpending();
-    
+
     // Fetch budgets
     const budgetsResponse = await axios.get('http://localhost:4000/budgets', {
-      withCredentials: true
+      withCredentials: true,
     });
-    
+
     const budgets = budgetsResponse.data || [];
-    
+
     // Update budgets with current spending information
-    const updatedBudgets = updateBudgetsWithSpending(budgets, spendingData.spendingByCategory);
-    
+    const updatedBudgets = updateBudgetsWithSpending(
+      budgets,
+      spendingData.spendingByCategory,
+    );
+
     return updatedBudgets;
   } catch (error) {
     console.error('Error fetching budgets with spending:', error);

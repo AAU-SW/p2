@@ -14,5 +14,4 @@ router.use("/timeplans", timeplanRoutes);
 router.use("/budgets", budgetRouter);
 router.use("/activities", activitiesRouter);
 
-
 export default router;

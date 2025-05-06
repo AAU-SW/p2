@@ -43,7 +43,7 @@ export const MyBudget = () => {
       // Fetch updated budgets with spending to ensure accuracy
       const updatedBudgets = await getBudgetsWithCurrentSpending();
       setBudgetSections(updatedBudgets);
-      
+
       e.target.reset();
       setModalOpen(false);
     } catch (error) {
@@ -88,7 +88,7 @@ export const MyBudget = () => {
           ></input>
         </div>
       </Modal>
-        {budgetSections.length > 0 ? (
+      {budgetSections.length > 0 ? (
         <div
           style={{
             display: 'flex',
