@@ -12,7 +12,11 @@ export const BudgetWidget = ({ title, currentSpending, maxSpending }) => {
         <CardContent>
           <CardHeader title={title} />
           <div className="progress-bar-container">
-            <progress className='progress-bar' value={(currentSpending / maxSpending) * 100} max="100" />
+            <progress
+              className="progress-bar"
+              value={(currentSpending / maxSpending) * 100}
+              max="100"
+            />
           </div>
           <div className="budget-amounts">
             <CardDetails>
