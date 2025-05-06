@@ -12,11 +12,6 @@ export const MyBudget = () => {
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        // First calculate the latest spending
-        await axios.get('http://localhost:4000/budgets/calculate', {
-          withCredentials: true,
-        });
-
         // Then fetch the updated budgets
         const response = await axios.get('http://localhost:4000/budgets', {
           withCredentials: true,
