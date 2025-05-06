@@ -1,6 +1,5 @@
 import '../styles/BudgetWidget.css';
 import { Card, CardContent, CardDetails, CardHeader } from './Card';
-import { LinearProgressWithLabel } from './LinearProgressWithLabel';
 
 export const BudgetWidget = ({ title, currentSpending, maxSpending }) => {
   const DKKFormat = new Intl.NumberFormat('da-DK', {
@@ -12,10 +11,8 @@ export const BudgetWidget = ({ title, currentSpending, maxSpending }) => {
       <Card>
         <CardContent>
           <CardHeader title={title} />
-          <div className="progress-bar">
-            <LinearProgressWithLabel
-              value={(currentSpending / maxSpending) * 100}
-            />
+          <div className="progress-bar-container">
+            <progress className='progress-bar' value={(currentSpending / maxSpending) * 100} max="100"> 32% </progress>
           </div>
           <div className="budget-amounts">
             <CardDetails>
