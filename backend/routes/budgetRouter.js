@@ -1,8 +1,5 @@
 import express from "express";
-import {
-	createBudget,
-	getBudgets,
-} from "../controllers/budgetController.js";
+import { createBudget, getBudgets } from "../controllers/budgetController.js";
 
 const budgetRouter = express.Router();
 
