@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node index.js",
 		"dev": "nodemon index.js",
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "vitest",
 		"format": "npx @biomejs/biome format --write .",
 		"format:check": "npx @biomejs/biome format .",
 		"lint": "npx @biomejs/biome lint",
@@ -28,6 +28,7 @@
 		"nodemon": "^3.1.9"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4"
+		"@biomejs/biome": "1.9.4",
+		"vitest": "^3.1.2"
 	}
 }
