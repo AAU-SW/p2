@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import Button from '../components/Button';
-import InfographicImage from '../assets/infographics_humans.svg';
+import InfographicImage from '../assets/infographics_Login_Page.svg';
 import '../styles/SignUp.css';
 
 export const SignUp = () => {
@@ -72,7 +72,7 @@ export const SignUp = () => {
         <img
           src={InfographicImage}
           alt="Infographic"
-          className="infographic-image"
+          className="illustration"
         />
       </div>
     </div>
