@@ -4,26 +4,23 @@ import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
 import axios from 'axios';
+import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
 export const MyBudget = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
 
   useEffect(() => {
-    const fetchBudgets = async () => {
+    const fetchBudgetsWithSpending = async () => {
       try {
-        // Then fetch the updated budgets
-        const response = await axios.get('http://localhost:4000/budgets', {
-          withCredentials: true,
-        });
-
-        setBudgetSections(response.data);
+        const updatedBudgets = await getBudgetsWithCurrentSpending();
+        setBudgetSections(updatedBudgets);
       } catch (error) {
-        console.error('Error fetching budgets:', error);
+        console.error('Error fetching budgets with spending:', error);
       }
     };
 
-    fetchBudgets();
+    fetchBudgetsWithSpending();
   }, []);
 
   async function handleSubmit(e) {
@@ -31,7 +28,7 @@ export const MyBudget = () => {
 
     const formData = new FormData(e.target);
     const title = formData.get('type');
-    const maxSpending = formData.get('maxSpending');
+    const maxSpending = parseFloat(formData.get('maxSpending'));
     try {
       const response = await axios.post(
         'http://localhost:4000/budgets',
@@ -43,7 +40,10 @@ export const MyBudget = () => {
         { withCredentials: true },
       );
 
-      setBudgetSections([...budgetSections, response.data]);
+      // Fetch updated budgets with spending to ensure accuracy
+      const updatedBudgets = await getBudgetsWithCurrentSpending();
+      setBudgetSections(updatedBudgets);
+      
       e.target.reset();
       setModalOpen(false);
     } catch (error) {
@@ -88,8 +88,7 @@ export const MyBudget = () => {
           ></input>
         </div>
       </Modal>
-
-      {budgetSections.length > 0 ? (
+        {budgetSections.length > 0 ? (
         <div
           style={{
             display: 'flex',
@@ -103,7 +102,7 @@ export const MyBudget = () => {
             <BudgetWidget
               key={widget._id}
               title={widget.title}
-              currentSpending={widget.currentSpending}
+              currentSpending={widget.currentSpending || 0}
               maxSpending={widget.maxSpending}
             />
           ))}
