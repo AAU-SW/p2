@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { BUDGET_CATEGORIES } from "../../shared/BUDGET_CATEGORIES.js";
 
 const budgetSchema = new mongoose.Schema({
 	user: {

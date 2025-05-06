@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
+import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
 
 export const ExpenseTable = () => {
   const [rows, setRows] = useState([]);
@@ -146,15 +147,11 @@ export const ExpenseTable = () => {
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
           <select name="expenseType" required>
-            <option value="" disabled selected>
-              Select type
-            </option>
-            <option value="Food & Groceries">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Rent">Rent</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Other">Other</option>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
           <button
             className="add-expense-button"

@@ -50,9 +50,9 @@ const App = () => {
   }
 
   return (
-      <div style={{display: "flex", height: "100%"}}>
-        {!(location === '/login' || location === '/signup') && <Sidebar />}
-        <div style={{width: '100%' }}>
+    <div style={{ display: 'flex', height: '100%' }}>
+      {!(location === '/login' || location === '/signup') && <Sidebar />}
+      <div style={{ width: '100%' }}>
         <Switch>
           {/* Public routes */}
           <Route path="/login">
@@ -132,8 +132,8 @@ const App = () => {
             <div>Not found</div>
           </PrivateRoute>
         </Switch>
-        </div>
       </div>
+    </div>
   );
 };
 

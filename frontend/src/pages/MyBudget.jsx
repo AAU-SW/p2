@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BudgetWidget } from '../components/BudgetWidget';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
+import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
 import axios from 'axios';
 
 export const MyBudget = () => {
@@ -61,9 +62,7 @@ export const MyBudget = () => {
         <h1 className="header">Budgetting</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
-      <Button
-        onClick={() => setModalOpen(true)}
-      >Add new budget</Button>
+      <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -80,12 +79,11 @@ export const MyBudget = () => {
           }}
         >
           <select name="type" required>
-            <option value="Food & Groceries">Food & Groceries</option>
-            <option value="Transport">Transport</option>
-            <option value="Rent">Rent</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Other">Other</option>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
 
           <input

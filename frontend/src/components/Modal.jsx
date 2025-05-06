@@ -23,7 +23,7 @@ export const Modal = ({
             }}
             onClick={onClose}
           >
-           <RxCross2 />
+            <RxCross2 />
           </button>
         </a>
 
