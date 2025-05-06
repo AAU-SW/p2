@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FiTrash } from 'react-icons/fi';
 import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { formatDate } from '../utils/unitFormats';
 
 export const ActivitiesTable = () => {
   const [rows, setRows] = useState([]);
@@ -100,7 +101,7 @@ export const ActivitiesTable = () => {
                 <td>{row.title}</td>
                 <td>{row.price.toLocaleString()} DKK</td>
                 <td>{row.activitiesType}</td>
-                <td>{row.date}</td>
+                <td>{formatDate(row.date)}</td>
                 <td>
                   <button
                     className="delete-button"

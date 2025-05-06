@@ -3,6 +3,7 @@ import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
 import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { formatDate } from '../utils/formatDate';
 
 export const ExpenseTable = () => {
   const [rows, setRows] = useState([]);
@@ -98,7 +99,7 @@ export const ExpenseTable = () => {
                 <td>{row.expense}</td>
                 <td>{row.amount.toLocaleString()} DKK</td>
                 <td>{row.expenseType}</td>
-                <td>{row.date}</td>
+                <td>{formatDate(row.date)}</td>
                 <td>
                   <button
                     className="delete-button"
