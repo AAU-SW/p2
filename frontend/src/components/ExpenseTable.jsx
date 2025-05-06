@@ -87,6 +87,7 @@ export const ExpenseTable = () => {
             <tr>
               <th>expense</th>
               <th>amount</th>
+              <th>Type</th>
               <th>date</th>
               <th></th>
             </tr>
@@ -96,6 +97,7 @@ export const ExpenseTable = () => {
               <tr key={index}>
                 <td>{row.expense}</td>
                 <td>{row.amount.toLocaleString()} DKK</td>
+                <td>{row.expenseType}</td>
                 <td>{row.date}</td>
                 <td>
                   <button
