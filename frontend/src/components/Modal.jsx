@@ -13,7 +13,7 @@ export const Modal = ({
       <form className="inputForms" onSubmit={onSubmit}>
         <a className="form-header">
           {title}
-          <button
+          <Button
             style={{
               border: 'none',
               outline: 'none',
@@ -24,13 +24,13 @@ export const Modal = ({
             onClick={onClose}
           >
             <RxCross2 />
-          </button>
+          </Button>
         </a>
 
         {/* Modal content passed as children */}
         {children}
 
-        <Button>{submitButtonText}</Button>
+        <Button type="submit">{submitButtonText}</Button>
       </form>
     </dialog>
   );
