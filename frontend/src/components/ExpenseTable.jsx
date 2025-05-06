@@ -35,7 +35,6 @@ export const ExpenseTable = () => {
     fetchData();
   }, []);
 
-  // Submit input data to table
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
