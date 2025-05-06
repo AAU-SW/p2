@@ -187,7 +187,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
                             deleteRow(row._id);
                           }}
                         >
-                          Delete
+                          <FiTrash />
                         </button>
                       </td>
                     </tr>
