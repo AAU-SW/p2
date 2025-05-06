@@ -1,5 +1,6 @@
 //database table
 import mongoose from "mongoose";
+import { BUDGET_CATEGORIES } from "../../shared/BUDGET_CATEGORIES.js";
 
 const activitiesSchema = new mongoose.Schema({
 	user: {
@@ -19,6 +20,11 @@ const activitiesSchema = new mongoose.Schema({
 	},
 	date: {
 		type: Date,
+		required: true,
+	},
+	activitiesType: {
+		type: String,
+		enum: BUDGET_CATEGORIES,
 		required: true,
 	},
 });
