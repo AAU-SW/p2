@@ -1,5 +1,4 @@
 import { Budget } from "../models/budgetSchema.js";
-import { Expense } from "../models/expenses.js";
 import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
 
 // Create a new budget category
