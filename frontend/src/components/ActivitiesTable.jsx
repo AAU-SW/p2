@@ -71,7 +71,7 @@ export const ActivitiesTable = () => {
     }
   };
 
-  const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
+  const totalAmount = rows.reduce((sum, row) => sum + row.price, 0);
   return (
     <div>
       <button
