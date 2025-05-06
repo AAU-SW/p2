@@ -30,7 +30,7 @@ export const MyBudget = () => {
     const title = formData.get('type');
     const maxSpending = parseFloat(formData.get('maxSpending'));
     try {
-      const response = await axios.post(
+      await axios.post(
         'http://localhost:4000/budgets',
         {
           title,
