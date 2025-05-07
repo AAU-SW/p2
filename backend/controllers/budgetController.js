@@ -23,7 +23,7 @@ export const createBudget = async (req, res) => {
 			user: userId,
 			title,
 			maxSpending,
-			categories: categories, // Default to using the title as a category
+			categories,
 		});
 
 		await newBudget.save();
