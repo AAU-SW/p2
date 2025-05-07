@@ -14,5 +14,4 @@ export const BUDGET_CATEGORIES = [
     "Savings",
     "Investments",
     "Other",
-    ""
   ];
