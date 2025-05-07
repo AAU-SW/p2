@@ -139,20 +139,22 @@ export const ActivitiesTable = () => {
         isOpen={modal}
         onClose={() => setModal(false)}
         title="Add Activity"
-        onSubmit={handleSubmit}
+        onSubmitClick={handleSubmit}
         submitButtonText="Add activity"
       >
-        <input name="title" placeholder="E.g. rent, subscribtions" required />
-        <input name="price" type="number" placeholder="DKK" required />
-        <input name="date" type="date" placeholder="DD/MM-YYYY" required />
+        <form>
+          <input name="title" placeholder="E.g. rent, subscribtions" required />
+          <input name="price" type="number" placeholder="DKK" required />
+          <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
-        <select name="type" required>
-          {BUDGET_CATEGORIES.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          <select name="type" required>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </form>
       </Modal>
     </div>
   );

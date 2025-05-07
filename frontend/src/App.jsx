@@ -50,7 +50,7 @@ const App = () => {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100%' }}>
+    <main style={{ display: 'flex', height: '100%' }}>
       {!(location === '/login' || location === '/signup') && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>
@@ -133,7 +133,7 @@ const App = () => {
           </PrivateRoute>
         </Switch>
       </div>
-    </div>
+    </main>
   );
 };
 

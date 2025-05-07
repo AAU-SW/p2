@@ -10,16 +10,16 @@ export const MyBudget = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
 
-  useEffect(() => {
-    const fetchBudgetsWithSpending = async () => {
-      try {
-        const updatedBudgets = await getBudgetsWithCurrentSpending();
-        setBudgetSections(updatedBudgets);
-      } catch (error) {
-        console.error('Error fetching budgets with spending:', error);
-      }
-    };
+  const fetchBudgetsWithSpending = async () => {
+    try {
+      const updatedBudgets = await getBudgetsWithCurrentSpending();
+      setBudgetSections(updatedBudgets);
+    } catch (error) {
+      console.error('Error fetching budgets with spending:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchBudgetsWithSpending();
   }, []);
 
@@ -62,7 +62,7 @@ export const MyBudget = () => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         title="Add Budget Category"
-        onSubmit={handleSubmit}
+        onSubmitClick={handleSubmit}
         submitButtonText="Save Budget"
       >
         <div
@@ -73,19 +73,21 @@ export const MyBudget = () => {
             gap: '5px',
           }}
         >
-          <select name="type" required>
-            {BUDGET_CATEGORIES.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+          <form>
+            <select name="type" required>
+              {BUDGET_CATEGORIES.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
 
-          <input
-            name="maxSpending"
-            type="number"
-            placeholder="maxSpending"
-          ></input>
+            <input
+              name="maxSpending"
+              type="number"
+              placeholder="maxSpending"
+            ></input>
+          </form>
         </div>
       </Modal>
       {budgetSections.length > 0 ? (
