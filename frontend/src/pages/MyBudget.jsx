@@ -62,18 +62,17 @@ export const MyBudget = () => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         title="Add Budget Category"
-        onSubmitClick={handleSubmit}
         submitButtonText="Save Budget"
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            gap: '5px',
-          }}
-        >
-          <form>
+        <form onSubmit={handleSubmit}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              gap: '5px',
+            }}
+          >
             <select name="type" required>
               {BUDGET_CATEGORIES.map((category, index) => (
                 <option key={index} value={category}>
@@ -87,8 +86,8 @@ export const MyBudget = () => {
               type="number"
               placeholder="maxSpending"
             ></input>
-          </form>
-        </div>
+          </div>
+        </form>
       </Modal>
       {budgetSections.length > 0 ? (
         <div
@@ -103,9 +102,11 @@ export const MyBudget = () => {
           {budgetSections.map((widget) => (
             <BudgetWidget
               key={widget._id}
+              id={widget._id}
               title={widget.title}
               currentSpending={widget.currentSpending || 0}
               maxSpending={widget.maxSpending}
+              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
             />
           ))}
         </div>

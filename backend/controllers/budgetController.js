@@ -50,3 +50,23 @@ export const getBudgets = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
+
+// delete row in budget table
+export const deleteRow = async (req, res) => {
+	try {
+		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		if (!userId) {
+			return res
+				.status(401)
+				.json({ error: "Unauthorized: Invalid or missing user ID" });
+		}
+		const { id } = req.params; // Gets the id of the row to be deleted.
+		const budgets = await Budget.findByIdAndDelete(id); // Deletes the row with the given id.
+		if (!budgets) {
+			return res.status(404).json({ error: "Budgets not found" });
+		}
+		res.status(200).json({ message: "Budget deleted successfully" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
