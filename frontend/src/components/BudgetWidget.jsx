@@ -15,6 +15,8 @@ export const BudgetWidget = ({
     currency: 'DKK',
   });
 
+  let percentage = Math.trunc((currentSpending / maxSpending) * 100);
+
   const deleteRow = async (id) => {
     try {
       await axios.delete(`http://localhost:4000/budgets/${id}`, {
@@ -59,9 +61,13 @@ export const BudgetWidget = ({
             <CardDetails>
               <div className="percentage-current-amount">
                 <p>{DKKFormat.format(currentSpending)}</p>
-                <p className="percentage">
-                  {Math.trunc((currentSpending / maxSpending) * 100)}%
-                </p>
+                {percentage < 100 ? (
+                  <p className="percentage">{percentage}%</p>
+                ) : (
+                  <p className="percentage" style={{ color: 'red' }}>
+                    {percentage}%
+                  </p>
+                )}
               </div>
               <p className="total-amount">{`of ${DKKFormat.format(maxSpending)}`}</p>
             </CardDetails>
