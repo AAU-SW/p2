@@ -6,6 +6,7 @@ on:
 
   workflow_dispatch:
 
+
 permissions:
   contents: read
   pages: write
@@ -21,8 +22,6 @@ jobs:
       run:
         working-directory:
           frontend
-    env:
-      VITE_API_URL: ${{ vars.API_URL }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -39,6 +38,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VITE_API_URL: ${{ vars.API_URL }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
