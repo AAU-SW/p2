@@ -13,7 +13,6 @@ import { LogOut } from './pages/LogOut';
 import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
-import MyProfile from './pages/MyProfile';
 
 const App = () => {
   const [location] = useLocation();
@@ -118,13 +117,6 @@ const App = () => {
             redirectPath="/login"
           >
             <LogOut />
-          </PrivateRoute>
-          <PrivateRoute
-            path="/my-profile"
-            isAuthenticated={isAuthenticated}
-            redirectPath="/login"
-          >
-            <MyProfile />
           </PrivateRoute>
 
           <PrivateRoute

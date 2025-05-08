@@ -54,7 +54,7 @@ export const MyBudget = () => {
   return (
     <>
       <section>
-        <h1 className="header">Budgetting</h1>
+        <h1 className="header">My Budget</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
       <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
