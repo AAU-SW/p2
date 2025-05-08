@@ -23,7 +23,7 @@ const App = () => {
   const checkAuth = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/auth/', {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
         method: 'POST',
         credentials: 'include',
       });
@@ -51,9 +51,9 @@ const App = () => {
   }
 
   return (
-    <main style={{ display: 'flex' }}>
+    <main style={{ display: 'flex', height: '100%' }}>
       {!(location === '/login' || location === '/signup') && <Sidebar />}
-      <div>
+      <div style={{ width: '100%' }}>
         <Switch>
           {/* Public routes */}
           <Route path="/login">

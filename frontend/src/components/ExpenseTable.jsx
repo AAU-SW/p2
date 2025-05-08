@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
+import { formatDate } from '../utils/unitFormats';
 
 export const ExpenseTable = () => {
   const [rows, setRows] = useState([]);
@@ -21,9 +23,12 @@ export const ExpenseTable = () => {
   // get the data add it to the table
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/expenses', {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/expenses',
+        {
+          withCredentials: true,
+        },
+      );
       setRows(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -33,7 +38,6 @@ export const ExpenseTable = () => {
     fetchData();
   }, []);
 
-  // Submit input data to table
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -42,13 +46,14 @@ export const ExpenseTable = () => {
     const expense = formData.get('expense');
     const amount = parseFloat(formData.get('amount')) || 0;
     const date = formData.get('date');
-    setRows([...rows, { expense, amount, date }]);
+    const expenseType = formData.get('expenseType');
+    setRows([...rows, { expense, amount, date, expenseType }]);
 
     // post of submittet expense
     try {
       await axios.post(
-        'http://localhost:4000/expenses',
-        { expense, amount, date },
+        import.meta.env.VITE_API_URL + '/expenses',
+        { expense, amount, date, expenseType },
         {
           withCredentials: true,
         },
@@ -61,7 +66,7 @@ export const ExpenseTable = () => {
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/expenses/${id}`, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
         withCredentials: true,
       });
       fetchData();
@@ -85,6 +90,7 @@ export const ExpenseTable = () => {
             <tr>
               <th>expense</th>
               <th>amount</th>
+              <th>Type</th>
               <th>date</th>
               <th></th>
             </tr>
@@ -94,7 +100,8 @@ export const ExpenseTable = () => {
               <tr key={index}>
                 <td>{row.expense}</td>
                 <td>{row.amount.toLocaleString()} DKK</td>
-                <td>{row.date}</td>
+                <td>{row.expenseType}</td>
+                <td>{formatDate(row.date)}</td>
                 <td>
                   <button
                     className="delete-button"
@@ -144,6 +151,13 @@ export const ExpenseTable = () => {
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
+          <select name="expenseType" required>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
           <button
             className="add-expense-button"
             type="submit"

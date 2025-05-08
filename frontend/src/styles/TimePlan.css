@@ -107,6 +107,7 @@ tfoot {
   transition: border-color 0.3s ease; /* Smooth transition for focus */
   background-color: white; /* Ensure consistent background */
   appearance: none; /* Remove default dropdown arrow styling */
+  width: 100%;
 }
 
 .backdrop {

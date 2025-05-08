@@ -15,14 +15,17 @@ export const Login = () => {
     try {
       setLoading(true); // Start loading
 
-      const response = await fetch('http://localhost:4000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + '/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ email, password }),
         },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Login failed');

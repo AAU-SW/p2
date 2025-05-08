@@ -1,28 +1,36 @@
 import { Expense } from "../models/expenses.js";
 import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
+import { BUDGET_CATEGORIES } from "../util/BUDGET_CATEGORIES.js";
 
-// post request to add a new expense
 export const addExpense = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByCookies(req);
 		if (!userId) {
 			return res
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const { expense, amount, date } = req.body;
+		const {
+			expense,
+			amount,
+			date,
+			expenseType = BUDGET_CATEGORIES[0],
+			recurring = false,
+		} = req.body;
 
 		if (!expense || !amount || !date) {
 			return res.status(400).json({ error: "All fields are required" });
 		}
 
-		const newExpense = new Expense({
+		const newExpense = Expense.create({
 			expense,
 			amount,
 			date,
 			user: userId,
-		}); // Creation of a new expense, with the current logged user.
-		await newExpense.save();
+			expenseType,
+			recurring,
+		});
+
 		res.status(201).json(newExpense);
 	} catch (error) {
 		console.error("Error adding expense:", error);
@@ -30,33 +38,31 @@ export const addExpense = async (req, res) => {
 	}
 };
 
-// get all expenses for a user
 export const getExpenses = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByCookies(req);
 		if (!userId) {
 			return res
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const expenses = await Expense.find({ user: userId }); // Finds the timeplan of the logged user.
+		const expenses = await Expense.find({ user: userId });
 		res.status(200).json(expenses);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
 };
 
-// delete row in expense table
 export const deleteRow = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByCookies(req);
 		if (!userId) {
 			return res
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const { id } = req.params; // Gets the id of the row to be deleted.
-		const expense = await Expense.findByIdAndDelete(id); // Deletes the row with the given id.
+		const { id } = req.params;
+		const expense = await Expense.findByIdAndDelete(id);
 		if (!expense) {
 			return res.status(404).json({ error: "Expense not found" });
 		}

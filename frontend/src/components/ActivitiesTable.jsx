@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import '../styles/ActivitiesTable.css';
 import axios from 'axios';
 import { FiTrash } from 'react-icons/fi';
+import { Modal } from '../components/Modal';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
+import { formatDate } from '../utils/unitFormats';
 
 export const ActivitiesTable = () => {
   const [rows, setRows] = useState([]);
@@ -21,9 +24,12 @@ export const ActivitiesTable = () => {
   // get the data add it to the table
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/activities', {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/activities',
+        {
+          withCredentials: true,
+        },
+      );
       setRows(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -42,13 +48,14 @@ export const ActivitiesTable = () => {
     const title = formData.get('title');
     const price = parseFloat(formData.get('price')) || 0;
     const date = formData.get('date');
-    setRows([...rows, { title, price, date }]);
+    const activitiesType = formData.get('type');
+    setRows([...rows, { title, price, date, activitiesType }]);
 
     // post of submittet activities
     try {
       await axios.post(
-        'http://localhost:4000/activities',
-        { title, price, date },
+        import.meta.env.VITE_API_URL + '/activities',
+        { title, price, date, activitiesType },
         {
           withCredentials: true,
         },
@@ -57,11 +64,12 @@ export const ActivitiesTable = () => {
       console.error('Error posting data:', error);
     }
     form.reset();
+    setModal(false);
   }
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/activities/${id}`, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/activities/' + id, {
         withCredentials: true,
       });
       fetchData();
@@ -85,6 +93,7 @@ export const ActivitiesTable = () => {
             <tr>
               <th>Activities</th>
               <th>Price</th>
+              <th>Type</th>
               <th>Date</th>
               <th></th>
             </tr>
@@ -94,7 +103,8 @@ export const ActivitiesTable = () => {
               <tr key={index}>
                 <td>{row.title}</td>
                 <td>{row.price.toLocaleString()} DKK</td>
-                <td>{row.date}</td>
+                <td>{row.activitiesType}</td>
+                <td>{formatDate(row.date)}</td>
                 <td>
                   <button
                     className="delete-button"
@@ -128,27 +138,27 @@ export const ActivitiesTable = () => {
           ))}
         </div>
       </section>
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            Add new activity
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
+      <Modal
+        isOpen={modal}
+        onClose={() => setModal(false)}
+        title="Add Activity"
+        onSubmitClick={handleSubmit}
+        submitButtonText="Add activity"
+      >
+        <form>
           <input name="title" placeholder="E.g. rent, subscribtions" required />
           <input name="price" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
-          <button
-            className="add-activities-button"
-            type="submit"
-            onClick={() => setModal(false)}
-          >
-            Submit
-          </button>
+          <select name="type" required>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </form>
-      </dialog>
+      </Modal>
     </div>
   );
 };
