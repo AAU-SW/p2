@@ -40,7 +40,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
   // Fetching of current users timeplans
   const fetchTimeplans = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/timeplans/', {
+      const response = await axios.get(import.meta.env.API_URL + '/timeplans/', {
         withCredentials: true,
       });
       setAllRows(response.data);
@@ -70,7 +70,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
     // Post of submitted timeplan
     try {
       await axios.post(
-        'http://localhost:4000/timeplans/',
+        import.meta.env.API_URL + '/timeplans/',
         { type, job, hours, wage, fixedIncome, jobInterval },
         {
           withCredentials: true,
@@ -85,7 +85,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/timeplans/${id}`, {
+      await axios.delete(import.meta.env.API_URL + '/timeplans/' + id, {
         withCredentials: true,
       });
       fetchTimeplans();
