@@ -1,0 +1,17 @@
+export const BUDGET_CATEGORIES = [
+	"Food & Groceries",
+	"Transport",
+	"Rent",
+	"Utilities",
+	"Insurance",
+	"Entertainment",
+	"Shopping",
+	"Health",
+	"Education",
+	"Travel",
+	"Personal Care",
+	"Gifts & Donations",
+	"Savings",
+	"Investments",
+	"Other",
+];

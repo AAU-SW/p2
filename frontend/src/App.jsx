@@ -13,6 +13,7 @@ import { LogOut } from './pages/LogOut';
 import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
+import { GlobalLoader } from './components/GlobalLoader';
 
 const App = () => {
   const [location] = useLocation();
@@ -22,7 +23,7 @@ const App = () => {
   const checkAuth = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/auth/', {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
         method: 'POST',
         credentials: 'include',
       });
@@ -46,13 +47,13 @@ const App = () => {
   }, [location]); // Check auth when location changes
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <GlobalLoader></GlobalLoader>;
   }
 
   return (
-    <main style={{ display: 'flex' }}>
+    <main style={{ display: 'flex', height: '100%' }}>
       {!(location === '/login' || location === '/signup') && <Sidebar />}
-      <div>
+      <div style={{ width: '100%' }}>
         <Switch>
           {/* Public routes */}
           <Route path="/login">
