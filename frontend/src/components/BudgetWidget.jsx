@@ -3,7 +3,13 @@ import { Card, CardContent, CardDetails, CardHeader } from './Card';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
 
-export const BudgetWidget = ({ title, id,  currentSpending, maxSpending, fetchBudgetsWithSpending }) => {
+export const BudgetWidget = ({
+  title,
+  id,
+  currentSpending,
+  maxSpending,
+  fetchBudgetsWithSpending,
+}) => {
   const DKKFormat = new Intl.NumberFormat('da-DK', {
     style: 'currency',
     currency: 'DKK',
@@ -24,11 +30,21 @@ export const BudgetWidget = ({ title, id,  currentSpending, maxSpending, fetchBu
     <div className="budget-widget">
       <Card>
         <CardContent>
-          <div style={{ display: 'flex', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <CardHeader title={title} />
-          <button onClick={() => {
-                      deleteRow(id);
-                    }} style={{ background: 'none', border: 'none', cursor: 'pointer'}}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <CardHeader title={title} />
+            <button
+              onClick={() => {
+                deleteRow(id);
+              }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            >
               <FiTrash />
             </button>
           </div>

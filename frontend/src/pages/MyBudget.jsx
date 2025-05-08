@@ -10,7 +10,7 @@ export const MyBudget = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
 
-   const fetchBudgetsWithSpending = async () => {
+  const fetchBudgetsWithSpending = async () => {
     try {
       const updatedBudgets = await getBudgetsWithCurrentSpending();
       setBudgetSections(updatedBudgets);
@@ -106,7 +106,7 @@ export const MyBudget = () => {
               title={widget.title}
               currentSpending={widget.currentSpending || 0}
               maxSpending={widget.maxSpending}
-              fetchBudgetsWithSpending={fetchBudgetsWithSpending} 
+              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
             />
           ))}
         </div>
