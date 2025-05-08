@@ -2,17 +2,19 @@
 import mongoose from "mongoose";
 import { BUDGET_CATEGORIES } from "../../shared/BUDGET_CATEGORIES.js";
 
-const expenseSchema = new mongoose.Schema({
+const activitiesSchema = new mongoose.Schema({
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
+
 		required: true,
+		// add function that points to user/model
 	},
-	expense: {
+	title: {
 		type: String,
 		required: true,
 	},
-	amount: {
+	price: {
 		type: Number,
 		required: true,
 	},
@@ -20,11 +22,11 @@ const expenseSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 	},
-	expenseType: {
+	activitiesType: {
 		type: String,
 		enum: BUDGET_CATEGORIES,
 		required: true,
 	},
 });
 
-export const Expense = mongoose.model("Expense", expenseSchema);
+export const Activities = mongoose.model("Activities", activitiesSchema);

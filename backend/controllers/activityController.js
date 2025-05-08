@@ -1,8 +1,8 @@
-import { Expense } from "../models/expenses.js";
+import { Activities } from "../models/activities.js";
 import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
 
-// post request to add a new expense
-export const addExpense = async (req, res) => {
+// post request to add a new activity
+export const addActivities = async (req, res) => {
 	try {
 		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
 		if (!userId) {
@@ -10,29 +10,29 @@ export const addExpense = async (req, res) => {
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const { expense, amount, date, expenseType } = req.body;
+		const { title, price, date, activitiesType } = req.body;
 
-		if (!expense || !amount || !date) {
+		if (!title || !price || !date) {
 			return res.status(400).json({ error: "All fields are required" });
 		}
 
-		const newExpense = new Expense({
-			expense,
-			amount,
+		const newActivity = new Activities({
+			title,
+			price,
 			date,
 			user: userId,
-			expenseType,
-		}); // Creation of a new expense, with the current logged user.
-		await newExpense.save();
-		res.status(201).json(newExpense);
+			activitiesType,
+		}); // Creation of a new activity, with the current logged user.
+		await newActivity.save();
+		res.status(201).json(newActivity);
 	} catch (error) {
-		console.error("Error adding expense:", error);
+		console.error("Error adding activity:", error);
 		res.status(500).json({ error: error.message });
 	}
 };
 
-// get all expenses for a user
-export const getExpenses = async (req, res) => {
+// get all activities for a user
+export const getActivities = async (req, res) => {
 	try {
 		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
 		if (!userId) {
@@ -40,14 +40,14 @@ export const getExpenses = async (req, res) => {
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const expenses = await Expense.find({ user: userId }); // Finds the timeplan of the logged user.
-		res.status(200).json(expenses);
+		const activities = await Activities.find({ user: userId }); // Finds the timeplan of the logged user.
+		res.status(200).json(activities);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
 };
 
-// delete row in expense table
+// delete row in activities table
 export const deleteRow = async (req, res) => {
 	try {
 		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
@@ -57,11 +57,11 @@ export const deleteRow = async (req, res) => {
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
 		const { id } = req.params; // Gets the id of the row to be deleted.
-		const expense = await Expense.findByIdAndDelete(id); // Deletes the row with the given id.
-		if (!expense) {
-			return res.status(404).json({ error: "Expense not found" });
+		const activites = await Activities.findByIdAndDelete(id); // Deletes the row with the given id.
+		if (!activites) {
+			return res.status(404).json({ error: "Activites not found" });
 		}
-		res.status(200).json({ message: "Expense deleted successfully" });
+		res.status(200).json({ message: "Activites deleted successfully" });
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

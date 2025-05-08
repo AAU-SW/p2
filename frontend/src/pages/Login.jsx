@@ -31,9 +31,10 @@ export const Login = () => {
       const data = await response.json();
       console.log('Login successful:', data);
       // Redirect to home page
-      navigate('/');
+      window.location.href = '/';
+      //navigate('/p2'); does not work as it needs full page refresh?
     } catch (error) {
-      console.error("Login failed", error);
+      console.error('Login failed', error);
     } finally {
       setLoading(false); // End loading regardless of outcome
     }

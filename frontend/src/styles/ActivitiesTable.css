@@ -4,7 +4,6 @@ table {
   border-style: none;
   width: 1154px;
   text-align: center;
-  font-variant-numeric: tabular-nums;
 }
 
 th {
@@ -28,9 +27,6 @@ tr {
   font-family: 'Inter', sans-serif;
   font-weight: 200;
 }
-tr:hover .delete-button {
-  visibility: visible;
-}
 
 tfoot {
   background-color: #f2f2f2;
@@ -52,7 +48,7 @@ tfoot {
   font-size: 16px;
   color: grey;
 }
-.add-job-button {
+.add-activity-button {
   background-color: #27667b;
   color: white;
   font-size: 14px;
@@ -98,17 +94,6 @@ tfoot {
   outline: none; /* Remove default outline */
   transition: border-color 0.3s ease; /* Smooth transition for focus */
 }
-.inputForms select {
-  padding: 10px; /* Add padding inside the select field */
-  font-size: 14px; /* Adjust font size */
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 8px; /* Rounded corners */
-  outline: none; /* Remove default outline */
-  transition: border-color 0.3s ease; /* Smooth transition for focus */
-  background-color: white; /* Ensure consistent background */
-  appearance: none; /* Remove default dropdown arrow styling */
-  width: 100%;
-}
 
 .backdrop {
   position: fixed;
@@ -132,6 +117,7 @@ tfoot {
   font-weight: bold;
 }
 .unstyledButton {
+  color: #000000;
   border: none;
   outline: none;
   background: none;
@@ -166,15 +152,9 @@ tfoot {
 }
 
 .delete-button {
-  outline: none;
+  background-color: #27667b;
+  color: white;
+  font-size: 14px;
+  border-radius: 20px; /* Rounded corners */
   border: none;
-  visibility: hidden;
-  background: transparent;
-}
-.delete-button svg {
-  cursor: pointer;
-  opacity: 0.75;
-  color: red;
-  width: 20px;
-  height: 20px;
 }
