@@ -65,3 +65,9 @@
   background-color: #7b61ff;
   border-radius: 5px;
 }
+
+.budget-widget-delete {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
