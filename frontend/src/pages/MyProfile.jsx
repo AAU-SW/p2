@@ -8,12 +8,12 @@ const MyProfile = () => {
 
   useEffect(() => {
     fetch(`http://localhost:4000/user/${userId}`)
-    // userid skal være stien 
-      .then(res => res.json())
-      .then(data => setUser(data))
+      // userid skal være stien
+      .then((res) => res.json())
+      .then((data) => setUser(data))
       .catch(console.error);
   }, [userId]);
-    console.log(user);
+  console.log(user);
   //if (!user) return <p>Loading...</p>;
 
   return (
@@ -26,5 +26,3 @@ const MyProfile = () => {
 };
 
 export default MyProfile;
-
-  
