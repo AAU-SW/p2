@@ -15,7 +15,7 @@ export const Sidebar = () => {
   const [_, navigate] = useLocation();
   const handleLogout = async () => {
     try {
-      const res = await fetch('http://localhost:4000/auth/logout', {
+      const res = await fetch(import.meta.env.API_URL + '/auth/logout', {
         method: 'GET',
         credentials: 'include',
       });

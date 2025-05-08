@@ -4,8 +4,12 @@ export const calculateTotalSpending = async () => {
   try {
     // Fetch both expenses and activities data in parallel
     const [expensesResponse, activitiesResponse] = await Promise.all([
-      axios.get('http://localhost:4000/expenses', { withCredentials: true }),
-      axios.get('http://localhost:4000/activities', { withCredentials: true }),
+      axios.get(import.meta.env.VITE_API_URL + '/expenses', {
+        withCredentials: true,
+      }),
+      axios.get(import.meta.env.VITE_API_URL + '/activities', {
+        withCredentials: true,
+      }),
     ]);
 
     const expenses = expensesResponse.data || [];
@@ -93,9 +97,12 @@ export const getBudgetsWithCurrentSpending = async () => {
     const spendingData = await calculateTotalSpending();
 
     // Fetch budgets
-    const budgetsResponse = await axios.get('http://localhost:4000/budgets', {
-      withCredentials: true,
-    });
+    const budgetsResponse = await axios.get(
+      import.meta.env.API_URL + '/budgets',
+      {
+        withCredentials: true,
+      },
+    );
 
     const budgets = budgetsResponse.data || [];
 
