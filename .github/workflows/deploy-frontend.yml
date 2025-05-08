@@ -21,6 +21,8 @@ jobs:
       run:
         working-directory:
           frontend
+    env:
+      VITE_API_URL: ${{ secrets.API_URL }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
