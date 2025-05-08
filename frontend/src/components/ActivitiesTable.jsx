@@ -3,7 +3,7 @@ import '../styles/ActivitiesTable.css';
 import axios from 'axios';
 import { FiTrash } from 'react-icons/fi';
 import { Modal } from '../components/Modal';
-import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
 export const ActivitiesTable = () => {

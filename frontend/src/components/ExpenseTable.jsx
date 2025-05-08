@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
-import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
 export const ExpenseTable = () => {

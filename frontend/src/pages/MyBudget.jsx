@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BudgetWidget } from '../components/BudgetWidget';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
-import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
