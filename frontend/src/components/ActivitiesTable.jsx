@@ -6,7 +6,7 @@ import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
-export const ActivitiesTable = () => {
+export const ActivitiesTable = (isWidget) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
 
@@ -78,12 +78,17 @@ export const ActivitiesTable = () => {
   const totalAmount = rows.reduce((sum, row) => sum + row.price, 0);
   return (
     <div>
-      <button
-        className="add-activity-button add-job-placement"
-        onClick={() => setModal(true)}
-      >
-        + Add new activity
-      </button>
+      {!isWidget && (
+        <>
+          <button
+            className="add-activity-button add-job-placement"
+            onClick={() => setModal(true)}
+          >
+            + Add new activity
+          </button>
+        </>
+      )}
+
       <section className="table-container">
         <table>
           <thead>

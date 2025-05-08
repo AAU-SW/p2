@@ -1,0 +1,161 @@
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-style: none;
+    width: 1154px;
+    text-align: center;
+  }
+  
+  th {
+    border-top: 2px solid rgb(235, 235, 235); /* Add a solid line above the table header */
+    font-size: 22px;
+    font-weight: 200;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  td {
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    padding: 15px 20px; /* Increase padding for larger cells */
+    height: 30px;
+    font-weight: 200;
+  }
+  
+  tr {
+    border-bottom: 1px solid #ddd;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+  }
+  
+  tfoot {
+    background-color: #f2f2f2;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    font-size: 36px;
+    line-height: 0;
+  }
+  .sub-header {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    font-size: 16px;
+    color: grey;
+  }
+  .add-activity-button {
+    background-color: #27667b;
+    color: white;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .add-job-placement {
+    display: flex;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+  
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  
+  .inputForms {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: right;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+    z-index: 1010;
+  }
+  .inputForms input {
+    padding: 10px; /* Add padding inside the input fields */
+    font-size: 14px; /* Adjust font size */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease; /* Smooth transition for focus */
+  }
+  
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #000000;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .unstyledButton {
+    color: #000000;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+  }
+  
+  .pagination-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .pagination-bar button {
+    background-color: #27667b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination-bar button:hover {
+    background-color: #1e4e63;
+  }
+  
+  .pagination-bar button.active {
+    background-color: #1e4e63;
+    font-weight: bold;
+  }
+  
+  .delete-button {
+    background-color: #27667b;
+    color: white;
+    font-size: 14px;
+    border-radius: 20px; /* Rounded corners */
+    border: none;
+  }
+  

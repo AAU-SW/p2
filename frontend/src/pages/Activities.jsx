@@ -1,12 +1,17 @@
 import { ActivitiesTable } from '../components/ActivitiesTable';
 import { Card, CardHeader } from '../components/Card';
 
-export const Activities = () => {
+export const Activities = (isWidget) => {
   return (
     <div>
-      <h1>Activities</h1>
+      {!isWidget && (
+        <>
+        <h1>Activities</h1>
+        </>
+      )}
+      
       <Card>
-        <ActivitiesTable />
+        <ActivitiesTable isWidget={isWidget} />
       </Card>
     </div>
   );

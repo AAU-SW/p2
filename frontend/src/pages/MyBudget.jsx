@@ -6,7 +6,7 @@ import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
-export const MyBudget = () => {
+export const MyBudget = (isWidget) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
 
@@ -53,11 +53,16 @@ export const MyBudget = () => {
 
   return (
     <>
-      <section>
-        <h1 className="header">Budgetting</h1>
-        <a className="sub-header">"Eksempel motto-tekst"</a>
-      </section>
-      <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
+      {!isWidget && (
+        <>
+          <section>
+            <h1 className="header">Budgetting</h1>
+            <a className="sub-header">"Eksempel motto-tekst"</a>
+          </section>
+          <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
+        </>
+      )}
+
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
