@@ -12,6 +12,5 @@ router.use("/auth", authRouter);
 router.use("/expenses", expenseRouter);
 router.use("/timeplans", timeplanRoutes);
 router.use("/budgets", budgetRouter);
-router.use("/activities", activitiesRouter);
 
 export default router;
