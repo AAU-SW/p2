@@ -21,7 +21,7 @@ export const TimePlan = () => {
   return (
     <div>
       <section>
-        <h1 className="header">Timeplanning</h1>
+        <h1 className="header">My Income</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
       <Card>

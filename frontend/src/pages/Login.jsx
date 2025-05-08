@@ -15,14 +15,17 @@ export const Login = () => {
     try {
       setLoading(true); // Start loading
 
-      const response = await fetch('http://localhost:4000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + '/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ email, password }),
         },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Login failed');
@@ -31,7 +34,8 @@ export const Login = () => {
       const data = await response.json();
       console.log('Login successful:', data);
       // Redirect to home page
-      navigate('/');
+      window.location.href = '/';
+      //navigate('/p2'); does not work as it needs full page refresh?
     } catch (error) {
       console.error('Login failed', error);
     } finally {

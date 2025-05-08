@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import '../styles/ExpenseTable.css';
-import { FiTrash } from 'react-icons/fi';
+import '../styles/ActivitiesTable.css';
 import axios from 'axios';
+import { FiTrash } from 'react-icons/fi';
+import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
-export const ExpenseTable = () => {
+export const ActivitiesTable = () => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
 
@@ -24,7 +25,7 @@ export const ExpenseTable = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        import.meta.env.VITE_API_URL + '/expenses',
+        import.meta.env.VITE_API_URL + '/activities',
         {
           withCredentials: true,
         },
@@ -38,22 +39,23 @@ export const ExpenseTable = () => {
     fetchData();
   }, []);
 
+  // Submit input data to table
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
 
-    const expense = formData.get('expense');
-    const amount = parseFloat(formData.get('amount')) || 0;
+    const title = formData.get('title');
+    const price = parseFloat(formData.get('price')) || 0;
     const date = formData.get('date');
-    const expenseType = formData.get('expenseType');
-    setRows([...rows, { expense, amount, date, expenseType }]);
+    const activitiesType = formData.get('type');
+    setRows([...rows, { title, price, date, activitiesType }]);
 
-    // post of submittet expense
+    // post of submittet activities
     try {
       await axios.post(
-        import.meta.env.VITE_API_URL + '/expenses',
-        { expense, amount, date, expenseType },
+        import.meta.env.VITE_API_URL + '/activities',
+        { title, price, date, activitiesType },
         {
           withCredentials: true,
         },
@@ -62,11 +64,12 @@ export const ExpenseTable = () => {
       console.error('Error posting data:', error);
     }
     form.reset();
+    setModal(false);
   }
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/activities/' + id, {
         withCredentials: true,
       });
       fetchData();
@@ -75,32 +78,32 @@ export const ExpenseTable = () => {
     }
   };
 
-  const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
+  const totalAmount = rows.reduce((sum, row) => sum + row.price, 0);
   return (
     <div>
       <button
-        className="add-job-placement add-job-button"
+        className="add-activity-button add-job-placement"
         onClick={() => setModal(true)}
       >
-        + Add new expense
+        + Add new activity
       </button>
       <section className="table-container">
         <table>
           <thead>
             <tr>
-              <th>expense</th>
-              <th>amount</th>
+              <th>Activities</th>
+              <th>Price</th>
               <th>Type</th>
-              <th>date</th>
+              <th>Date</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {currentRows.map((row, index) => (
               <tr key={index}>
-                <td>{row.expense}</td>
-                <td>{row.amount.toLocaleString()} DKK</td>
-                <td>{row.expenseType}</td>
+                <td>{row.title}</td>
+                <td>{row.price.toLocaleString()} DKK</td>
+                <td>{row.activitiesType}</td>
                 <td>{formatDate(row.date)}</td>
                 <td>
                   <button
@@ -135,38 +138,27 @@ export const ExpenseTable = () => {
           ))}
         </div>
       </section>
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            Add new expense
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
-          <input
-            name="expense"
-            placeholder="E.g. rent, subscribtions"
-            required
-          />
-          <input name="amount" type="number" placeholder="DKK" required />
+      <Modal
+        isOpen={modal}
+        onClose={() => setModal(false)}
+        title="Add Activity"
+        onSubmitClick={handleSubmit}
+        submitButtonText="Add activity"
+      >
+        <form>
+          <input name="title" placeholder="E.g. rent, subscribtions" required />
+          <input name="price" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
-          <select name="expenseType" required>
+          <select name="type" required>
             {BUDGET_CATEGORIES.map((category, index) => (
               <option key={index} value={category}>
                 {category}
               </option>
             ))}
           </select>
-          <button
-            className="add-expense-button"
-            type="submit"
-            onClick={() => setModal(false)}
-          >
-            Submit
-          </button>
         </form>
-      </dialog>
+      </Modal>
     </div>
   );
 };

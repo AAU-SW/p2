@@ -15,7 +15,7 @@ export const Sidebar = () => {
   const [_, navigate] = useLocation();
   const handleLogout = async () => {
     try {
-      const res = await fetch('http://localhost:4000/auth/logout', {
+      const res = await fetch(import.meta.env.VITE_API_URL + '/auth/logout', {
         method: 'GET',
         credentials: 'include',
       });
@@ -81,12 +81,12 @@ export const Sidebar = () => {
               href="/expenses"
             />
             <SidebarLink
-              text="My Budget"
+              text="Budget"
               icon={<FaChartPie />}
               href="/mybudget"
             />
             <SidebarLink
-              text="Timeplanning"
+              text="Income"
               icon={<FaBusinessTime />}
               href="/timeplan"
             />
