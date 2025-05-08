@@ -1,5 +1,6 @@
 import '../styles/BudgetWidget.css';
 import { Card, CardContent, CardDetails, CardHeader } from './Card';
+import { FiTrash } from 'react-icons/fi';
 
 export const BudgetWidget = ({ title, currentSpending, maxSpending }) => {
   const DKKFormat = new Intl.NumberFormat('da-DK', {
@@ -10,7 +11,12 @@ export const BudgetWidget = ({ title, currentSpending, maxSpending }) => {
     <div className="budget-widget">
       <Card>
         <CardContent>
+          <div style={{ display: 'flex', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <CardHeader title={title} />
+          <button onClick={() => console.log('Delete budget')} style={{ background: 'none', border: 'none', cursor: 'pointer'}}>
+              <FiTrash />
+            </button>
+          </div>
           <div className="progress-bar-container">
             <progress
               className="progress-bar"

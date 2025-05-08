@@ -58,22 +58,21 @@ export const MyBudget = () => {
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
       <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Add Budget Category"
-        onSubmitClick={handleSubmit}
-        submitButtonText="Save Budget"
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            gap: '5px',
-          }}
+      <form onSubmit={handleSubmit}>
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          title="Add Budget Category"
+          submitButtonText="Save Budget"
         >
-          <form>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              gap: '5px',
+            }}
+          >
             <select name="type" required>
               {BUDGET_CATEGORIES.map((category, index) => (
                 <option key={index} value={category}>
@@ -87,9 +86,9 @@ export const MyBudget = () => {
               type="number"
               placeholder="maxSpending"
             ></input>
-          </form>
-        </div>
-      </Modal>
+          </div>
+        </Modal>
+      </form>
       {budgetSections.length > 0 ? (
         <div
           style={{

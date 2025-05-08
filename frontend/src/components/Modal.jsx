@@ -4,7 +4,6 @@ export const Modal = ({
   isOpen, // Controls if modal is visible
   onClose, // Function to call when modal is closed
   title, // Title of the modal header
-  onSubmitClick, // submission handler
   children, // Content inside the modal
   submitButtonText, // Text for the submit button
 }) => {
@@ -30,9 +29,7 @@ export const Modal = ({
         {/* Modal content passed as children */}
         {children}
 
-        <Button type="submit" onClick={onSubmitClick}>
-          {submitButtonText}
-        </Button>
+        <Button type="submit">{submitButtonText}</Button>
       </div>
     </dialog>
   );
