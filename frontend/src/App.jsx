@@ -22,7 +22,7 @@ const App = () => {
   const checkAuth = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:4000/auth/', {
+      const response = await fetch(import.meta.env.API_URL + '/auth/', {
         method: 'POST',
         credentials: 'include',
       });
