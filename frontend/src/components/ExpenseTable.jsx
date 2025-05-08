@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
-import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
 export const ExpenseTable = () => {
@@ -23,7 +23,7 @@ export const ExpenseTable = () => {
   // get the data add it to the table
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/expenses', {
+      const response = await axios.get(import.meta.env.VITE_API_URL + '/expenses', {
         withCredentials: true,
       });
       setRows(response.data);
@@ -49,7 +49,7 @@ export const ExpenseTable = () => {
     // post of submittet expense
     try {
       await axios.post(
-        'http://localhost:4000/expenses',
+        import.meta.env.VITE_API_URL + '/expenses',
         { expense, amount, date, expenseType },
         {
           withCredentials: true,
@@ -63,7 +63,7 @@ export const ExpenseTable = () => {
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/expenses/${id}`, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
         withCredentials: true,
       });
       fetchData();
