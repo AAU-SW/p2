@@ -40,9 +40,12 @@ export const TimeplanTable = ({ setWidgetData }) => {
   // Fetching of current users timeplans
   const fetchTimeplans = async () => {
     try {
-      const response = await axios.get(import.meta.env.API_URL + '/timeplans/', {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        import.meta.env.API_URL + '/timeplans/',
+        {
+          withCredentials: true,
+        },
+      );
       setAllRows(response.data);
     } catch (error) {
       console.error('Error fetching timeplans:', error);
