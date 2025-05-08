@@ -36,12 +36,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Debug VITE_API_URL
-        run: |
-          echo "→ in-runner VITE_API_URL = $vars.API_URL"
-          node -e "console.log('→ node sees:', process.env.VITE_API_URL)"
-        env:
-          VITE_API_URL: ${{ vars.API_URL }}
       - name: Build
         run: npm run build
         env:

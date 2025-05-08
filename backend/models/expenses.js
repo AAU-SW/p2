@@ -25,6 +25,11 @@ const expenseSchema = new mongoose.Schema({
 		enum: BUDGET_CATEGORIES,
 		required: true,
 	},
+	recurring: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
 });
 
 export const Expense = mongoose.model("Expense", expenseSchema);
