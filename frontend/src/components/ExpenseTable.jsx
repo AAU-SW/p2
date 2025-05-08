@@ -23,9 +23,12 @@ export const ExpenseTable = () => {
   // get the data add it to the table
   const fetchData = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_API_URL + '/expenses', {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/expenses',
+        {
+          withCredentials: true,
+        },
+      );
       setRows(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
