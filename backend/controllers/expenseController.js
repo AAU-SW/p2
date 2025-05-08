@@ -10,7 +10,7 @@ export const addExpense = async (req, res) => {
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const { expense, amount, date } = req.body;
+		const { expense, amount, date, expenseType } = req.body;
 
 		if (!expense || !amount || !date) {
 			return res.status(400).json({ error: "All fields are required" });
@@ -21,6 +21,7 @@ export const addExpense = async (req, res) => {
 			amount,
 			date,
 			user: userId,
+			expenseType,
 		}); // Creation of a new expense, with the current logged user.
 		await newExpense.save();
 		res.status(201).json(newExpense);

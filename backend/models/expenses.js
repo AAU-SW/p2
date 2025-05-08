@@ -1,13 +1,12 @@
 //database table
 import mongoose from "mongoose";
+import { BUDGET_CATEGORIES } from "../../shared/BUDGET_CATEGORIES.js";
 
 const expenseSchema = new mongoose.Schema({
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
-
 		required: true,
-		// add function that points to user/model
 	},
 	expense: {
 		type: String,
@@ -19,6 +18,11 @@ const expenseSchema = new mongoose.Schema({
 	},
 	date: {
 		type: Date,
+		required: true,
+	},
+	expenseType: {
+		type: String,
+		enum: BUDGET_CATEGORIES,
 		required: true,
 	},
 });

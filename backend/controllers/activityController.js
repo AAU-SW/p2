@@ -10,7 +10,7 @@ export const addActivities = async (req, res) => {
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const { title, price, date } = req.body;
+		const { title, price, date, activitiesType } = req.body;
 
 		if (!title || !price || !date) {
 			return res.status(400).json({ error: "All fields are required" });
@@ -21,6 +21,7 @@ export const addActivities = async (req, res) => {
 			price,
 			date,
 			user: userId,
+			activitiesType,
 		}); // Creation of a new activity, with the current logged user.
 		await newActivity.save();
 		res.status(201).json(newActivity);
