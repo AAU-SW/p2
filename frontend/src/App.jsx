@@ -1,42 +1,136 @@
-import { Route, Switch } from "wouter";
-import "./App.css";
-import { SignUp } from "./pages/SignUp";
-import { Home } from "./pages/Home";
-import { Activities } from "./pages/Activities";
-import { Advice } from "./pages/Advice";
-import { Expenses } from "./pages/Expenses";
-import { LogOut } from "./pages/LogOut";
-import { Settings } from "./pages/Settings";
-import { Sidebar } from "./components/Sidebar";
+import { Route, Switch, useLocation, Redirect } from 'wouter';
+import { useEffect, useState } from 'react';
+import './App.css';
+import { Login } from './pages/Login';
+import { SignUp } from './pages/SignUp';
+import { Home } from './pages/Home';
+import { Activities } from './pages/Activities';
+import { Advice } from './pages/Advice';
+import { TimePlan } from './pages/TimePlan';
+import { Expenses } from './pages/Expenses';
+import { MyBudget } from './pages/MyBudget';
+import { LogOut } from './pages/LogOut';
+import { Settings } from './pages/Settings';
+import { Sidebar } from './components/SideBar';
+import { PrivateRoute } from './components/PrivateRoute';
+
 const App = () => {
+  const [location] = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const checkAuth = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsAuthenticated(data.status === true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch (error) {
+      console.error('Authentication check failed', error);
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, [location]); // Check auth when location changes
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <main style={{ display: 'flex'}}>
-      <Sidebar />
-      <div>
+    <main style={{ display: 'flex', height: '100%' }}>
+      {!(location === '/login' || location === '/signup') && <Sidebar />}
+      <div style={{ width: '100%' }}>
         <Switch>
-          <Route path="/">
-            <Home />
+          {/* Public routes */}
+          <Route path="/login">
+            <Login />
           </Route>
-          <Route path="/sign-up">
+          <Route path="/signup">
             <SignUp />
           </Route>
-          <Route path="/activities">
-            <Activities></Activities>
-          </Route>
-          <Route path="/advice">
-            <Advice></Advice>
-          </Route>
-          <Route path="/expenses">
-            <Expenses></Expenses>
-          </Route>
-          <Route path="/log-out">
-            <LogOut></LogOut>
-          </Route>
-          <Route path="/settings">
-            <Settings></Settings>
-          </Route>
 
-          <Route>Not Found</Route>
+          {/* Protected routes */}
+          <PrivateRoute
+            path="/"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <Home />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/activities"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <Activities />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/timeplan"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <TimePlan />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/advice"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <Advice />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/expenses"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <Expenses />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/mybudget"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <MyBudget />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/log-out"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <LogOut />
+          </PrivateRoute>
+
+          <PrivateRoute
+            path="/settings"
+            isAuthenticated={isAuthenticated}
+            redirectPath="/login"
+          >
+            <Settings />
+          </PrivateRoute>
+
+          {/* Not found route */}
+          <PrivateRoute isAuthenticated={isAuthenticated} redirectPath="/login">
+            <div>Not found</div>
+          </PrivateRoute>
         </Switch>
       </div>
     </main>

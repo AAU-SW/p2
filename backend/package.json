@@ -1,17 +1,34 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "express": "^4.21.2"
-  }
+	"name": "backend",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"test": "vitest",
+		"format": "npx @biomejs/biome format --write .",
+		"format:check": "npx @biomejs/biome format .",
+		"lint": "npx @biomejs/biome lint",
+		"lint:write": "npx @biomejs/biome lint --write ."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"cookie-parser": "^1.4.7",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.13.2",
+		"morgan": "^1.10.0",
+		"nodemon": "^3.1.9"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"vitest": "^3.1.2"
+	}
 }
