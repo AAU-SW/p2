@@ -41,7 +41,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
   const fetchTimeplans = async () => {
     try {
       const response = await axios.get(
-        import.meta.env.API_URL + '/timeplans/',
+        import.meta.env.VITE_API_URL + '/timeplans/',
         {
           withCredentials: true,
         },
@@ -73,7 +73,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
     // Post of submitted timeplan
     try {
       await axios.post(
-        import.meta.env.API_URL + '/timeplans/',
+        import.meta.env.VITE_API_URL + '/timeplans/',
         { type, job, hours, wage, fixedIncome, jobInterval },
         {
           withCredentials: true,
@@ -88,7 +88,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(import.meta.env.API_URL + '/timeplans/' + id, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/timeplans/' + id, {
         withCredentials: true,
       });
       fetchTimeplans();

@@ -22,7 +22,7 @@ const App = () => {
   const checkAuth = async () => {
     try {
       setLoading(true);
-      const response = await fetch(import.meta.env.API_URL + '/auth/', {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
         method: 'POST',
         credentials: 'include',
       });

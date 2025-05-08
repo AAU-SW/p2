@@ -25,7 +25,7 @@ export const ActivitiesTable = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        import.meta.env.API_URL + '/activities',
+        import.meta.env.VITE_API_URL + '/activities',
         {
           withCredentials: true,
         },
@@ -54,7 +54,7 @@ export const ActivitiesTable = () => {
     // post of submittet activities
     try {
       await axios.post(
-        import.meta.env.API_URL + '/activities',
+        import.meta.env.VITE_API_URL + '/activities',
         { title, price, date, activitiesType },
         {
           withCredentials: true,
@@ -69,7 +69,7 @@ export const ActivitiesTable = () => {
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(import.meta.env.API_URL + '/activities/' + id, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/activities/' + id, {
         withCredentials: true,
       });
       fetchData();

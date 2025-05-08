@@ -98,7 +98,7 @@ export const getBudgetsWithCurrentSpending = async () => {
 
     // Fetch budgets
     const budgetsResponse = await axios.get(
-      import.meta.env.API_URL + '/budgets',
+      import.meta.env.VITE_API_URL + '/budgets',
       {
         withCredentials: true,
       },

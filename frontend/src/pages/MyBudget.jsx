@@ -31,7 +31,7 @@ export const MyBudget = () => {
     const maxSpending = parseFloat(formData.get('maxSpending'));
     try {
       await axios.post(
-        import.meta.env.API_URL + '/budgets',
+        import.meta.env.VITE_API_URL + '/budgets',
         {
           title,
           maxSpending,
