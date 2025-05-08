@@ -1,230 +1,209 @@
-/* Main layout */
 .app-container {
-    display: flex;
-    min-height: 100vh;
-    width: 100%;
-  }
-  
-  /* Important: This ensures the sidebar and main content sit side by side */
-  .main-content {
-    flex: 1;
-    padding: 20px 30px;
-    background-color: #f5f7fa;
-    min-height: 100vh;
-    box-sizing: border-box;
-    /* No margins here to allow the flex layout to work properly */
-  }
-  
-  /* Header section */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    padding-top: 10px;
-  }
-  
-  .page-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-  }
-  
-  .user-section {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .notification-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    background-color: #f0f2f5;
-  }
-  
-  .notification-icon {
-    width: 24px;
-    height: 24px;
-    stroke: #666;
-    fill: none;
-    stroke-width: 2;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .user-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .user-name {
-    font-weight: 600;
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .user-email {
-    margin: 0;
-    font-size: 12px;
-    color: #666;
-  }
-  
-  /* Settings cards */
-  .settings-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-  
-  .section-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* Form elements */
-  .form-row {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .form-row.three-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-label {
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 500;
-  }
-  
-  .form-control {
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-  }
-  
-  .form-control:focus {
-    border-color: #4a90e2;
-    outline: none;
-  }
-  
-  /* Checkbox styling */
-  .checkbox-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .checkbox-input {
-    margin-right: 10px;
-  }
-  
-  .checkbox-label {
-    font-size: 14px;
-    color: #333;
-  }
-  
-  /* Button styles */
-  .button-group {
-    display: flex;
-    gap: 12px;
-    margin-top: 24px;
-  }
-  
-  .btn-primary {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .btn-primary:hover {
-    background-color: #3a80d2;
-  }
-  
-  .btn-secondary {
-    background-color: transparent;
-    color: #666;
-    border: 1px solid #ddd;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #f5f5f5;
-  }
-  
-  /* Danger zone styling */
-  .danger-zone {
-    border: 1px solid #ffdddd;
-    border-radius: 4px;
-    padding: 20px;
-    background-color: #fff8f8;
-  }
-  
-  .danger-title {
-    color: #e53935;
-    font-size: 16px;
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-  
-  .danger-text {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-  
-  .btn-danger {
-    background-color: #e53935;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .btn-danger:hover {
-    background-color: #d32f2f;
-  }
+  min-height: 100vh;
+  width: 169%;
+}
+
+/* til sidebars finder ud af margin efter */
+.main-content {
+  flex: 1;
+  padding: 20px 30px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Header section */
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  margin-left: 0;
+  padding-top: 10px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  height: auto;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: #f0f2f5;
+}
+
+.notification-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #666;
+  fill: none;
+  stroke-width: 2;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  margin: 0;
+  font-size: 14px;
+  height: 20px;
+}
+
+.user-email {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Settings cards */
+.settings-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form elements */
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-row.three-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-control {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #1859a4f4;
+  outline: none;
+}
+
+/* Button styles */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-primary {
+  background-color: #38669a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #3a80d2;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #f5f5f5;
+}
+
+/* Danger zone styling */
+.danger-zone {
+  border: 1px solid #ffdddd;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fff8f8;
+}
+
+.danger-title {
+  color: #e53935;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.btn-delete {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
