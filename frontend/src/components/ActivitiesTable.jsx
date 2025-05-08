@@ -3,7 +3,7 @@ import '../styles/ActivitiesTable.css';
 import axios from 'axios';
 import { FiTrash } from 'react-icons/fi';
 import { Modal } from '../components/Modal';
-import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
 export const ActivitiesTable = (isWidget) => {
@@ -24,9 +24,12 @@ export const ActivitiesTable = (isWidget) => {
   // get the data add it to the table
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/activities', {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/activities',
+        {
+          withCredentials: true,
+        },
+      );
       setRows(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -51,7 +54,7 @@ export const ActivitiesTable = (isWidget) => {
     // post of submittet activities
     try {
       await axios.post(
-        'http://localhost:4000/activities',
+        import.meta.env.VITE_API_URL + '/activities',
         { title, price, date, activitiesType },
         {
           withCredentials: true,
@@ -66,7 +69,7 @@ export const ActivitiesTable = (isWidget) => {
 
   const deleteRow = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/activities/${id}`, {
+      await axios.delete(import.meta.env.VITE_API_URL + '/activities/' + id, {
         withCredentials: true,
       });
       fetchData();
