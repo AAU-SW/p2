@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BudgetWidget } from '../components/BudgetWidget';
 import { Button } from '../components/Button';
 import { Modal } from '../components/Modal';
-import { BUDGET_CATEGORIES } from '../../../shared/BUDGET_CATEGORIES';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
@@ -31,7 +31,7 @@ export const MyBudget = () => {
     const maxSpending = parseFloat(formData.get('maxSpending'));
     try {
       await axios.post(
-        'http://localhost:4000/budgets',
+        import.meta.env.VITE_API_URL + '/budgets',
         {
           title,
           maxSpending,

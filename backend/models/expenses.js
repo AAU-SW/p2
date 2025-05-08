@@ -1,6 +1,6 @@
 //database table
 import mongoose from "mongoose";
-import { BUDGET_CATEGORIES } from "../../shared/BUDGET_CATEGORIES.js";
+import { BUDGET_CATEGORIES } from "../util/BUDGET_CATEGORIES.js";
 
 const expenseSchema = new mongoose.Schema({
 	user: {
@@ -24,6 +24,11 @@ const expenseSchema = new mongoose.Schema({
 		type: String,
 		enum: BUDGET_CATEGORIES,
 		required: true,
+	},
+	recurring: {
+		type: Boolean,
+		required: true,
+		default: false,
 	},
 });
 

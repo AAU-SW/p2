@@ -16,4 +16,5 @@ router.use("/budgets", budgetRouter);
 router.use("/activities", activitiesRouter);
 router.use("/user", userRouter)
 
+
 export default router;
