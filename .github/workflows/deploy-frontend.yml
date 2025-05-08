@@ -22,7 +22,7 @@ jobs:
         working-directory:
           frontend
     env:
-      VITE_API_URL: ${{ secrets.API_URL }}
+      VITE_API_URL: ${{ vars.API_URL }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
