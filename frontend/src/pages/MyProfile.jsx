@@ -13,8 +13,8 @@ const MyProfile = () => {
       .then(data => setUser(data))
       .catch(console.error);
   }, [userId]);
-
-  if (!user) return <p>Loading...</p>;
+    console.log(user);
+  //if (!user) return <p>Loading...</p>;
 
   return (
     <div>
