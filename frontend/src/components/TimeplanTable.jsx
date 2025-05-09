@@ -85,6 +85,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
       console.error('Error adding new schema', error);
     }
     form.reset(); // Ensures input forms is reset after submitting.
+    setModal(false);
   }
 
   const deleteRow = async (id) => {
@@ -215,15 +216,13 @@ export const TimeplanTable = ({ setWidgetData }) => {
           ))}
         </div>
       </section>
-
+      <form onSubmit={handleSubmit}>
       <Modal
         isOpen={modal}
         onClose={() => setModal(false)}
         title="Add hours"
-        onSubmitClick={handleSubmit}
         submitButtonText="Add hours"
       >
-        <form onSubmit={handleSubmit}>
           <select
             name="type"
             required
@@ -253,8 +252,8 @@ export const TimeplanTable = ({ setWidgetData }) => {
               <FixedIncomeInputFields />
             </>
           )}
-        </form>
       </Modal>
+      </form>
     </div>
   );
 };

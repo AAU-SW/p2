@@ -63,6 +63,7 @@ export const ExpenseTable = () => {
       console.error('Error posting data:', error);
     }
     form.reset();
+    setModal(false);
   }
 
   const deleteRow = async (id) => {
@@ -136,15 +137,14 @@ export const ExpenseTable = () => {
           ))}
         </div>
       </section>
-
+      <form onSubmit={handleSubmit}>
       <Modal
           isOpen={modal}
           onClose={() => setModal(false)}
           title="Add Expense"
-          onSubmitClick={handleSubmit}
           submitButtonText="Add expense"
       >
-        <form onSubmit={handleSubmit}>
+
           <input
               name="expense"
               placeholder="E.g. rent, subscribtions"
@@ -160,8 +160,8 @@ export const ExpenseTable = () => {
                 </option>
             ))}
           </select>
-        </form>
       </Modal>
+      </form>
     </div>
   );
 };
