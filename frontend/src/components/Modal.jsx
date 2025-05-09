@@ -1,4 +1,4 @@
-import { Button } from '../components/Button';
+import { Button } from './Button.jsx';
 import { RxCross2 } from 'react-icons/rx';
 export const Modal = ({
   isOpen, // Controls if modal is visible
