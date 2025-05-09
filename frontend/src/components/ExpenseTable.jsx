@@ -4,6 +4,7 @@ import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
+import {Modal} from "./Modal.jsx";
 
 export const ExpenseTable = () => {
   const [rows, setRows] = useState([]);
@@ -135,38 +136,32 @@ export const ExpenseTable = () => {
           ))}
         </div>
       </section>
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            Add new expense
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
+
+      <Modal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          title="Add Expense"
+          onSubmitClick={handleSubmit}
+          submitButtonText="Add expense"
+      >
+        <form onSubmit={handleSubmit}>
           <input
-            name="expense"
-            placeholder="E.g. rent, subscribtions"
-            required
+              name="expense"
+              placeholder="E.g. rent, subscribtions"
+              required
           />
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
           <select name="expenseType" required>
             {BUDGET_CATEGORIES.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
+                <option key={index} value={category}>
+                  {category}
+                </option>
             ))}
           </select>
-          <button
-            className="add-expense-button"
-            type="submit"
-            onClick={() => setModal(false)}
-          >
-            Submit
-          </button>
         </form>
-      </dialog>
+      </Modal>
     </div>
   );
 };

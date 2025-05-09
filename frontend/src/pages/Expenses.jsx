@@ -1,4 +1,4 @@
-import { ExpenseTable } from '../components/ExpenseTable';
+import { ExpenseTable } from '../components/ExpenseTable.jsx';
 import { Card } from '../components/Card';
 
 export const Expenses = () => {
