@@ -3,7 +3,7 @@ import axios from 'axios';
 export const calculateTotalSpending = async () => {
   try {
     // Fetch both expenses and activities data in parallel
-    const expensesResponse = axios.get(
+    const expensesResponse = await axios.get(
       import.meta.env.VITE_API_URL + '/expenses',
       {
         withCredentials: true,
