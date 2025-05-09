@@ -26,6 +26,9 @@ const timeplanSchema = new mongoose.Schema({
 		ref: "User", // Name of the User model
 		required: true, // Ensure every timeplan is associated with a user
 	},
+	date: {
+		type: Date,
+	},
 });
 
 export const Timeplan = mongoose.model("Timeplan", timeplanSchema);
