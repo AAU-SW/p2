@@ -1,6 +1,6 @@
 import { Card, CardHeader } from '../components/Card';
 import '../styles/Home.css';
-import { Activities } from './Activities';
+import { Expenses } from './Expenses';
 import { MyBudget } from './MyBudget';
 
 export const Home = () => {
@@ -14,8 +14,8 @@ export const Home = () => {
         <MyBudget isWidget={true} />
       </Card>
       <Card>
-        <CardHeader title="Activities" />
-        <Activities isWidget={false}/>
+        <CardHeader title="Expenses" />
+        <Expenses isWidget={true} />
       </Card>
     </div>
   );

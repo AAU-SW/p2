@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import '../styles/ExpenseTable.css';
+import '../styles/FixedExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 
-export const ExpenseTable = () => {
+export const FixedExpenseTable = () => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
 
