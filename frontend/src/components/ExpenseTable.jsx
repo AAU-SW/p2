@@ -4,6 +4,7 @@ import { FiTrash } from 'react-icons/fi';
 import { formatDate } from '../utils/unitFormats.js';
 import { Modal } from './Modal.jsx';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES.js';
+import axios from 'axios';
 
 export const ExpenseTable = ({ expenses }) => {
   const [rows, setRows] = useState([]);
