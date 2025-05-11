@@ -12,7 +12,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [isFixed, setIsFixed] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 4;
+  const rowsPerPage = 5;
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentRows = rows.slice(startIndex, endIndex);
@@ -86,12 +86,6 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
           Variable Expenses
         </button>
       </div>
-      <button
-        className="add-job-placement add-job-button"
-        onClick={() => setModal(true)}
-      >
-        + Add new expense
-      </button>
       <section className="table-container">
         <table>
           <thead>
@@ -100,7 +94,15 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
               <th>Amount</th>
               <th>Type</th>
               <th>Date</th>
-              <th></th>
+              <th>
+                {' '}
+                <button
+                  className="add-job-placement add-job-button"
+                  onClick={() => setModal(true)}
+                >
+                  + Add new expense
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
