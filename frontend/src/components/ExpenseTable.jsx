@@ -41,7 +41,7 @@ export const ExpenseTable = () => {
 
   useEffect(() => {
     fetchData();
-  }, [isFixed]); // Refetch data when `isFixed` changes
+  }, []);
 
   // Handle submit of the form
   async function handleSubmit(e) {
