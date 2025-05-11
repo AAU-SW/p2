@@ -53,7 +53,7 @@ export const MyBudget = (isWidget) => {
 
   return (
     <>
-      {!isWidget && (
+      {isWidget && (
         <>
           <section>
             <h1 className="header">Budgetting</h1>

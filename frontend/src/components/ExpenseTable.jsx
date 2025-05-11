@@ -30,7 +30,8 @@ export const ExpenseTable = () => {
           withCredentials: true,
         },
       );
-      setRows(response.data);
+      const filteredRows = response.data.filter(expense => expense.recurring === false);
+      setRows(filteredRows);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -48,13 +49,14 @@ export const ExpenseTable = () => {
     const amount = parseFloat(formData.get('amount')) || 0;
     const date = formData.get('date');
     const expenseType = formData.get('expenseType');
-    setRows([...rows, { expense, amount, date, expenseType, }]);
+    const recurring = formData.get('recurring') === 'false';
+    setRows([...rows, { expense, amount, date, expenseType, recurring}]);
 
     // post of submittet expense
     try {
       await axios.post(
         import.meta.env.VITE_API_URL + '/expenses',
-        { expense, amount, date, expenseType, },
+        { expense, amount, date, expenseType, recurring},
         {
           withCredentials: true,
         },
@@ -152,6 +154,7 @@ export const ExpenseTable = () => {
           />
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
+          <input name="recurring" type="checkbox" />
 
           <select name="expenseType" required>
             {BUDGET_CATEGORIES.map((category, index) => (

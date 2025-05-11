@@ -1,19 +1,17 @@
 import { ExpenseTable } from '../components/ExpenseTable';
 import { FixedExpenseTable } from '../components/FixedExpenseTable';
-import { Card } from '../components/Card';
+import { Card, CardContent, CardDetails, CardHeader } from '../components/Card';
 
 export const Expenses = () => {
   return (
     <div>
-      <h1>Expenses</h1>
-      <h4>Add your daily expenses here (e.g., groceries and transport)</h4>
       <Card>
-        <ExpenseTable />
-      </Card>
-      <h1>Fixed expenses</h1>
-      <h4>Add your fixed expenses here (e.g., rent and subscriptions)</h4>
-      <Card>
-        <FixedExpenseTable />
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <h1>Expenses</h1>
+          <ExpenseTable />
+          <h1>Fixed expenses</h1>
+          <FixedExpenseTable />
+        </div>
       </Card>
     </div>
   );
