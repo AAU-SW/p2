@@ -4,7 +4,6 @@ import './App.css';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import { Home } from './pages/Home';
-import { Activities } from './pages/Activities';
 import { Advice } from './pages/Advice';
 import { TimePlan } from './pages/TimePlan';
 import { Expenses } from './pages/Expenses';
@@ -70,14 +69,6 @@ const App = () => {
             redirectPath="/login"
           >
             <Home />
-          </PrivateRoute>
-
-          <PrivateRoute
-            path="/activities"
-            isAuthenticated={isAuthenticated}
-            redirectPath="/login"
-          >
-            <Activities />
           </PrivateRoute>
 
           <PrivateRoute
