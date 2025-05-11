@@ -2,7 +2,7 @@ import { ExpenseTable } from '../components/ExpenseTable';
 import { FixedExpenseTable } from '../components/FixedExpenseTable';
 import { Card, CardContent, CardDetails, CardHeader } from '../components/Card';
 
-export const Expenses = () => {
+export const Expenses = ({ isWidget = false }) => {
   return (
     <div>
       <Card>

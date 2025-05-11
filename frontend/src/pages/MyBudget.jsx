@@ -6,7 +6,7 @@ import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
-export const MyBudget = (isWidget) => {
+export const MyBudget = ({isWidget = false}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
 
@@ -53,7 +53,7 @@ export const MyBudget = (isWidget) => {
 
   return (
     <>
-      {isWidget && (
+      {!isWidget ? (
         <>
           <section>
             <h1 className="header">Budgetting</h1>
@@ -61,7 +61,7 @@ export const MyBudget = (isWidget) => {
           </section>
           <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
         </>
-      )}
+      ):(<></>)}
       <form onSubmit={handleSubmit}>
       <Modal
         isOpen={modalOpen}

@@ -13,10 +13,6 @@ export const Home = () => {
         <CardHeader title="Budgets" />
         <MyBudget isWidget={true} />
       </Card>
-      <Card>
-        <CardHeader title="Expenses" />
-        <Expenses isWidget={true} />
-      </Card>
     </div>
   );
 };
