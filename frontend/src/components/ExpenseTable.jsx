@@ -87,7 +87,7 @@ export const ExpenseTable = () => {
   const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div className="toggle-slab-container">
         <button
           className={`toggle-slab-button ${isFixed ? 'active' : ''}`}

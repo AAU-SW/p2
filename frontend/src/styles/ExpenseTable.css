@@ -2,8 +2,10 @@ table {
   border: 1px solid black;
   border-collapse: collapse;
   border-style: none;
-  width: 1154px;
   text-align: center;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  width: 100%;
 }
 
 th {

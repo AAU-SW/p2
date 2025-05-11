@@ -114,7 +114,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
   }, [fixedIncome, variableIncome, totalHours, setWidgetData]);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div style={{ display: 'flex' }}>
         <button className="add-job-button" onClick={() => setTable(true)}>
           Fixed
