@@ -7,6 +7,7 @@ export const Expenses = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [fixedExpenses, setFixedExpenses] = useState(0);
   const [variableExpenses, setVariableExpenses] = useState(0);
+  const [expenses, setExpenses] = useState([]); // Store all expenses
 
   // Fetch expenses data
   const fetchExpenses = async () => {
@@ -32,6 +33,7 @@ export const Expenses = () => {
       setTotalExpenses(total);
       setFixedExpenses(fixed);
       setVariableExpenses(variable);
+      setExpenses(expenses); // Store the fetched expenses
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -62,7 +64,7 @@ export const Expenses = () => {
         </CardContent>
       </Card>
       <Card>
-        <ExpenseTable />
+        <ExpenseTable expenses={expenses} />
       </Card>
     </div>
   );

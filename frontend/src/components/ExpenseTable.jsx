@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
-import axios from 'axios';
-import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES.js';
 import { formatDate } from '../utils/unitFormats.js';
 import { Modal } from './Modal.jsx';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES.js';
 
-export const ExpenseTable = () => {
+export const ExpenseTable = ({ expenses }) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
@@ -21,27 +20,13 @@ export const ExpenseTable = () => {
     setCurrentPage(pageNumber);
   };
 
-  // Fetching of data
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        import.meta.env.VITE_API_URL + '/expenses',
-        {
-          withCredentials: true,
-        },
-      );
-      const filteredRows = response.data.filter(
-        (expense) => expense.recurring === isFixed,
-      );
-      setRows(filteredRows);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
+  // Filter rows based on isFixed state
   useEffect(() => {
-    fetchData();
-  }, []);
+    const filteredRows = expenses.filter(
+      (expense) => expense.recurring === isFixed,
+    );
+    setRows(filteredRows);
+  }, [expenses, isFixed]);
 
   // Handle submit of the form
   async function handleSubmit(e) {
@@ -77,7 +62,6 @@ export const ExpenseTable = () => {
       await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
         withCredentials: true,
       });
-      fetchData();
     } catch (error) {
       console.error('Error deleting row:', error);
     }
