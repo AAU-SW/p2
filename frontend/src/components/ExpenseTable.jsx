@@ -63,6 +63,7 @@ export const ExpenseTable = ({ expenses }) => {
       await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
         withCredentials: true,
       });
+        setRows((prevRows) => prevRows.filter((row) => row._id !== id));
     } catch (error) {
       console.error('Error deleting row:', error);
     }
