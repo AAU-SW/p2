@@ -6,7 +6,7 @@ import { Modal } from './Modal.jsx';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES.js';
 import axios from 'axios';
 
-export const ExpenseTable = ({ expenses }) => {
+export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
@@ -50,6 +50,7 @@ export const ExpenseTable = ({ expenses }) => {
           withCredentials: true,
         },
       );
+      fetchExpenses();
     } catch (error) {
       console.error('Error posting data:', error);
     }
@@ -63,7 +64,7 @@ export const ExpenseTable = ({ expenses }) => {
       await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
         withCredentials: true,
       });
-      setRows((prevRows) => prevRows.filter((row) => row._id !== id));
+      fetchExpenses();
     } catch (error) {
       console.error('Error deleting row:', error);
     }

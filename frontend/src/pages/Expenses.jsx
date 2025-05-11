@@ -64,7 +64,7 @@ export const Expenses = () => {
         </CardContent>
       </Card>
       <Card>
-        <ExpenseTable expenses={expenses} />
+        <ExpenseTable expenses={expenses} fetchExpenses={fetchExpenses}/>
       </Card>
     </div>
   );
