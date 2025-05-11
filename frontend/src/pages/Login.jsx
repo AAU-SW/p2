@@ -52,7 +52,7 @@ export const Login = () => {
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome to SpareTime</h1>
-
+          <div style={{display: 'flex', flexDirection: 'column', width:'100%',}}>
           <form onSubmit={handleLogin}>
             <input
               type="email"
@@ -70,15 +70,17 @@ export const Login = () => {
               required
               disabled={loading}
             />
-
-            <Button type="submit" disabled={loading}>
+            <div style={{display: 'flex', flexDirection: 'column', width:'100%', gap:'8px'}}>
+            <Button style={{width:'100%' }} type="submit" disabled={loading}>
               {loading ? 'Logging in...' : 'Log in'}
             </Button>
 
-            <Button type="button" onClick={goToSignup} disabled={loading}>
+            <Button style={{width:'100%'}} type="button" onClick={goToSignup} disabled={loading}>
               Sign Up
             </Button>
+            </div>
           </form>
+          </div>
 
           {loading}
         </div>
