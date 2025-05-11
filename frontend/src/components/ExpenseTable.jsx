@@ -9,7 +9,7 @@ import axios from 'axios';
 export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
-  const [isFixed, setIsFixed] = useState(false);
+  const [isFixed, setIsFixed] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 4;
@@ -40,16 +40,13 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
     const date = formData.get('date');
     const expenseType = formData.get('expenseType');
     const recurring = formData.get('recurring') === 'on';
-    setRows([...rows, { expense, amount, date, expenseType, recurring }]);
+
+    const newExpense = { expense, amount, date, expenseType, recurring };
 
     try {
-      await axios.post(
-        import.meta.env.VITE_API_URL + '/expenses',
-        { expense, amount, date, expenseType, recurring },
-        {
-          withCredentials: true,
-        },
-      );
+      await axios.post(import.meta.env.VITE_API_URL + '/expenses', newExpense, {
+        withCredentials: true,
+      });
       fetchExpenses();
     } catch (error) {
       console.error('Error posting data:', error);
