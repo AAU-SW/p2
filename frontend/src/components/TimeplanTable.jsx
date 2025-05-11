@@ -114,7 +114,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
   }, [fixedIncome, variableIncome, totalHours, setWidgetData]);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div style={{ display: 'flex' }}>
         <button className="add-job-button" onClick={() => setTable(true)}>
           Fixed
@@ -217,12 +217,12 @@ export const TimeplanTable = ({ setWidgetData }) => {
         </div>
       </section>
       <form onSubmit={handleSubmit}>
-      <Modal
-        isOpen={modal}
-        onClose={() => setModal(false)}
-        title="Add hours"
-        submitButtonText="Add hours"
-      >
+        <Modal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          title="Add hours"
+          submitButtonText="Add hours"
+        >
           <select
             name="type"
             required
@@ -252,7 +252,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
               <FixedIncomeInputFields />
             </>
           )}
-      </Modal>
+        </Modal>
       </form>
     </div>
   );

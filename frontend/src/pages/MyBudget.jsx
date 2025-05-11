@@ -6,7 +6,7 @@ import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
-export const MyBudget = () => {
+export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
 
@@ -53,18 +53,25 @@ export const MyBudget = () => {
 
   return (
     <>
-      <section>
-        <h1 className="header">Budget</h1>
-        <a className="sub-header">"Eksempel motto-tekst"</a>
-      </section>
-      <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
+      {!isWidget ? (
+        <>
+          <section>
+            <h1 className="header">Budgetting</h1>
+            <a className="sub-header">"Eksempel motto-tekst"</a>
+          </section>
+          <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
+        </>
+      ) : (
+        <></>
+      )}
       <form onSubmit={handleSubmit}>
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Add Budget Category"
-        submitButtonText="Save Budget"
-      >
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          title="Add Budget Category"
+          onSubmitClick={handleSubmit}
+          submitButtonText="Save Budget"
+        >
           <div
             style={{
               display: 'flex',
@@ -87,7 +94,7 @@ export const MyBudget = () => {
               placeholder="maxSpending"
             ></input>
           </div>
-      </Modal>
+        </Modal>
       </form>
       {budgetSections.length > 0 ? (
         <div
