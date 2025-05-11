@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/ActivitiesTable.css';
 import axios from 'axios';
 import { FiTrash } from 'react-icons/fi';
-import { Modal } from '../components/Modal';
+import { Modal } from './Modal.jsx';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
 

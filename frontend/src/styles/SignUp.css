@@ -78,16 +78,11 @@ form button,
 /* Højre del: billede med illustration */
 .illustration {
   flex: 1;
-  background-color: #f0f6fd;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-}
-
-/* billede */
-.illustration img {
-  max-width: 100%;
+  max-width: 60%;
   height: auto;
 }

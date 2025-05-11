@@ -4,6 +4,7 @@ import { FiTrash } from 'react-icons/fi';
 import axios from 'axios';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import { formatDate } from '../utils/unitFormats';
+import {Modal} from "./Modal.jsx";
 
 export const ExpenseTable = () => {
   const [rows, setRows] = useState([]);
@@ -62,6 +63,7 @@ export const ExpenseTable = () => {
       console.error('Error posting data:', error);
     }
     form.reset();
+    setModal(false);
   }
 
   const deleteRow = async (id) => {
@@ -92,7 +94,6 @@ export const ExpenseTable = () => {
               <th>amount</th>
               <th>Type</th>
               <th>date</th>
-
               <th></th>
             </tr>
           </thead>
@@ -102,8 +103,7 @@ export const ExpenseTable = () => {
                 <td>{row.expense}</td>
                 <td>{row.amount.toLocaleString()} DKK</td>
                 <td>{row.expenseType}</td>
-                <td>{formatDate(row.date)}</td> 
-                
+                <td>{formatDate(row.date)}</td>
                 <td>
                   <button
                     className="delete-button"
@@ -137,36 +137,31 @@ export const ExpenseTable = () => {
           ))}
         </div>
       </section>
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            Add new expense
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
-          <input name="expense" placeholder="E.g. rent, subscribtions" required/>
+      <form onSubmit={handleSubmit}>
+      <Modal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          title="Add Expense"
+          submitButtonText="Add expense"
+      >
+
+          <input
+              name="expense"
+              placeholder="E.g. rent, subscribtions"
+              required
+          />
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
 
           <select name="expenseType" required>
             {BUDGET_CATEGORIES.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
+                <option key={index} value={category}>
+                  {category}
+                </option>
             ))}
           </select>
-          <button
-            className="add-expense-button"
-            type="submit"
-            onClick={() => setModal(false)}
-          >
-            Submit
-          </button>
-        </form>
-      </dialog>
+      </Modal>
+      </form>
     </div>
-
-
   );
 };

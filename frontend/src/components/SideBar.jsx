@@ -80,13 +80,9 @@ export const Sidebar = () => {
               icon={<FaMoneyBill />}
               href="/expenses"
             />
+            <SidebarLink text="Budget" icon={<FaChartPie />} href="/mybudget" />
             <SidebarLink
-              text="My Budget"
-              icon={<FaChartPie />}
-              href="/mybudget"
-            />
-            <SidebarLink
-              text="Timeplanning"
+              text="Income"
               icon={<FaBusinessTime />}
               href="/timeplan"
             />
