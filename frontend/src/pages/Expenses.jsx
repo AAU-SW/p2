@@ -3,7 +3,7 @@ import { ExpenseTable } from '../components/ExpenseTable';
 import { Card, CardContent, CardDetails, CardHeader } from '../components/Card';
 import axios from 'axios';
 
-export const Expenses = ({ isWidget = false }) => {
+export const Expenses = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [fixedExpenses, setFixedExpenses] = useState(0);
   const [variableExpenses, setVariableExpenses] = useState(0);
