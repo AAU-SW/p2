@@ -20,18 +20,31 @@ export const MyBudget = ({ isWidget = false }) => {
       console.error('Error fetching budgets with spending:', error);
     }
   };
-const fetchIncome = async () => {
-  try {
-    const response = await axios.get(
-      import.meta.env.VITE_API_URL + '/timeplans/',
-      {
-        withCredentials: true,
-      }
-    );
-  } catch (error) {
-    console.error('Error fetching timeplans:', error);
-  }
-};
+
+  const fetchIncome = async () => {
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/timeplans/',
+        {
+          withCredentials: true,
+        }
+      );
+       // Calculate total income
+      const timeplans = response.data;
+      const totalFixedIncome = timeplans
+        .filter((row) => row.type === 'Fixed income')
+        .reduce((sum, row) => sum + (row.fixedIncome || 0), 0);
+
+      const totalVariableIncome = timeplans
+        .filter((row) => row.type === 'Variable income')
+        .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);
+
+      const totalIncome = totalFixedIncome + totalVariableIncome;
+      setIncome(totalIncome);
+    } catch (error) {
+      console.error('Error fetching timeplans:', error);
+    }
+  };
 
   useEffect(() => {
     fetchBudgetsWithSpending();
@@ -152,6 +165,7 @@ const fetchIncome = async () => {
           </div>
         </Modal>
       </form>
+      <Card>
       {budgetSections.length > 0 ? (
         <div className="budget-widgets-wrapper">
           {budgetSections.map((widget) => (
@@ -168,6 +182,7 @@ const fetchIncome = async () => {
       ) : (
         <NoData />
       )}
+      </Card>
     </>
   );
 };
