@@ -11,13 +11,12 @@ export const calculateTotalSpending = async () => {
     );
 
     const expenses =
-      expensesResponse.data.filter((expense) => expense.recurring == false) ||
-      [];
-    const activities =
       expensesResponse.data.filter((expense) => expense.recurring == true) ||
       [];
+    const activities =
+      expensesResponse.data.filter((expense) => expense.recurring == false) ||
+      [];
 
-    // Initialize spending by categories
     const spendingByCategory = {};
 
     // Process expenses
@@ -31,11 +30,11 @@ export const calculateTotalSpending = async () => {
 
     // Process activities
     activities.forEach((activity) => {
-      const category = activity.activitiesType;
+      const category = activity.expenseType;
       if (!spendingByCategory[category]) {
         spendingByCategory[category] = 0;
       }
-      spendingByCategory[category] += activity.price;
+      spendingByCategory[category] += activity.amount;
     });
 
     // Calculate totals
