@@ -52,34 +52,52 @@ export const Login = () => {
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome to SpareTime</h1>
-          <div style={{display: 'flex', flexDirection: 'column', width:'100%',}}>
-          <form onSubmit={handleLogin}>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <div style={{display: 'flex', flexDirection: 'column', width:'100%', gap:'8px'}}>
-            <Button style={{width:'100%' }} type="submit" disabled={loading}>
-              {loading ? 'Logging in...' : 'Log in'}
-            </Button>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          >
+            <form onSubmit={handleLogin}>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: '8px',
+                }}
+              >
+                <Button
+                  style={{ width: '100%' }}
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? 'Logging in...' : 'Log in'}
+                </Button>
 
-            <Button style={{width:'100%'}} type="button" onClick={goToSignup} disabled={loading}>
-              Sign Up
-            </Button>
-            </div>
-          </form>
+                <Button
+                  style={{ width: '100%' }}
+                  type="button"
+                  onClick={goToSignup}
+                  disabled={loading}
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </form>
           </div>
 
           {loading}

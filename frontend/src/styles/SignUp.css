@@ -47,7 +47,6 @@ form input {
   box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
 
-
 .login-button {
   width: 100%;
   padding: 0.8rem 1rem;
