@@ -4,7 +4,7 @@ import '../styles/CookieConsent.css';
 
 export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [, navigate] = useLocation(); // Use navigate for routing
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const hasAcceptedCookies = localStorage.getItem('cookiesAccepted');
