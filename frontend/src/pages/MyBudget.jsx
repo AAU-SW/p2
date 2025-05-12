@@ -27,9 +27,9 @@ export const MyBudget = ({ isWidget = false }) => {
         import.meta.env.VITE_API_URL + '/timeplans/',
         {
           withCredentials: true,
-        }
+        },
       );
-       // Calculate total income
+      // Calculate total income
       const timeplans = response.data;
       const totalFixedIncome = timeplans
         .filter((row) => row.type === 'Fixed income')
@@ -108,28 +108,20 @@ export const MyBudget = ({ isWidget = false }) => {
         <Card style={{ width: '100%' }}>
           <CardContent>
             <CardHeader title="Total Budget"></CardHeader>
-            <CardDetails>
-              {totalBudget.toLocaleString()} kr.
-            </CardDetails>
+            <CardDetails>{totalBudget.toLocaleString()} kr.</CardDetails>
           </CardContent>
         </Card>
         <Card style={{ width: '100%' }}>
           <CardHeader title="Spent"></CardHeader>
-          <CardDetails>
-            {totalSpent.toLocaleString()} kr.
-          </CardDetails>
+          <CardDetails>{totalSpent.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
           <CardHeader title="Remaining"></CardHeader>
-          <CardDetails>
-            {totalRemaining.toLocaleString()} kr.
-          </CardDetails>
+          <CardDetails>{totalRemaining.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
           <CardHeader title="Income"></CardHeader>
-          <CardDetails>
-            {income.toLocaleString()} kr.
-          </CardDetails>
+          <CardDetails>{income.toLocaleString()} kr.</CardDetails>
         </Card>
       </section>
 
@@ -166,22 +158,22 @@ export const MyBudget = ({ isWidget = false }) => {
         </Modal>
       </form>
       <Card>
-      {budgetSections.length > 0 ? (
-        <div className="budget-widgets-wrapper">
-          {budgetSections.map((widget) => (
-            <BudgetWidget
-              key={widget._id}
-              id={widget._id}
-              title={widget.title}
-              currentSpending={widget.currentSpending || 0}
-              maxSpending={widget.maxSpending}
-              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
-            />
-          ))}
-        </div>
-      ) : (
-        <NoData />
-      )}
+        {budgetSections.length > 0 ? (
+          <div className="budget-widgets-wrapper">
+            {budgetSections.map((widget) => (
+              <BudgetWidget
+                key={widget._id}
+                id={widget._id}
+                title={widget.title}
+                currentSpending={widget.currentSpending || 0}
+                maxSpending={widget.maxSpending}
+                fetchBudgetsWithSpending={fetchBudgetsWithSpending}
+              />
+            ))}
+          </div>
+        ) : (
+          <NoData />
+        )}
       </Card>
     </>
   );

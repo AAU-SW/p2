@@ -42,7 +42,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
     const recurring = formData.get('recurring') === 'on';
 
     const newExpense = { expense, amount, date, expenseType, recurring };
-    
+
     try {
       await axios.post(import.meta.env.VITE_API_URL + '/expenses', newExpense, {
         withCredentials: true,
