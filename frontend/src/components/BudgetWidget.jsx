@@ -32,24 +32,20 @@ export const BudgetWidget = ({
     <div className="budget-widget">
       <Card>
         <CardContent>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <CardHeader title={title} />
+          <CardHeader title={title}>
             <button
               onClick={() => {
                 deleteRow(id);
               }}
-              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
             >
               <FiTrash />
             </button>
-          </div>
+          </CardHeader>
           <div className="progress-bar-container">
             <progress
               className="progress-bar"
