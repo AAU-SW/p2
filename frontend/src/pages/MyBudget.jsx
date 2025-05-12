@@ -157,22 +157,22 @@ export const MyBudget = ({ isWidget = false }) => {
           </div>
         </Modal>
       </form>
-        {budgetSections.length > 0 ? (
-          <div className="budget-widgets-wrapper">
-            {budgetSections.map((widget) => (
-              <BudgetWidget
-                key={widget._id}
-                id={widget._id}
-                title={widget.title}
-                currentSpending={widget.currentSpending || 0}
-                maxSpending={widget.maxSpending}
-                fetchBudgetsWithSpending={fetchBudgetsWithSpending}
-              />
-            ))}
-          </div>
-        ) : (
-          <NoData />
-        )}
+      {budgetSections.length > 0 ? (
+        <div className="budget-widgets-wrapper">
+          {budgetSections.map((widget) => (
+            <BudgetWidget
+              key={widget._id}
+              id={widget._id}
+              title={widget.title}
+              currentSpending={widget.currentSpending || 0}
+              maxSpending={widget.maxSpending}
+              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
+            />
+          ))}
+        </div>
+      ) : (
+        <NoData />
+      )}
     </>
   );
 };
