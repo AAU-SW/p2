@@ -13,6 +13,8 @@ import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
 import { GlobalLoader } from './components/GlobalLoader';
+import { CookieConsent } from './components/CookieConsent';
+import { LearnMore } from './pages/LearnMore';
 
 const App = () => {
   const [location] = useLocation();
@@ -65,6 +67,9 @@ const App = () => {
           </Route>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/learn-more">
+            <LearnMore />
           </Route>
 
           {/* Protected routes */}
@@ -130,6 +135,7 @@ const App = () => {
           </PrivateRoute>
         </Switch>
       </div>
+      <CookieConsent />
     </main>
   );
 };
