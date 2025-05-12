@@ -34,16 +34,3 @@
 .cookie-button.learn-more {
   background: #007bff;
 }
-
-.reset-cookie-consent {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ff0000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 1001;
-}

@@ -64,7 +64,7 @@ const App = () => {
             <SignUp />
           </Route>
           <Route path="/learn-more">
-            <LearnMore /> 
+            <LearnMore />
           </Route>
 
           {/* Protected routes */}

@@ -18,11 +18,6 @@ export const CookieConsent = () => {
     setIsVisible(false);
   };
 
-  const handleReset = () => {
-    localStorage.removeItem('cookiesAccepted');
-    setIsVisible(true);
-  };
-
   return (
     <>
       {isVisible && (
@@ -44,9 +39,6 @@ export const CookieConsent = () => {
           </div>
         </div>
       )}
-      <button className="reset-cookie-consent" onClick={handleReset}>
-        Reset Cookie Consent
-      </button>
     </>
   );
 };
