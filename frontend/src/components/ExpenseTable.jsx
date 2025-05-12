@@ -12,7 +12,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [isFixed, setIsFixed] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 4;
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentRows = rows.slice(startIndex, endIndex);
