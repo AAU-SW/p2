@@ -157,7 +157,6 @@ export const MyBudget = ({ isWidget = false }) => {
           </div>
         </Modal>
       </form>
-      <Card>
         {budgetSections.length > 0 ? (
           <div className="budget-widgets-wrapper">
             {budgetSections.map((widget) => (
@@ -174,7 +173,6 @@ export const MyBudget = ({ isWidget = false }) => {
         ) : (
           <NoData />
         )}
-      </Card>
     </>
   );
 };
