@@ -116,10 +116,22 @@ export const TimeplanTable = ({ setWidgetData }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ display: 'flex' }}>
-        <button className="add-job-button" onClick={() => setTable(true)}>
+        <button
+          className="add-job-button"
+          style={{
+            color: table ? 'white' : 'grey', // Change color based on `table` state
+          }}
+          onClick={() => setTable(true)}
+        >
           Fixed
         </button>
-        <button className="add-job-button" onClick={() => setTable(false)}>
+        <button
+          className="add-job-button"
+          style={{
+            color: !table ? 'white' : 'grey', // Change color based on `table` state
+          }}
+          onClick={() => setTable(false)}
+        >
           Variable
         </button>
         <button
