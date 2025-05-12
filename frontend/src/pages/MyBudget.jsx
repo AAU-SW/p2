@@ -28,8 +28,6 @@ const fetchIncome = async () => {
         withCredentials: true,
       }
     );
-
-    
   } catch (error) {
     console.error('Error fetching timeplans:', error);
   }
@@ -110,15 +108,15 @@ const fetchIncome = async () => {
         </Card>
         <Card style={{ width: '100%' }}>
           <CardHeader title="Remaining"></CardHeader>
-          <CardContent>
+          <CardDetails>
             {totalRemaining.toLocaleString()} kr.
-          </CardContent>
+          </CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
           <CardHeader title="Income"></CardHeader>
-          <CardContent>
+          <CardDetails>
             {income.toLocaleString()} kr.
-          </CardContent>
+          </CardDetails>
         </Card>
       </section>
 
