@@ -21,23 +21,29 @@ export const TimePlan = () => {
   return (
     <div>
       <section>
-        <h1 className="header">My Income</h1>
+        <h1 className="header">Income</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
-      <Card>
-        <CardContent>
-          <CardHeader title="Total hours"></CardHeader>
-          <CardDetails>{data.totalHours}</CardDetails>
-        </CardContent>
-        <CardContent>
-          <CardHeader title="Variable Income"></CardHeader>
-          <CardDetails>{DKKFormat.format(data.variableIncome)}</CardDetails>
-        </CardContent>
-        <CardContent>
-          <CardHeader title="Fixed Income"></CardHeader>
-          <CardDetails>{DKKFormat.format(data.fixedIncome)}</CardDetails>
-        </CardContent>
-      </Card>
+      <div class="flex justify-center items-center w-full">
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Total hours"></CardHeader>
+            <CardDetails>{data.totalHours}</CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Variable Income"></CardHeader>
+            <CardDetails>{DKKFormat.format(data.variableIncome)}</CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Fixed Income"></CardHeader>
+            <CardDetails>{DKKFormat.format(data.fixedIncome)}</CardDetails>
+          </CardContent>
+        </Card>
+      </div>
       <Card>
         <TimeplanTable setWidgetData={handleDataExport} />
       </Card>

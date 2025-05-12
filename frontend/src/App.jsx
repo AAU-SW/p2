@@ -13,6 +13,8 @@ import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
 import { GlobalLoader } from './components/GlobalLoader';
+import { CookieConsent } from './components/CookieConsent';
+import { LearnMore } from './pages/LearnMore';
 
 const App = () => {
   const [location] = useLocation();
@@ -43,14 +45,19 @@ const App = () => {
 
   useEffect(() => {
     checkAuth();
-  }, [location]); // Check auth when location changes
+    const redirect = sessionStorage.redirect;
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      window.history.replaceState(null, '', redirect);
+    }
+  }, []);
 
   if (loading) {
     return <GlobalLoader></GlobalLoader>;
   }
 
   return (
-    <main style={{ display: 'flex', height: '100%' }}>
+    <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
       {!(location === '/login' || location === '/signup') && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>
@@ -60,6 +67,9 @@ const App = () => {
           </Route>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/learn-more">
+            <LearnMore />
           </Route>
 
           {/* Protected routes */}
@@ -125,6 +135,7 @@ const App = () => {
           </PrivateRoute>
         </Switch>
       </div>
+      <CookieConsent />
     </main>
   );
 };
