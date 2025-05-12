@@ -82,3 +82,17 @@
   flex-direction: row;
   cursor: pointer;
 }
+.delete-button {
+  outline: none;
+  border: none;
+  display: none; /* Use display: none to completely hide the button */
+  background: transparent;
+}
+
+/* Show the delete button when the parent is hovered */
+.card-header:hover .delete-button,
+.budget-widget:hover .delete-button {
+  display: inline-flex; /* Make the button visible */
+  align-items: center;
+  justify-content: center;
+}
