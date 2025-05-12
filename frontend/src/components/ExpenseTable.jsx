@@ -92,7 +92,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
             <tr>
               <th>Expense</th>
               <th>Amount</th>
-              <th>Type</th>
+              <th>Categories</th>
               <th>Date</th>
               <th>
                 {' '}
