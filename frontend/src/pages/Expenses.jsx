@@ -45,10 +45,13 @@ export const Expenses = ({isWidget}) => {
 
   return (
     <div>
+      {!isWidget && (
       <section>
         <h1 className="header">Expenses</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
+      )}
+      {!isWidget && (     
       <div class="flex justify-center items-center w-full">
         <Card style={{ width: '100%' }}>
           <CardContent>
@@ -69,6 +72,7 @@ export const Expenses = ({isWidget}) => {
           </CardContent>
         </Card>
       </div>
+      )}
       <Card>
         <ExpenseTable expenses={expenses} fetchExpenses={fetchExpenses} />
       </Card>
