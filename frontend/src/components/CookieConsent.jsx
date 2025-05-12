@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'wouter'; // Import useLocation for navigation
+import { Link } from 'wouter';
 import '../styles/CookieConsent.css';
 
 export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [, navigate] = useLocation();
-
   useEffect(() => {
     const hasAcceptedCookies = localStorage.getItem('cookiesAccepted');
     if (!hasAcceptedCookies) {
