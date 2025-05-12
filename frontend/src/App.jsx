@@ -55,7 +55,7 @@ const App = () => {
   }
 
   return (
-    <main style={{ display: 'flex', height: '100%' }}>
+    <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
       {!(location === '/login' || location === '/signup') && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>
