@@ -4,14 +4,7 @@
   height: max-content;
   min-width: max-content;
   flex-grow: 1;
-}
-.budget-widget .card {
-  width: 100%;
-  height: 70%;
-}
-.budget-widget .card-children {
-  margin-top: 0;
-  margin-bottom: 0;
+  width: 33%;
 }
 
 .budget-amounts {

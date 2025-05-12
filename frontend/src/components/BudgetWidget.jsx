@@ -30,7 +30,7 @@ export const BudgetWidget = ({
 
   return (
     <div className="budget-widget">
-      <Card>
+      <Card style={{ width: '100%' }}>
         <CardContent>
           <CardHeader title={title}>
             <button
