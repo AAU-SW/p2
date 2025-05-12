@@ -1,10 +1,14 @@
 import '../styles/Card.css';
-export const Card = ({ children }) => {
-  return <div className="card">{children}</div>;
+export const Card = ({ children, style }) => {
+  return (
+    <div className="card" style={style}>
+      {children}
+    </div>
+  );
 };
 
 export const CardContent = ({ children }) => {
-  return <div className="card-children">{children}</div>;
+  return <>{children}</>;
 };
 
 export const CardHeader = ({ children, title }) => {
