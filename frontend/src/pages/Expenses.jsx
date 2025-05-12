@@ -51,6 +51,8 @@ export const Expenses = ({isWidget}) => {
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
       )}
+      <div class="flex justify-center items-center w-full"></div>
+      
       {!isWidget && (     
       <div class="flex justify-center items-center w-full">
         <Card style={{ width: '100%' }}>
@@ -71,11 +73,11 @@ export const Expenses = ({isWidget}) => {
             <CardDetails>{`${variableExpenses.toLocaleString()} DKK`}</CardDetails>
           </CardContent>
         </Card>
-      </div>
+        </div>
       )}
-      <Card>
+        <Card>
         <ExpenseTable expenses={expenses} fetchExpenses={fetchExpenses} />
       </Card>
-    </div>
-  );
-};
+      </div>
+
+      )}
