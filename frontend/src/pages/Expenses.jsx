@@ -51,7 +51,6 @@ export const Expenses = ({ isWidget }) => {
           <a className="sub-header">"Eksempel motto-tekst"</a>
         </section>
       )}
-      <div class="flex justify-center items-center w-full"></div>
 
       {!isWidget && (
         <div class="flex justify-center items-center w-full">
