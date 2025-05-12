@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      const redirectPath = window.location.pathname.replace(/^\/p2/, '');
+      sessionStorage.redirect = redirectPath;
+      window.location.replace('/p2/');
+    </script>
+  </head>
+  <body></body>
+</html>
