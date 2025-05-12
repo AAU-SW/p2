@@ -1,7 +1,8 @@
 .budget-widget {
   display: flex;
   flex-direction: row;
-  width: 33%;
+  flex-grow: 1;
+  min-width: 290px;
 }
 .budget-widget .card {
   width: 100%;
