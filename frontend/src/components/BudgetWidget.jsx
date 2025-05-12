@@ -37,7 +37,11 @@ export const BudgetWidget = ({
               onClick={() => {
                 deleteRow(id);
               }}
-              className='delete-button'
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
             >
               <FiTrash />
             </button>
