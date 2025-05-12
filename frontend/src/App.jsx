@@ -43,9 +43,6 @@ const App = () => {
 
   useEffect(() => {
     checkAuth();
-  }, [location]); // Check auth when location changes
-
-  useEffect(() => {
     const redirect = sessionStorage.redirect;
     if (redirect) {
       sessionStorage.removeItem('redirect');
