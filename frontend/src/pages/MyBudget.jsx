@@ -5,10 +5,12 @@ import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
+import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
 
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
+  const [income, setIncome] = useState(0);
 
   const fetchBudgetsWithSpending = async () => {
     try {
@@ -18,10 +20,35 @@ export const MyBudget = ({ isWidget = false }) => {
       console.error('Error fetching budgets with spending:', error);
     }
   };
+const fetchIncome = async () => {
+  try {
+    const response = await axios.get(
+      import.meta.env.VITE_API_URL + '/timeplans/',
+      {
+        withCredentials: true,
+      }
+    );
+
+    
+  } catch (error) {
+    console.error('Error fetching timeplans:', error);
+  }
+};
 
   useEffect(() => {
     fetchBudgetsWithSpending();
+    fetchIncome();
   }, []);
+
+  const totalBudget = budgetSections.reduce(
+    (sum, budget) => sum + budget.maxSpending,
+    0,
+  );
+  const totalSpent = budgetSections.reduce(
+    (sum, budget) => sum + (budget.currentSpending || 0),
+    0,
+  );
+  const totalRemaining = totalBudget - totalSpent;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -64,6 +91,37 @@ export const MyBudget = ({ isWidget = false }) => {
       ) : (
         <></>
       )}
+      <section
+        style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}
+      >
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Total Budget"></CardHeader>
+            <CardDetails>
+              {totalBudget.toLocaleString()} kr.
+            </CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Spent"></CardHeader>
+          <CardDetails>
+            {totalSpent.toLocaleString()} kr.
+          </CardDetails>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Remaining"></CardHeader>
+          <CardContent>
+            {totalRemaining.toLocaleString()} kr.
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Income"></CardHeader>
+          <CardContent>
+            {income.toLocaleString()} kr.
+          </CardContent>
+        </Card>
+      </section>
+
       <form onSubmit={handleSubmit}>
         <Modal
           isOpen={modalOpen}
