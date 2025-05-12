@@ -97,10 +97,7 @@ export const MyBudget = ({ isWidget = false }) => {
         </Modal>
       </form>
       {budgetSections.length > 0 ? (
-        <div
-          className="budget-widgets-wrapper"
-
-        >
+        <div className="budget-widgets-wrapper">
           {budgetSections.map((widget) => (
             <BudgetWidget
               key={widget._id}

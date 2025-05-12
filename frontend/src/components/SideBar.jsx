@@ -98,6 +98,9 @@ export const Sidebar = () => {
 };
 
 const SidebarLink = ({ text, icon, href, onClick }) => {
+  const [location] = useLocation();
+  const isActive = location === href; // tjekker om current location matcher linkets href
+
   return (
     <li style={{ color: 'white' }}>
       <Link
@@ -109,13 +112,21 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
         }}
         style={{
           textDecoration: 'none',
-          color: '#C0C2FF',
           display: 'flex',
+          color: isActive ? 'white' : '#C0C2FF',
           alignItems: 'center',
           gap: '16px',
         }}
       >
-        <div style={{ fontSize: '24px', display: 'flex' }}>{icon}</div>
+        <div
+          style={{
+            fontSize: '24px',
+            display: 'flex',
+            color: isActive ? 'white' : '#C0C2FF',
+          }}
+        >
+          {icon}
+        </div>
         <p>{text}</p>
       </Link>
     </li>
