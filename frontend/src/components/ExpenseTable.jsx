@@ -30,9 +30,9 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   }, [expenses, isFixed]);
 
   // Ensures that the pagination is reset when switching between variable or fixed.
-  useEffect(()=>{
+  useEffect(() => {
     setCurrentPage(1);
-  },[isFixed])
+  }, [isFixed]);
 
   // Handle submit of the form
   async function handleSubmit(e) {
