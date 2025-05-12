@@ -3,7 +3,7 @@ import { ExpenseTable } from '../components/ExpenseTable';
 import { Card, CardContent, CardDetails, CardHeader } from '../components/Card';
 import axios from 'axios';
 
-export const Expenses = ({isWidget}) => {
+export const Expenses = ({ isWidget }) => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [fixedExpenses, setFixedExpenses] = useState(0);
   const [variableExpenses, setVariableExpenses] = useState(0);
@@ -46,38 +46,38 @@ export const Expenses = ({isWidget}) => {
   return (
     <div>
       {!isWidget && (
-      <section>
-        <h1 className="header">Expenses</h1>
-        <a className="sub-header">"Eksempel motto-tekst"</a>
-      </section>
+        <section>
+          <h1 className="header">Expenses</h1>
+          <a className="sub-header">"Eksempel motto-tekst"</a>
+        </section>
       )}
       <div class="flex justify-center items-center w-full"></div>
-      
-      {!isWidget && (     
-      <div class="flex justify-center items-center w-full">
-        <Card style={{ width: '100%' }}>
-          <CardContent>
-            <CardHeader title="Total expenses"></CardHeader>
-            <CardDetails>{`${totalExpenses.toLocaleString()} DKK`}</CardDetails>
-          </CardContent>
-        </Card>
-        <Card style={{ width: '100%' }}>
-          <CardContent>
-            <CardHeader title="Fixed expenses"></CardHeader>
-            <CardDetails>{`${fixedExpenses.toLocaleString()} DKK`}</CardDetails>
-          </CardContent>
-        </Card>
-        <Card style={{ width: '100%' }}>
-          <CardContent>
-            <CardHeader title="Variable expenses"></CardHeader>
-            <CardDetails>{`${variableExpenses.toLocaleString()} DKK`}</CardDetails>
-          </CardContent>
-        </Card>
+
+      {!isWidget && (
+        <div class="flex justify-center items-center w-full">
+          <Card style={{ width: '100%' }}>
+            <CardContent>
+              <CardHeader title="Total expenses"></CardHeader>
+              <CardDetails>{`${totalExpenses.toLocaleString()} DKK`}</CardDetails>
+            </CardContent>
+          </Card>
+          <Card style={{ width: '100%' }}>
+            <CardContent>
+              <CardHeader title="Fixed expenses"></CardHeader>
+              <CardDetails>{`${fixedExpenses.toLocaleString()} DKK`}</CardDetails>
+            </CardContent>
+          </Card>
+          <Card style={{ width: '100%' }}>
+            <CardContent>
+              <CardHeader title="Variable expenses"></CardHeader>
+              <CardDetails>{`${variableExpenses.toLocaleString()} DKK`}</CardDetails>
+            </CardContent>
+          </Card>
         </div>
       )}
-        <Card>
+      <Card>
         <ExpenseTable expenses={expenses} fetchExpenses={fetchExpenses} />
       </Card>
-      </div>
-
-      )}
+    </div>
+  );
+};
