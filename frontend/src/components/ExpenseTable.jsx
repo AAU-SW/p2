@@ -157,8 +157,26 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
           />
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
-          <label>
-            <input name="recurring" type="checkbox" />
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              paddingBottom: '10px',
+            }}
+          >
+            <input
+              name="recurring"
+              type="checkbox"
+              style={{
+                width: '16px',
+                height: '16px',
+                cursor: 'pointer',
+                margin: '0',
+              }}
+            />
             Recurring
           </label>
           <select name="expenseType" required>
