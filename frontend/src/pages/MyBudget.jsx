@@ -98,13 +98,8 @@ export const MyBudget = ({ isWidget = false }) => {
       </form>
       {budgetSections.length > 0 ? (
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            width: '100%',
-            flexWrap: 'wrap',
-          }}
+          className="budget-widgets-wrapper"
+
         >
           {budgetSections.map((widget) => (
             <BudgetWidget
