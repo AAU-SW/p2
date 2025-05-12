@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      const redirectPath = location.pathname + location.search + location.hash;
+      sessionStorage.redirect = redirectPath;
+      location.replace('/p2/');
+    </script>
+  </head>
+  <body></body>
+</html>

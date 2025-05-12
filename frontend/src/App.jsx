@@ -43,14 +43,19 @@ const App = () => {
 
   useEffect(() => {
     checkAuth();
-  }, [location]); // Check auth when location changes
+    const redirect = sessionStorage.redirect;
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      window.history.replaceState(null, '', redirect);
+    }
+  }, []);
 
   if (loading) {
     return <GlobalLoader></GlobalLoader>;
   }
 
   return (
-    <main style={{ display: 'flex', height: '100%' }}>
+    <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
       {!(location === '/login' || location === '/signup') && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>

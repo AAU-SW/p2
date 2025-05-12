@@ -50,25 +50,26 @@ export const Expenses = ({isWidget}) => {
           <h1 className="header">Expenses</h1>
           <a className="sub-header">"Eksempel motto-tekst"</a>
         </section>
+        <div class="flex justify-center items-center w-full">
       )}
       
       {!isWidget && (
-      <Card>
+      <Card style={{ width: '100%' }}>
         <CardContent>
-          <CardHeader title="Total expenses" />
+          <CardHeader title="Total expenses"></CardHeader>
           <CardDetails>{`${totalExpenses.toLocaleString()} DKK`}</CardDetails>
         </CardContent>
-        <CardContent>
-          <CardHeader title="Fixed expenses" />
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Fixed expenses"></CardHeader>
           <CardDetails>{`${fixedExpenses.toLocaleString()} DKK`}</CardDetails>
         </CardContent>
-        <CardContent>
-          <CardHeader title="Variable expenses" />
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Variable expenses"></CardHeader>
           <CardDetails>{`${variableExpenses.toLocaleString()} DKK`}</CardDetails>
         </CardContent>
       </Card>
       )}
-
+      
       <Card>
         <ExpenseTable expenses={expenses} fetchExpenses={fetchExpenses} />
       </Card>

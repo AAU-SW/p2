@@ -1,28 +1,23 @@
 .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: auto;
   height: auto;
-  margin: 10px;
-  padding: 20px;
-  background: rgb(240, 240, 240);
+  margin: 8px;
+  padding: 16px;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
   overflow: hidden;
-}
-.card-children {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  background: white;
-  border-radius: 10px;
-  margin: 10px;
 }
 .card-header {
   font-size: 14px; /* Smaller font size for the header */
   color: #6c757d; /* Grey color for the header text */
   text-align: left; /* Center-align the text */
-  margin-left: 20px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .card-details {
   font-size: 26px; /* Smaller font size for the header */
