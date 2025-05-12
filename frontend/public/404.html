@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <script>
-      const redirectPath = window.location.pathname.replace(/^\/p2/, '');
+      const redirectPath = location.pathname + location.search + location.hash;
       sessionStorage.redirect = redirectPath;
-      window.location.replace('/p2/');
+      location.replace('/p2/');
     </script>
   </head>
   <body></body>
