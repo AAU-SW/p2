@@ -49,20 +49,26 @@ export const Expenses = () => {
         <h1 className="header">Expenses</h1>
         <a className="sub-header">"Eksempel motto-tekst"</a>
       </section>
-      <Card>
-        <CardContent>
-          <CardHeader title="Total expenses"></CardHeader>
-          <CardDetails>{`${totalExpenses.toLocaleString()} DKK`}</CardDetails>
-        </CardContent>
-        <CardContent>
-          <CardHeader title="Fixed expenses"></CardHeader>
-          <CardDetails>{`${fixedExpenses.toLocaleString()} DKK`}</CardDetails>
-        </CardContent>
-        <CardContent>
-          <CardHeader title="Variable expenses"></CardHeader>
-          <CardDetails>{`${variableExpenses.toLocaleString()} DKK`}</CardDetails>
-        </CardContent>
-      </Card>
+      <div class="flex justify-center items-center w-full">
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Total expenses"></CardHeader>
+            <CardDetails>{`${totalExpenses.toLocaleString()} DKK`}</CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Fixed expenses"></CardHeader>
+            <CardDetails>{`${fixedExpenses.toLocaleString()} DKK`}</CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Variable expenses"></CardHeader>
+            <CardDetails>{`${variableExpenses.toLocaleString()} DKK`}</CardDetails>
+          </CardContent>
+        </Card>
+      </div>
       <Card>
         <ExpenseTable expenses={expenses} fetchExpenses={fetchExpenses} />
       </Card>
