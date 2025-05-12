@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'wouter'; // Import useLocation for navigation
+import { useLocation, Link } from 'wouter'; // Import useLocation for navigation
 import '../styles/CookieConsent.css';
 
 export const CookieConsent = () => {
@@ -30,12 +30,9 @@ export const CookieConsent = () => {
             <button className="cookie-button" onClick={handleAccept}>
               Accept
             </button>
-            <button
-              className="cookie-button learn-more"
-              onClick={() => navigate('/learn-more')}
-            >
+            <Link className="cookie-button learn-more" href="/learn-more">
               Learn More
-            </button>
+            </Link>
           </div>
         </div>
       )}
