@@ -3,7 +3,7 @@ import { ExpenseTable } from '../components/ExpenseTable';
 import { Card, CardContent, CardDetails, CardHeader } from '../components/Card';
 import axios from 'axios';
 
-export const Expenses = ({isWidget}) => {
+export const Expenses = ({ isWidget }) => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [fixedExpenses, setFixedExpenses] = useState(0);
   const [variableExpenses, setVariableExpenses] = useState(0);
@@ -51,7 +51,7 @@ export const Expenses = ({isWidget}) => {
           <a className="sub-header">"Eksempel motto-tekst"</a>
         </section>
       )}
-      
+
       {!isWidget && (
         <div class="flex justify-center items-center w-full">
           <Card style={{ width: '100%' }}>
@@ -80,4 +80,3 @@ export const Expenses = ({isWidget}) => {
     </div>
   );
 };
-
