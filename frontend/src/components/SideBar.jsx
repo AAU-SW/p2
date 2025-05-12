@@ -120,6 +120,7 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
         style={{
           textDecoration: 'none',
           display: 'flex',
+          color: isActive ? 'white' : '#C0C2FF',
           alignItems: 'center',
           gap: '16px',
         }}
