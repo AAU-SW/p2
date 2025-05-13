@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { LearnMore } from './pages/LearnMore';
 import { Home } from './pages/Home';
 import { Advice } from './pages/Advice';
 import { TimePlan } from './pages/TimePlan';
@@ -13,34 +14,46 @@ import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
 import { CookieConsent } from './components/CookieConsent';
-import { LearnMore } from './pages/LearnMore';
 import { checkAuth } from './utils/checkAuth';
 
 const App = () => {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    checkAuth().then((res) => {
-      setIsAuthenticated(res);
-    });
-    const redirect = sessionStorage.redirect;
-    if (redirect) {
-      sessionStorage.removeItem('redirect');
-      window.history.replaceState(null, '', redirect);
-    }
+    checkAuth().then((res) => setIsAuthenticated(res));
   }, []);
+
+  useEffect(() => {
+    const publicPaths = ['/login', '/sign-up'];
+
+    if (isAuthenticated) {
+      // logged in → avoid auth pages
+      if (publicPaths.includes(location)) {
+        setLocation('/', { replace: true });
+        return;
+      }
+      // after login, go to saved redirect
+      const target = sessionStorage.getItem('redirect');
+      if (target) {
+        sessionStorage.removeItem('redirect');
+        setLocation(target, { replace: true });
+      }
+    } else {
+      // not logged in → protect pages
+      if (!publicPaths.includes(location)) {
+        sessionStorage.setItem('redirect', location);
+        setLocation('/login', { replace: true });
+      }
+    }
+  }, [isAuthenticated, location, setLocation]);
 
   return (
     <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
-      {!(
-        location === '/login' ||
-        location === '/sign-up' ||
-        location === '/learn-more'
-      ) && <Sidebar />}
+      {isAuthenticated && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>
-          {/* Public routes */}
+          {/* Public */}
           <Route path="/login">
             <Login />
           </Route>
@@ -51,7 +64,6 @@ const App = () => {
             <LearnMore />
           </Route>
 
-          {/* Protected routes */}
           <PrivateRoute
             path="/"
             isAuthenticated={isAuthenticated}
@@ -59,7 +71,6 @@ const App = () => {
           >
             <Home />
           </PrivateRoute>
-
           <PrivateRoute
             path="/timeplan"
             isAuthenticated={isAuthenticated}
@@ -67,7 +78,6 @@ const App = () => {
           >
             <TimePlan />
           </PrivateRoute>
-
           <PrivateRoute
             path="/advice"
             isAuthenticated={isAuthenticated}
@@ -75,7 +85,6 @@ const App = () => {
           >
             <Advice />
           </PrivateRoute>
-
           <PrivateRoute
             path="/expenses"
             isAuthenticated={isAuthenticated}
@@ -83,7 +92,6 @@ const App = () => {
           >
             <Expenses />
           </PrivateRoute>
-
           <PrivateRoute
             path="/mybudget"
             isAuthenticated={isAuthenticated}
@@ -91,7 +99,6 @@ const App = () => {
           >
             <MyBudget />
           </PrivateRoute>
-
           <PrivateRoute
             path="/log-out"
             isAuthenticated={isAuthenticated}
@@ -99,7 +106,6 @@ const App = () => {
           >
             <LogOut />
           </PrivateRoute>
-
           <PrivateRoute
             path="/settings"
             isAuthenticated={isAuthenticated}
@@ -108,7 +114,6 @@ const App = () => {
             <Settings />
           </PrivateRoute>
 
-          {/* Not found route */}
           <PrivateRoute isAuthenticated={isAuthenticated} redirectPath="/login">
             <div>Not found</div>
           </PrivateRoute>
