@@ -38,16 +38,9 @@ const App = () => {
         setLocation('/', { replace: true });
         return;
       }
-      // after login, go to saved redirect
-      const target = sessionStorage.getItem('redirect');
-      if (target) {
-        sessionStorage.removeItem('redirect');
-        setLocation(target, { replace: true });
-      }
     } else {
       // not logged in → protect pages
       if (!publicPaths.includes(location)) {
-        sessionStorage.setItem('redirect', location);
         setLocation('/login', { replace: true });
       }
     }
