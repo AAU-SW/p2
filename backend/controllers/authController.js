@@ -41,6 +41,8 @@ export const Login = async (req, res, next) => {
 		const token = createSecretToken(user._id);
 		res.cookie("token", token, {
 			httpOnly: true,
+			sameSite: "none",
+			secure: process.env.NODE_ENV === "production",
 		});
 		res
 			.status(201)

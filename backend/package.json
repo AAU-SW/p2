@@ -4,8 +4,8 @@
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
-		"dev": "nodemon index.js",
+		"start": "NODE_ENV=production node index.js",
+		"dev": "NODE_ENV=development nodemon index.js",
 		"test": "vitest",
 		"format": "npx @biomejs/biome format --write .",
 		"format:check": "npx @biomejs/biome format .",
