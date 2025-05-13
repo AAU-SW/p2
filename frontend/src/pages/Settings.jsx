@@ -4,7 +4,6 @@ import { Button } from '../components/Button';
 import '../styles/Settings.css';
 export const Settings = () => {
   const [data, setData] = useState();
-  const [toast, setToast] = useState(null);
   const fetchData = async () => {
     try {
       const response = await axios.get(import.meta.env.VITE_API_URL + '/user', {
