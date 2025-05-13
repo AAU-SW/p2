@@ -1,14 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {Button} from "../components/Button"
 import "../styles/Settings.css";
-import Avatar from "../assets/Avatar.jpeg";
 export const Settings = () => {
-  const [formData, setFormData] = useState({
-    name: "Kevin Nielsen",
-    email: "kevin1994@gmail.com",
-    currency: "DKK",
-    language: "English",
+  const [data, setData] = useState();
+  const [toast, setToast] = useState(null);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(import.meta.env.VITE_API_URL + '/user', {
+        withCredentials: true,
+      });
+      setData(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  });
+  useEffect(() => {
+    if (!data) return;
+    setFormData({
+      name: data.username,
+      email: data.email,
+      currency: "DKK",
+      language: "English",
+    })
+  }, [data]);
+
+
+  const [formData, setFormData] = useState();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -17,24 +39,41 @@ export const Settings = () => {
 
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Settings updated successfully!");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(
+        import.meta.env.VITE_API_URL + '/user',
+        {
+          username: formData.name,
+          email: formData.email,
+        },
+        { withCredentials: true }
+      );
+      alert ("User updated successfully");
+      fetchData();
+    } catch (error) {
+      console.error("Error updating user:", error);
+      alert ("User updated failed");
+    }
   };
+
+  if (!formData) return (
+    <>No data!</>
+  )
+
   return (
+
     <div className="app-container">
       <div className="main-content">
         <div className="header">
           <h1 className="page-title">Settings</h1>
           <div className="user-section">
-            <button className="notification-btn">
-              <svg className="notification-icon" viewBox="0 0 24 24">
-                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-              </svg>
-            </button>
             <div className="user-info">
-              <img src={Avatar} alt="User avatar" className="user-avatar" />
+            <div className="user-avatar-placeholder">
+              {formData.name?.charAt(0).toUpperCase()}
+            </div>
               <div className="user-details">
                 <p className="user-name">{formData.name}</p>
                 <p className="user-email">{formData.email}</p>
@@ -93,19 +132,11 @@ export const Settings = () => {
               </div>
             </div>
             <div className="button-group">
-              <button
+              <Button
                 type="submit"
-                className="btn-primary"
               >
                 Save Changes
-              </button>
-              <button
-                type="button"
-                className="btn-secondary"
-                onClick={() => window.history.back()}
-              >
-                Cancel
-              </button>
+              </Button>
             </div>
           </form>
         </div>
@@ -113,19 +144,26 @@ export const Settings = () => {
           <div className="danger-zone">
             <h3 className="danger-title">Delete Account</h3>
             <p className="danger-text">
-              Once you delete your account, there is no going back. Please be certain.
+              Once you delete your account, you can't restore it. Please be certain.
             </p>
-            <button
+            <Button
               type="button"
               className="btn-delete"
-              onClick={() => confirm("Are you sure you want to delete your account? This action cannot be undone.")}
+              onClick={async() => {
+                const isConfirmed =  confirm("Are you sure you want to delete your account?")
+                if (isConfirmed){
+                  await axios.delete(import.meta.env.VITE_API_URL + '/user', {
+                    withCredentials: true,
+                  });
+                location.reload()
+                }
+              }}
             >
               Delete Account
-            </button>
+            </Button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>)
 };
 export default Settings;
