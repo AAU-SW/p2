@@ -47,21 +47,6 @@ form input {
   box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
 
-/* Knapper (login og signup) – ens stil */
-form button,
-.signup-button {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  background-color: #423493;
-  color: white;
-  font-weight: 600;
-  border-radius: 20px;
-  font-size: 14px;
-  border: none;
-  margin-top: 0.7rem;
-  box-sizing: border-box;
-}
-
 .login-button {
   width: 100%;
   padding: 0.8rem 1rem;
@@ -83,10 +68,6 @@ form button,
   align-items: center;
   justify-content: center;
   padding: 2rem;
-}
-
-/* billede */
-.illustration img {
-  max-width: 100%;
+  max-width: 60%;
   height: auto;
 }

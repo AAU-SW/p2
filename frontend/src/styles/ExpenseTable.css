@@ -2,8 +2,10 @@ table {
   border: 1px solid black;
   border-collapse: collapse;
   border-style: none;
-  width: 1154px;
   text-align: center;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  width: 100%;
 }
 
 th {
@@ -166,4 +168,38 @@ tfoot {
   color: red;
   width: 20px;
   height: 20px;
+}
+
+.toggle-slab-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.toggle-slab-button {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  background-color: #e9ecef;
+  color: #495057;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.toggle-slab-button.active {
+  background-color: #007bff;
+  opacity: 0.5;
+  color: white;
+  font-weight: bold;
+}
+
+.toggle-slab-button:not(.active):hover {
+  background-color: #dee2e6;
 }

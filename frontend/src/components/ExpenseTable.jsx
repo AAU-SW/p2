@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import '../styles/ExpenseTable.css';
 import { FiTrash } from 'react-icons/fi';
+import { formatDate } from '../utils/unitFormats.js';
+import { Modal } from './Modal.jsx';
+import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES.js';
 import axios from 'axios';
-import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
-import { formatDate } from '../utils/unitFormats';
 
-export const ExpenseTable = () => {
+export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
+  const [isFixed, setIsFixed] = useState(true);
 
-  // Pageination bar
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 6;
+  const rowsPerPage = 4;
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentRows = rows.slice(startIndex, endIndex);
@@ -20,21 +21,20 @@ export const ExpenseTable = () => {
     setCurrentPage(pageNumber);
   };
 
-  // get the data add it to the table
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(import.meta.env.VITE_API_URL + '/expenses', {
-        withCredentials: true,
-      });
-      setRows(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  // Filter rows based on isFixed state
   useEffect(() => {
-    fetchData();
-  }, []);
+    const filteredRows = expenses.filter(
+      (expense) => expense.recurring === isFixed,
+    );
+    setRows(filteredRows);
+  }, [expenses, isFixed]);
 
+  // Ensures that the pagination is reset when switching between variable or fixed.
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [isFixed]);
+
+  // Handle submit of the form
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -44,52 +44,70 @@ export const ExpenseTable = () => {
     const amount = parseFloat(formData.get('amount')) || 0;
     const date = formData.get('date');
     const expenseType = formData.get('expenseType');
-    setRows([...rows, { expense, amount, date, expenseType }]);
+    const recurring = formData.get('recurring') === 'on';
 
-    // post of submittet expense
+    const newExpense = { expense, amount, date, expenseType, recurring };
+
     try {
-      await axios.post(
-        import.meta.env.VITE_API_URL + '/expenses',
-        { expense, amount, date, expenseType },
-        {
-          withCredentials: true,
-        },
-      );
+      await axios.post(import.meta.env.VITE_API_URL + '/expenses', newExpense, {
+        withCredentials: true,
+      });
+      fetchExpenses();
     } catch (error) {
       console.error('Error posting data:', error);
     }
     form.reset();
+    setModal(false);
   }
 
+  // Deleting rows
   const deleteRow = async (id) => {
     try {
       await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
         withCredentials: true,
       });
-      fetchData();
+      fetchExpenses();
     } catch (error) {
       console.error('Error deleting row:', error);
     }
   };
 
+  // Handle the amount of the expenses
   const totalAmount = rows.reduce((sum, row) => sum + row.amount, 0);
+
   return (
-    <div>
-      <button
-        className="add-job-placement add-job-button"
-        onClick={() => setModal(true)}
-      >
-        + Add new expense
-      </button>
+    <div style={{ width: '100%' }}>
+      <div className="toggle-slab-container">
+        <button
+          className={`toggle-slab-button ${isFixed ? 'active' : ''}`}
+          onClick={() => setIsFixed(true)}
+        >
+          Fixed Expenses
+        </button>
+        <button
+          className={`toggle-slab-button ${!isFixed ? 'active' : ''}`}
+          onClick={() => setIsFixed(false)}
+        >
+          Variable Expenses
+        </button>
+      </div>
       <section className="table-container">
         <table>
           <thead>
             <tr>
-              <th>expense</th>
-              <th>amount</th>
-              <th>Type</th>
-              <th>date</th>
-              <th></th>
+              <th>Expense</th>
+              <th>Amount</th>
+              <th>Categories</th>
+              <th>Date</th>
+              <th>
+                {' '}
+                <button
+                  className="add-job-placement add-job-button"
+                  onClick={() => setModal(true)}
+                >
+                  + Add new expense
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -102,9 +120,7 @@ export const ExpenseTable = () => {
                 <td>
                   <button
                     className="delete-button"
-                    onClick={() => {
-                      deleteRow(row._id);
-                    }}
+                    onClick={() => deleteRow(row._id)}
                   >
                     <FiTrash />
                   </button>
@@ -114,7 +130,7 @@ export const ExpenseTable = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td scope="row">Total</td>
+              <td>Total</td>
               <td>{totalAmount.toLocaleString()} DKK</td>
               <td></td>
             </tr>
@@ -132,22 +148,42 @@ export const ExpenseTable = () => {
           ))}
         </div>
       </section>
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            Add new expense
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
+      <form onSubmit={handleSubmit}>
+        <Modal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          title="Add Expense"
+          submitButtonText="Add expense"
+        >
           <input
             name="expense"
-            placeholder="E.g. rent, subscribtions"
+            placeholder="E.g. rent, subscriptions"
             required
           />
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
-
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              paddingBottom: '10px',
+            }}
+          >
+            <input
+              name="recurring"
+              type="checkbox"
+              style={{
+                width: '16px',
+                height: '16px',
+                cursor: 'pointer',
+                margin: '0',
+              }}
+            />
+            Recurring
+          </label>
           <select name="expenseType" required>
             {BUDGET_CATEGORIES.map((category, index) => (
               <option key={index} value={category}>
@@ -155,15 +191,8 @@ export const ExpenseTable = () => {
               </option>
             ))}
           </select>
-          <button
-            className="add-expense-button"
-            type="submit"
-            onClick={() => setModal(false)}
-          >
-            Submit
-          </button>
-        </form>
-      </dialog>
+        </Modal>
+      </form>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FiTrash } from 'react-icons/fi';
+import { Modal } from './Modal.jsx';
 
 export const TimeplanTable = ({ setWidgetData }) => {
   // Pop-up modal
@@ -84,6 +85,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
       console.error('Error adding new schema', error);
     }
     form.reset(); // Ensures input forms is reset after submitting.
+    setModal(false);
   }
 
   const deleteRow = async (id) => {
@@ -112,12 +114,24 @@ export const TimeplanTable = ({ setWidgetData }) => {
   }, [fixedIncome, variableIncome, totalHours, setWidgetData]);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div style={{ display: 'flex' }}>
-        <button className="add-job-button" onClick={() => setTable(true)}>
+        <button
+          className="add-job-button"
+          style={{
+            color: table ? 'white' : 'grey', // Change color based on `table` state
+          }}
+          onClick={() => setTable(true)}
+        >
           Fixed
         </button>
-        <button className="add-job-button" onClick={() => setTable(false)}>
+        <button
+          className="add-job-button"
+          style={{
+            color: !table ? 'white' : 'grey', // Change color based on `table` state
+          }}
+          onClick={() => setTable(false)}
+        >
           Variable
         </button>
         <button
@@ -214,16 +228,13 @@ export const TimeplanTable = ({ setWidgetData }) => {
           ))}
         </div>
       </section>
-
-      <dialog open={modal} className={modal ? 'backdrop' : ''}>
-        <form className="inputForms" onSubmit={handleSubmit}>
-          <a className="form-header">
-            {' '}
-            Add hours
-            <button className="unstyledButton" onClick={() => setModal(false)}>
-              x
-            </button>
-          </a>
+      <form onSubmit={handleSubmit}>
+        <Modal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          title="Add hours"
+          submitButtonText="Add hours"
+        >
           <select
             name="type"
             required
@@ -253,15 +264,8 @@ export const TimeplanTable = ({ setWidgetData }) => {
               <FixedIncomeInputFields />
             </>
           )}
-          <button
-            className="add-job-button"
-            type="submit"
-            onClick={() => setModal(false)}
-          >
-            Add worked hours
-          </button>
-        </form>
-      </dialog>
+        </Modal>
+      </form>
     </div>
   );
 };

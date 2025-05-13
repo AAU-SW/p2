@@ -2,20 +2,21 @@ import axios from 'axios';
 
 export const calculateTotalSpending = async () => {
   try {
-    // Fetch both expenses and activities data in parallel
-    const [expensesResponse, activitiesResponse] = await Promise.all([
-      axios.get(import.meta.env.VITE_API_URL + '/expenses', {
+    // Fetch expenses
+    const expensesResponse = await axios.get(
+      import.meta.env.VITE_API_URL + '/expenses',
+      {
         withCredentials: true,
-      }),
-      axios.get(import.meta.env.VITE_API_URL + '/activities', {
-        withCredentials: true,
-      }),
-    ]);
+      },
+    );
 
-    const expenses = expensesResponse.data || [];
-    const activities = activitiesResponse.data || [];
+    const expenses =
+      expensesResponse.data.filter((expense) => expense.recurring == true) ||
+      [];
+    const activities =
+      expensesResponse.data.filter((expense) => expense.recurring == false) ||
+      [];
 
-    // Initialize spending by categories
     const spendingByCategory = {};
 
     // Process expenses
@@ -29,11 +30,11 @@ export const calculateTotalSpending = async () => {
 
     // Process activities
     activities.forEach((activity) => {
-      const category = activity.activitiesType;
+      const category = activity.expenseType;
       if (!spendingByCategory[category]) {
         spendingByCategory[category] = 0;
       }
-      spendingByCategory[category] += activity.price;
+      spendingByCategory[category] += activity.amount;
     });
 
     // Calculate totals

@@ -4,7 +4,6 @@ import './App.css';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import { Home } from './pages/Home';
-import { Activities } from './pages/Activities';
 import { Advice } from './pages/Advice';
 import { TimePlan } from './pages/TimePlan';
 import { Expenses } from './pages/Expenses';
@@ -13,6 +12,9 @@ import { LogOut } from './pages/LogOut';
 import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
+import { GlobalLoader } from './components/GlobalLoader';
+import { CookieConsent } from './components/CookieConsent';
+import { LearnMore } from './pages/LearnMore';
 
 const App = () => {
   const [location] = useLocation();
@@ -43,23 +45,35 @@ const App = () => {
 
   useEffect(() => {
     checkAuth();
-  }, [location]); // Check auth when location changes
+    const redirect = sessionStorage.redirect;
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      window.history.replaceState(null, '', redirect);
+    }
+  }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <GlobalLoader></GlobalLoader>;
   }
 
   return (
-    <main style={{ display: 'flex', height: '100%' }}>
-      {!(location === '/login' || location === '/signup') && <Sidebar />}
+    <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
+      {!(
+        location === '/login' ||
+        location === '/sign-up' ||
+        location === '/learn-more'
+      ) && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>
           {/* Public routes */}
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/signup">
+          <Route path="/sign-up">
             <SignUp />
+          </Route>
+          <Route path="/learn-more">
+            <LearnMore />
           </Route>
 
           {/* Protected routes */}
@@ -69,14 +83,6 @@ const App = () => {
             redirectPath="/login"
           >
             <Home />
-          </PrivateRoute>
-
-          <PrivateRoute
-            path="/activities"
-            isAuthenticated={isAuthenticated}
-            redirectPath="/login"
-          >
-            <Activities />
           </PrivateRoute>
 
           <PrivateRoute
@@ -133,6 +139,7 @@ const App = () => {
           </PrivateRoute>
         </Switch>
       </div>
+      <CookieConsent />
     </main>
   );
 };

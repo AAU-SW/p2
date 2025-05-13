@@ -5,10 +5,12 @@ import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
+import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
 
-export const MyBudget = () => {
+export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
+  const [income, setIncome] = useState(0);
 
   const fetchBudgetsWithSpending = async () => {
     try {
@@ -19,9 +21,45 @@ export const MyBudget = () => {
     }
   };
 
+  const fetchIncome = async () => {
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/timeplans/',
+        {
+          withCredentials: true,
+        },
+      );
+      // Calculate total income
+      const timeplans = response.data;
+      const totalFixedIncome = timeplans
+        .filter((row) => row.type === 'Fixed income')
+        .reduce((sum, row) => sum + (row.fixedIncome || 0), 0);
+
+      const totalVariableIncome = timeplans
+        .filter((row) => row.type === 'Variable income')
+        .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);
+
+      const totalIncome = totalFixedIncome + totalVariableIncome;
+      setIncome(totalIncome);
+    } catch (error) {
+      console.error('Error fetching timeplans:', error);
+    }
+  };
+
   useEffect(() => {
     fetchBudgetsWithSpending();
+    fetchIncome();
   }, []);
+
+  const totalBudget = budgetSections.reduce(
+    (sum, budget) => sum + budget.maxSpending,
+    0,
+  );
+  const totalSpent = budgetSections.reduce(
+    (sum, budget) => sum + (budget.currentSpending || 0),
+    0,
+  );
+  const totalRemaining = totalBudget - totalSpent;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -53,27 +91,56 @@ export const MyBudget = () => {
 
   return (
     <>
-      <section>
-        <h1 className="header">Budgetting</h1>
-        <a className="sub-header">"Eksempel motto-tekst"</a>
-      </section>
-      <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Add Budget Category"
-        onSubmitClick={handleSubmit}
-        submitButtonText="Save Budget"
+      {!isWidget ? (
+        <>
+          <section>
+            <h1 className="header">Budgetting</h1>
+            <a className="sub-header">"Eksempel motto-tekst"</a>
+          </section>
+          <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
+        </>
+      ) : (
+        <></>
+      )}
+      <section
+        style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            gap: '5px',
-          }}
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Total Budget"></CardHeader>
+            <CardDetails>{totalBudget.toLocaleString()} kr.</CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Spent"></CardHeader>
+          <CardDetails>{totalSpent.toLocaleString()} kr.</CardDetails>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Remaining"></CardHeader>
+          <CardDetails>{totalRemaining.toLocaleString()} kr.</CardDetails>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Income"></CardHeader>
+          <CardDetails>{income.toLocaleString()} kr.</CardDetails>
+        </Card>
+      </section>
+
+      <form onSubmit={handleSubmit}>
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          title="Add Budget Category"
+          onSubmitClick={handleSubmit}
+          submitButtonText="Save Budget"
         >
-          <form>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              gap: '5px',
+            }}
+          >
             <select name="type" required>
               {BUDGET_CATEGORIES.map((category, index) => (
                 <option key={index} value={category}>
@@ -87,25 +154,19 @@ export const MyBudget = () => {
               type="number"
               placeholder="maxSpending"
             ></input>
-          </form>
-        </div>
-      </Modal>
+          </div>
+        </Modal>
+      </form>
       {budgetSections.length > 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            width: '100%',
-            flexWrap: 'wrap',
-          }}
-        >
+        <div className="budget-widgets-wrapper">
           {budgetSections.map((widget) => (
             <BudgetWidget
               key={widget._id}
+              id={widget._id}
               title={widget.title}
               currentSpending={widget.currentSpending || 0}
               maxSpending={widget.maxSpending}
+              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
             />
           ))}
         </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { Button } from '../components/Button';
-import InfographicImage from '../assets/infographics_humans.svg';
+import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/Login.css';
 
 export const Login = () => {
@@ -15,14 +15,17 @@ export const Login = () => {
     try {
       setLoading(true); // Start loading
 
-      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + '/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ email, password }),
         },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Login failed');
@@ -31,7 +34,7 @@ export const Login = () => {
       const data = await response.json();
       console.log('Login successful:', data);
       // Redirect to home page
-      window.location.href = '/';
+      window.location.href = '/p2/';
       //navigate('/p2'); does not work as it needs full page refresh?
     } catch (error) {
       console.error('Login failed', error);
@@ -49,40 +52,60 @@ export const Login = () => {
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome to SpareTime</h1>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          >
+            <form onSubmit={handleLogin}>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: '8px',
+                }}
+              >
+                <Button
+                  style={{ width: '100%' }}
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? 'Logging in...' : 'Log in'}
+                </Button>
 
-          <form onSubmit={handleLogin}>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-
-            <Button type="submit" disabled={loading}>
-              {loading ? 'Logging in...' : 'Log in'}
-            </Button>
-
-            <Button type="button" onClick={goToSignup} disabled={loading}>
-              Sign Up
-            </Button>
-          </form>
+                <Button
+                  style={{ width: '100%' }}
+                  type="button"
+                  onClick={goToSignup}
+                  disabled={loading}
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </form>
+          </div>
 
           {loading}
         </div>
         <img
           src={InfographicImage}
           alt="Infographic"
-          className="infographic-image"
+          className="illustration"
         />
       </div>
     </div>

@@ -1,0 +1,25 @@
+{
+  "name": "aau-p2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "format": "cd frontend && npm run format && cd ../backend && npm run format",
+    "lint": "cd frontend && npm run lint && cd ../backend && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AAU-SW/p2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AAU-SW/p2/issues"
+  },
+  "homepage": "https://github.com/AAU-SW/p2#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
