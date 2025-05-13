@@ -1,4 +1,4 @@
-import { Route, Switch, useLocation, Redirect } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Login } from './pages/Login';
@@ -12,49 +12,24 @@ import { LogOut } from './pages/LogOut';
 import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
-import { GlobalLoader } from './components/GlobalLoader';
 import { CookieConsent } from './components/CookieConsent';
 import { LearnMore } from './pages/LearnMore';
+import { checkAuth } from './utils/checkAuth';
 
 const App = () => {
   const [location] = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const checkAuth = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
-        method: 'POST',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setIsAuthenticated(data.status === true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    } catch (error) {
-      console.error('Authentication check failed', error);
-      setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
-    checkAuth();
+    checkAuth().then((res) => {
+      setIsAuthenticated(res);
+    });
     const redirect = sessionStorage.redirect;
     if (redirect) {
       sessionStorage.removeItem('redirect');
       window.history.replaceState(null, '', redirect);
     }
   }, []);
-
-  if (loading) {
-    return <GlobalLoader></GlobalLoader>;
-  }
 
   return (
     <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
