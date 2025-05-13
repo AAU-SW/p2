@@ -5,8 +5,6 @@ import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/SignUp.css';
 
 export const SignUp = () => {
-  // Sign up med username, email og password
-  // http://localhost:4000/auth/Signup
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

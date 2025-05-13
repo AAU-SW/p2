@@ -13,18 +13,23 @@ import { LogOut } from './pages/LogOut';
 import { Settings } from './pages/Settings';
 import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
+import { GlobalLoader } from './components/GlobalLoader';
 import { CookieConsent } from './components/CookieConsent';
 import { checkAuth } from './utils/checkAuth';
 
 const App = () => {
   const [location, setLocation] = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    checkAuth().then((res) => setIsAuthenticated(res));
+    checkAuth()
+      .then((res) => setIsAuthenticated(res))
+      .finally(() => setIsLoaded(true));
   }, []);
 
   useEffect(() => {
+    if (!isLoaded) return;
     const publicPaths = ['/login', '/sign-up'];
 
     if (isAuthenticated) {
@@ -46,7 +51,11 @@ const App = () => {
         setLocation('/login', { replace: true });
       }
     }
-  }, [isAuthenticated, location, setLocation]);
+  }, [isAuthenticated, location, setLocation, isLoaded]);
+
+  if (!isLoaded) {
+    return <GlobalLoader></GlobalLoader>;
+  }
 
   return (
     <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
