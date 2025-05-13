@@ -36,30 +36,23 @@ export const Sidebar = () => {
         borderRadius: '0 16px 16px 0',
         display: 'block',
         background: 'linear-gradient(to top, #0d313d, #4ca6c4)',
+        marginRight: '16px',
       }}
     >
       <div
-        className="sidebar"
         style={{
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'space-between',
           height: '100%',
         }}
       >
-        <img
-          src={LOGO}
-          className="logo"
-          style={{ height: '53px', padding: '32px 16px' }}
-        />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: '100%',
-            paddingBottom: '32px',
-          }}
-        >
+        <div>
+          <img
+            src={LOGO}
+            className="logo"
+            style={{ height: '53px', padding: '32px 16px' }}
+          />
           <ul
             style={{
               listStyle: 'none',
@@ -81,30 +74,33 @@ export const Sidebar = () => {
               href="/timeplan"
             />
           </ul>
-          <ul
-            style={{
-              listStyle: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <SidebarLink text="Settings" icon={<FaCog />} href="/settings" />
-            <SidebarLink
-              onClick={() => {
-                handleLogout();
-              }}
-              text="Log out"
-              icon={<FaSignOutAlt />}
-              href="#"
-            />
-          </ul>
         </div>
+        <ul
+          style={{
+            listStyle: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <SidebarLink text="Settings" icon={<FaCog />} href="/settings" />
+          <SidebarLink
+            onClick={() => {
+              handleLogout();
+            }}
+            text="Log out"
+            icon={<FaSignOutAlt />}
+            href="#"
+          />
+        </ul>
       </div>
     </div>
   );
 };
 
 const SidebarLink = ({ text, icon, href, onClick }) => {
+  const [location] = useLocation();
+  const isActive = location === href; // tjekker om current location matcher linkets href
+
   return (
     <li style={{ color: 'white' }}>
       <Link
@@ -116,13 +112,21 @@ const SidebarLink = ({ text, icon, href, onClick }) => {
         }}
         style={{
           textDecoration: 'none',
-          color: '#C0C2FF',
           display: 'flex',
+          color: isActive ? 'white' : '#C0C2FF',
           alignItems: 'center',
           gap: '16px',
         }}
       >
-        <div style={{ fontSize: '24px', display: 'flex' }}>{icon}</div>
+        <div
+          style={{
+            fontSize: '24px',
+            display: 'flex',
+            color: isActive ? 'white' : '#C0C2FF',
+          }}
+        >
+          {icon}
+        </div>
         <p>{text}</p>
       </Link>
     </li>

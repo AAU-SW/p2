@@ -12,7 +12,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [isFixed, setIsFixed] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 4;
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentRows = rows.slice(startIndex, endIndex);
@@ -28,6 +28,11 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
     );
     setRows(filteredRows);
   }, [expenses, isFixed]);
+
+  // Ensures that the pagination is reset when switching between variable or fixed.
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [isFixed]);
 
   // Handle submit of the form
   async function handleSubmit(e) {
@@ -92,7 +97,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
             <tr>
               <th>Expense</th>
               <th>Amount</th>
-              <th>Type</th>
+              <th>Categories</th>
               <th>Date</th>
               <th>
                 {' '}
@@ -157,8 +162,26 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
           />
           <input name="amount" type="number" placeholder="DKK" required />
           <input name="date" type="date" placeholder="DD/MM-YYYY" required />
-          <label>
-            <input name="recurring" type="checkbox" />
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              paddingBottom: '10px',
+            }}
+          >
+            <input
+              name="recurring"
+              type="checkbox"
+              style={{
+                width: '16px',
+                height: '16px',
+                cursor: 'pointer',
+                margin: '0',
+              }}
+            />
             Recurring
           </label>
           <select name="expenseType" required>

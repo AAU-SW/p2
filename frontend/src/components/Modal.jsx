@@ -10,7 +10,18 @@ export const Modal = ({
   return (
     <dialog open={isOpen} className={isOpen ? 'backdrop' : ''}>
       <div className="inputForms">
-        <a className="form-header">
+        <a
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontWeight: 'bold',
+            fontSize: '16px',
+            marginBottom: '5px',
+            borderBottom: '2px solid black',
+            alignItems: 'center',
+          }}
+        >
+          {/* Modal title */}
           {title}
           <Button
             style={{
