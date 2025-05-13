@@ -5,10 +5,12 @@ import { Modal } from '../components/Modal';
 import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
+import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
 
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
+  const [income, setIncome] = useState(0);
 
   const fetchBudgetsWithSpending = async () => {
     try {
@@ -19,9 +21,45 @@ export const MyBudget = ({ isWidget = false }) => {
     }
   };
 
+  const fetchIncome = async () => {
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + '/timeplans/',
+        {
+          withCredentials: true,
+        },
+      );
+      // Calculate total income
+      const timeplans = response.data;
+      const totalFixedIncome = timeplans
+        .filter((row) => row.type === 'Fixed income')
+        .reduce((sum, row) => sum + (row.fixedIncome || 0), 0);
+
+      const totalVariableIncome = timeplans
+        .filter((row) => row.type === 'Variable income')
+        .reduce((sum, row) => sum + (row.wage * row.hours || 0), 0);
+
+      const totalIncome = totalFixedIncome + totalVariableIncome;
+      setIncome(totalIncome);
+    } catch (error) {
+      console.error('Error fetching timeplans:', error);
+    }
+  };
+
   useEffect(() => {
     fetchBudgetsWithSpending();
+    fetchIncome();
   }, []);
+
+  const totalBudget = budgetSections.reduce(
+    (sum, budget) => sum + budget.maxSpending,
+    0,
+  );
+  const totalSpent = budgetSections.reduce(
+    (sum, budget) => sum + (budget.currentSpending || 0),
+    0,
+  );
+  const totalRemaining = totalBudget - totalSpent;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -64,6 +102,29 @@ export const MyBudget = ({ isWidget = false }) => {
       ) : (
         <></>
       )}
+      <section
+        style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}
+      >
+        <Card style={{ width: '100%' }}>
+          <CardContent>
+            <CardHeader title="Total Budget"></CardHeader>
+            <CardDetails>{totalBudget.toLocaleString()} kr.</CardDetails>
+          </CardContent>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Spent"></CardHeader>
+          <CardDetails>{totalSpent.toLocaleString()} kr.</CardDetails>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Remaining"></CardHeader>
+          <CardDetails>{totalRemaining.toLocaleString()} kr.</CardDetails>
+        </Card>
+        <Card style={{ width: '100%' }}>
+          <CardHeader title="Income"></CardHeader>
+          <CardDetails>{income.toLocaleString()} kr.</CardDetails>
+        </Card>
+      </section>
+
       <form onSubmit={handleSubmit}>
         <Modal
           isOpen={modalOpen}
