@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import {Button} from "../components/Button"
-import "../styles/Settings.css";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Button } from '../components/Button';
+import '../styles/Settings.css';
 export const Settings = () => {
   const [data, setData] = useState();
   const [toast, setToast] = useState(null);
@@ -24,19 +24,17 @@ export const Settings = () => {
     setFormData({
       name: data.username,
       email: data.email,
-      currency: "DKK",
-      language: "English",
-    })
+      currency: 'DKK',
+      language: 'English',
+    });
   }, [data]);
-
 
   const [formData, setFormData] = useState();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
-
+      [name]: value,
     });
   };
 
@@ -49,31 +47,28 @@ export const Settings = () => {
           username: formData.name,
           email: formData.email,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
-      alert ("User updated successfully");
+      alert('User updated successfully');
       fetchData();
     } catch (error) {
-      console.error("Error updating user:", error);
-      alert ("User updated failed");
+      console.error('Error updating user:', error);
+      alert('User updated failed');
     }
   };
 
-  if (!formData) return (
-    <>No data!</>
-  )
+  if (!formData) return <>No data!</>;
 
   return (
-
     <div className="app-container">
       <div className="main-content">
         <div className="header">
           <h1 className="page-title">Settings</h1>
           <div className="user-section">
             <div className="user-info">
-            <div className="user-avatar-placeholder">
-              {formData.name?.charAt(0).toUpperCase()}
-            </div>
+              <div className="user-avatar-placeholder">
+                {formData.name?.charAt(0).toUpperCase()}
+              </div>
               <div className="user-details">
                 <p className="user-name">{formData.name}</p>
                 <p className="user-email">{formData.email}</p>
@@ -132,11 +127,7 @@ export const Settings = () => {
               </div>
             </div>
             <div className="button-group">
-              <Button
-                type="submit"
-              >
-                Save Changes
-              </Button>
+              <Button type="submit">Save Changes</Button>
             </div>
           </form>
         </div>
@@ -144,18 +135,21 @@ export const Settings = () => {
           <div className="danger-zone">
             <h3 className="danger-title">Delete Account</h3>
             <p className="danger-text">
-              Once you delete your account, you can't restore it. Please be certain.
+              Once you delete your account, you can't restore it. Please be
+              certain.
             </p>
             <Button
               type="button"
               className="btn-delete"
-              onClick={async() => {
-                const isConfirmed =  confirm("Are you sure you want to delete your account?")
-                if (isConfirmed){
+              onClick={async () => {
+                const isConfirmed = confirm(
+                  'Are you sure you want to delete your account?',
+                );
+                if (isConfirmed) {
                   await axios.delete(import.meta.env.VITE_API_URL + '/user', {
                     withCredentials: true,
                   });
-                location.reload()
+                  location.reload();
                 }
               }}
             >
@@ -164,6 +158,7 @@ export const Settings = () => {
           </div>
         </div>
       </div>
-    </div>)
+    </div>
+  );
 };
 export default Settings;
