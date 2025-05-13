@@ -3,9 +3,6 @@ import { Link } from 'wouter';
 import { Button } from '../components/Button';
 import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/SignUp.css';
-import { useEffect } from 'react';
-import { checkAuth } from '../utils/checkAuth';
-import { navigate } from 'wouter/use-browser-location';
 
 export const SignUp = () => {
   // Sign up med username, email og password
@@ -14,12 +11,6 @@ export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    checkAuth().then((res) => {
-      if (res) navigate('/p2/');
-    });
-  }, []);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -42,7 +33,7 @@ export const SignUp = () => {
 
       const data = await response.json();
       console.log('Sign up successful:', data);
-      navigate('/p2/');
+      location.reload();
     } catch (error) {
       setError(error.message);
     }

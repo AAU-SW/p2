@@ -1,22 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
-import { checkAuth } from '../utils/checkAuth';
 import { Button } from '../components/Button';
 import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/Login.css';
-import { useEffect } from 'react';
-import { navigate } from 'wouter/use-browser-location';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    checkAuth().then((res) => {
-      if (res) navigate('/p2/');
-    });
-  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,7 +33,7 @@ export const Login = () => {
       const data = await response.json();
       console.log('Login successful:', data);
       // Redirect to home page
-      navigate('/p2/');
+      location.reload();
     } catch (error) {
       console.error('Login failed', error);
     } finally {
