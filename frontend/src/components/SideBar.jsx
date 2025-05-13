@@ -11,7 +11,6 @@ import {
 import { MdPeople } from 'react-icons/md';
 
 export const Sidebar = () => {
-  const [_, navigate] = useLocation();
   const handleLogout = async () => {
     try {
       const res = await fetch(import.meta.env.VITE_API_URL + '/auth/logout', {
@@ -21,7 +20,7 @@ export const Sidebar = () => {
       if (!res.ok) {
         console.error('Error logging out');
       } else {
-        navigate('/sign-up');
+        window.location.replace('/p2/login');
       }
     } catch (err) {
       console.error('Error logging out: ', err);
