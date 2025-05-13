@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { Button } from '../components/Button';
 import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/SignUp.css';
+import { useEffect } from 'react';
+import { checkAuth } from '../utils/checkAuth';
+import { navigate } from 'wouter/use-browser-location';
 
 export const SignUp = () => {
   // Sign up med username, email og password
@@ -11,7 +14,12 @@ export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [, navigate] = useLocation();
+
+  useEffect(() => {
+    checkAuth().then((res) => {
+      if (res) navigate('/p2/');
+    });
+  }, []);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -23,6 +31,7 @@ export const SignUp = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify({ username, email, password }),
         },
       );
@@ -33,8 +42,7 @@ export const SignUp = () => {
 
       const data = await response.json();
       console.log('Sign up successful:', data);
-      // Redirect til login page (eller home page ????)
-      navigate('/login');
+      navigate('/p2/');
     } catch (error) {
       setError(error.message);
     }
@@ -74,6 +82,9 @@ export const SignUp = () => {
               <Button style={{ width: '100%' }} type="submit">
                 Sign up
               </Button>
+              <p>
+                Already have a user? <Link href="/login">Login</Link>
+              </p>
             </form>
           </div>
         </div>
