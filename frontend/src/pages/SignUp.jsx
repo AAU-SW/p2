@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, Link } from 'wouter';
+import { Link } from 'wouter';
 import { Button } from '../components/Button';
 import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/SignUp.css';
