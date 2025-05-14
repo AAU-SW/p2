@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { CardHeader, Card, CardDetails } from '../components/Card';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 
 export const RecommendationsWidget = () => {
   const [overBudgetItems, setOverBudgetItems] = useState([]);
 
-    const DKKFormat = new Intl.NumberFormat('da-DK', {
+  const DKKFormat = new Intl.NumberFormat('da-DK', {
     style: 'currency',
     currency: 'DKK',
   });
@@ -22,9 +22,9 @@ export const RecommendationsWidget = () => {
       console.error('Error fetching budgets with spending:', error);
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     fetchBudgetsWithOverSpending();
-  }, [])
+  }, []);
 
   return (
     <Card>

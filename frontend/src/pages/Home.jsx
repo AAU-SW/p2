@@ -79,67 +79,70 @@ export const Home = () => {
           <MyBudget isWidget={true} />
         </Card>
       </div>
-      <section style={{display:'flex', flexDirection:'row'}}>
-      <div style={{width:'40%'}}>
-      <div className="budget-widget">
-        <Card style={{ width: '100%' }}>
-          <CardHeader title="Total spending / Budget" />
-          <CardContent>
-            <div className="progress-bar-container">
-              <progress className="progress-bar" value={percentage} max="100" />
-            </div>
-            <div className="budget-amounts">
-              <CardDetails>
-                <div className="percentage-current-amount">
-                  <p>{DKKFormat.format(totalSpent)}</p>
-                  {percentage < 100 ? (
-                    <p className="percentage">{percentage}%</p>
-                  ) : (
-                    <p className="percentage" style={{ color: 'red' }}>
-                      {percentage}%
-                    </p>
-                  )}
+      <section style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ width: '40%' }}>
+          <div className="budget-widget">
+            <Card style={{ width: '100%' }}>
+              <CardHeader title="Total spending / Budget" />
+              <CardContent>
+                <div className="progress-bar-container">
+                  <progress
+                    className="progress-bar"
+                    value={percentage}
+                    max="100"
+                  />
                 </div>
-                <p className="total-amount">{`of ${DKKFormat.format(totalBudget)}`}</p>
-              </CardDetails>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+                <div className="budget-amounts">
+                  <CardDetails>
+                    <div className="percentage-current-amount">
+                      <p>{DKKFormat.format(totalSpent)}</p>
+                      {percentage < 100 ? (
+                        <p className="percentage">{percentage}%</p>
+                      ) : (
+                        <p className="percentage" style={{ color: 'red' }}>
+                          {percentage}%
+                        </p>
+                      )}
+                    </div>
+                    <p className="total-amount">{`of ${DKKFormat.format(totalBudget)}`}</p>
+                  </CardDetails>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-      <div className="budget-widget">
-        <Card style={{ width: '100%' }}>
-          <CardHeader title="Budget / Income" />
-          <CardContent>
-            <div className="progress-bar-container">
-              <progress
-                className="progress-bar"
-                value={Number(percentageIncome)}
-                max="100"
-              />
-            </div>
-            <div className="budget-amounts">
-              <CardDetails>
-                <div className="percentage-current-amount">
-                  <p>{DKKFormat.format(totalBudget)}</p>
-                  {percentageIncome < 100 ? (
-                    <p className="percentage">{percentageIncome}%</p>
-                  ) : (
-                    <p className="percentage" style={{ color: 'red' }}>
-                      {percentageIncome}%
-                    </p>
-                  )}
+          <div className="budget-widget">
+            <Card style={{ width: '100%' }}>
+              <CardHeader title="Budget / Income" />
+              <CardContent>
+                <div className="progress-bar-container">
+                  <progress
+                    className="progress-bar"
+                    value={Number(percentageIncome)}
+                    max="100"
+                  />
                 </div>
-                <p className="total-amount">{`of ${DKKFormat.format(income)}`}</p>
-              </CardDetails>
-            </div>
-          </CardContent>
-        </Card>
+                <div className="budget-amounts">
+                  <CardDetails>
+                    <div className="percentage-current-amount">
+                      <p>{DKKFormat.format(totalBudget)}</p>
+                      {percentageIncome < 100 ? (
+                        <p className="percentage">{percentageIncome}%</p>
+                      ) : (
+                        <p className="percentage" style={{ color: 'red' }}>
+                          {percentageIncome}%
+                        </p>
+                      )}
+                    </div>
+                    <p className="total-amount">{`of ${DKKFormat.format(income)}`}</p>
+                  </CardDetails>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
-            <RecommendationsWidget />
+        <RecommendationsWidget />
       </section>
-
     </>
   );
 };
