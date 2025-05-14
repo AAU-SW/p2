@@ -9,7 +9,6 @@ export const AddWidget = ({ onClick, noData }) => {
         <div className="add-widget">
           <Card style={{ minWidth: '33%' }}>
             <CardContent>
-              <CardHeader title="Add new budget"></CardHeader>
               <button
                 type="submit"
                 onClick={onClick}
@@ -17,10 +16,13 @@ export const AddWidget = ({ onClick, noData }) => {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  height: '100%',
+                  width: '100%',
                 }}
               >
                 <div className="circle-center">
                   <CiCirclePlus />
+                  <p>Add new budget</p>
                 </div>
               </button>
             </CardContent>
@@ -30,7 +32,6 @@ export const AddWidget = ({ onClick, noData }) => {
         <div className="add-widget">
           <Card style={{ width: '100%' }}>
             <CardContent>
-              <CardHeader title="Add new budget"></CardHeader>
               <button
                 type="submit"
                 onClick={onClick}
@@ -38,10 +39,13 @@ export const AddWidget = ({ onClick, noData }) => {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  height: '100%',
+                  width: '100%',
                 }}
               >
                 <div className="circle-center">
                   <CiCirclePlus />
+                  <p>Add new budget</p>
                 </div>
               </button>
             </CardContent>
