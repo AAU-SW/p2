@@ -10,7 +10,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
   const [allRows, setAllRows] = useState([]);
   const [table, setTable] = useState(false);
 
-  const [type, setType] = useState('Variable income');
+  const [type, setType] = useState('');
   // Pagination bar
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 4;
@@ -248,6 +248,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
           submitButtonText="Add hours"
         >
           <select
+            style={{ marginBottom: '10px' }}
             name="type"
             required
             value={type}
@@ -265,7 +266,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
             </>
           ) : (
             <>
-              <select name="jobInterval">
+              <select style={{ marginBottom: '17px' }} name="jobInterval">
                 <option value="" disabled selected>
                   Select repeateance
                 </option>
