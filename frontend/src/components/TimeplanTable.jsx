@@ -148,7 +148,6 @@ export const TimeplanTable = ({ setWidgetData }) => {
         </button>
       </div>
       <section className="table-container">
-        <h3>Incomes</h3>
         <table>
           {table ? (
             <>
