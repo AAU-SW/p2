@@ -7,6 +7,22 @@ import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
 
+const NoData = () => (
+  <div
+    style={{
+      width: '100%',
+      padding: '40px',
+      textAlign: 'center',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '8px',
+      margin: '20px 0',
+    }}
+  >
+    <h3>No Budget Data Available</h3>
+    <p>Add budget categories to start tracking your expenses</p>
+  </div>
+);
+
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
@@ -125,6 +141,8 @@ export const MyBudget = ({ isWidget = false }) => {
         </Card>
       </section>
 
+  {!isWidget ?(
+    <>
       <form onSubmit={handleSubmit}>
         <Modal
           isOpen={modalOpen}
@@ -167,28 +185,14 @@ export const MyBudget = ({ isWidget = false }) => {
               currentSpending={widget.currentSpending || 0}
               maxSpending={widget.maxSpending}
               fetchBudgetsWithSpending={fetchBudgetsWithSpending}
-            />
-          ))}
-        </div>
-      ) : (
-        <NoData />
-      )}
+              />
+            ))}
+          </div>
+        ) : (
+          <NoData />
+        )}
+      </>
+    ) : null} 
     </>
   );
-};
-
-const NoData = () => (
-  <div
-    style={{
-      width: '100%',
-      padding: '40px',
-      textAlign: 'center',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      margin: '20px 0',
-    }}
-  >
-    <h3>No Budget Data Available</h3>
-    <p>Add budget categories to start tracking your expenses</p>
-  </div>
-);
+}
