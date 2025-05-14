@@ -2,7 +2,12 @@ export const checkAuth = async () => {
   try {
     const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
       method: 'POST',
-      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('token'),
+      }),
     });
 
     if (response.ok) {
