@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { getUserIdByHeaders } from "../getUserIdByHeaders";
 import jwt from "jsonwebtoken";
 
-const testRequestWithToken = { header: () => "test-token" };
+const testRequestWithToken = { header: () => "Bearer test-token" };
 
 describe("getUserIdByHeaders", () => {
 	it("should throw an error if no token in request", () => {
