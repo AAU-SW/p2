@@ -177,29 +177,13 @@ export const MyBudget = ({ isWidget = false }) => {
                   fetchBudgetsWithSpending={fetchBudgetsWithSpending}
                 />
               ))}
-              <AddWidget onClick={()=> setModalOpen(true)} />
+              <AddWidget onClick={() => setModalOpen(true)} />
             </div>
           ) : (
-            <NoData />
+            <AddWidget onClick={() => setModalOpen(true)} />
           )}
         </>
       ) : null}
     </>
   );
 };
-
-const NoData = () => (
-  <div
-    style={{
-      width: '100%',
-      padding: '40px',
-      textAlign: 'center',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      margin: '20px 0',
-    }}
-  >
-    <h3>No Budget Data Available</h3>
-    <p>Add budget categories to start tracking your expenses</p>
-  </div>
-);

@@ -5,13 +5,12 @@
   min-width: 255px;
   width: 100%;
 }
-.circle-center{
+.circle-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .circle-center svg {
-  font-size: 3rem; 
-  color:blue;
+  font-size: 3rem;
+  color: blue;
 }
