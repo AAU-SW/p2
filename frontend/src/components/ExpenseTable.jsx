@@ -174,6 +174,14 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
             <option value="Fixed expense">Fixed expense</option>
             <option value="Variable expense">Variable expense</option>
           </select>
+
+          <select style={{ marginBottom: '10px' }} name="expenseType" required>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
           <input
             name="expense"
             placeholder="E.g. rent, subscriptions"
@@ -188,16 +196,8 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
               gap: '8px',
               fontSize: '14px',
               fontWeight: '500',
-              paddingBottom: '10px',
             }}
           ></label>
-          <select name="expenseType" required>
-            {BUDGET_CATEGORIES.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
         </Modal>
       </form>
     </div>
