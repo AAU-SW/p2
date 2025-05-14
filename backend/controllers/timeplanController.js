@@ -1,9 +1,9 @@
 import { Timeplan } from "../models/timeplan.js";
-import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
+import { getUserIdByHeaders } from "../util/auth/getUserIdByHeaders.js";
 
 export const getTimeplan = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByHeaders(req); // Gets current logged in user by using cookie token within browser.
 		if (!userId) {
 			return res
 				.status(401)
@@ -17,7 +17,7 @@ export const getTimeplan = async (req, res) => {
 };
 export const postTimeplan = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByHeaders(req); // Gets current logged in user by using cookie token within browser.
 		if (!userId) {
 			return res
 				.status(401)
@@ -49,7 +49,7 @@ export const postTimeplan = async (req, res) => {
 // delete row in timeplan
 export const deleteRow = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByHeaders(req); // Gets current logged in user by using cookie token within browser.
 		if (!userId) {
 			return res
 				.status(401)

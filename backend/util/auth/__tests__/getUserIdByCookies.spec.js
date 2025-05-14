@@ -1,16 +1,16 @@
 import { describe, it, expect, vi } from "vitest";
-import { getUserIdByCookies } from "../getUserIdByCookies";
+import { getUserIdByHeaders } from "../getUserIdByHeaders";
 import jwt from "jsonwebtoken";
 
-const testRequestWithToken = { cookies: { token: "test-token" } };
+const testRequestWithToken = { header: () => "Bearer test-token" };
 
-describe("getUserIdByCookies", () => {
+describe("getUserIdByHeaders", () => {
 	it("should throw an error if no token in request", () => {
 		// Arrange
-		const testRequestWithoutToken = { cookies: { token: undefined } };
+		const testRequestWithoutToken = { header: () => undefined };
 
 		// Act & Assert
-		expect(() => getUserIdByCookies(testRequestWithoutToken)).toThrow();
+		expect(() => getUserIdByHeaders(testRequestWithoutToken)).toThrow();
 	});
 	it("should throw an error if no id in token", () => {
 		// Arrange
@@ -19,7 +19,7 @@ describe("getUserIdByCookies", () => {
 		vi.spyOn(jwt, "verify").mockImplementation(verifyMock);
 
 		// Act & Assert
-		expect(() => getUserIdByCookies(testRequestWithToken)).toThrow();
+		expect(() => getUserIdByHeaders(testRequestWithToken)).toThrow();
 		expect(verifyMock).toBeCalled();
 	});
 	it("should call jwt.verify", () => {
@@ -29,7 +29,7 @@ describe("getUserIdByCookies", () => {
 		vi.spyOn(jwt, "verify").mockImplementation(verifyMock);
 
 		// Act
-		const res = getUserIdByCookies(testRequestWithToken);
+		const res = getUserIdByHeaders(testRequestWithToken);
 
 		// Assert
 		expect(res).toEqual(testId);
