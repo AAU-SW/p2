@@ -4,6 +4,7 @@ import { MyBudget } from './MyBudget';
 import { useState, useEffect } from 'react';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import axios from 'axios';
+import { RecommendationsWidget } from '../components/RecommendationsWidget';
 
 export const Home = () => {
   const [budgetSections, setBudgetSections] = useState([]);
@@ -78,7 +79,8 @@ export const Home = () => {
           <MyBudget isWidget={true} />
         </Card>
       </div>
-
+      <section style={{display:'flex', flexDirection:'row'}}>
+      <div style={{width:'40%'}}>
       <div className="budget-widget">
         <Card style={{ width: '100%' }}>
           <CardHeader title="Total spending / Budget" />
@@ -133,7 +135,11 @@ export const Home = () => {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
+            <RecommendationsWidget />
+      </section>
+
     </>
   );
 };
