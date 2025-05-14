@@ -6,27 +6,16 @@ import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
-
-const NoData = () => (
-  <div
-    style={{
-      width: '100%',
-      padding: '40px',
-      textAlign: 'center',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      margin: '20px 0',
-    }}
-  >
-    <h3>No Budget Data Available</h3>
-    <p>Add budget categories to start tracking your expenses</p>
-  </div>
-);
+import { AddWidget } from '../components/AddWidget';
 
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
   const [income, setIncome] = useState(0);
+
+  const handleAddWidget = (newWidget) => {
+    setBudgetSections((prevSections) => [...prevSections, newWidget]);
+  };
 
   const fetchBudgetsWithSpending = async () => {
     try {
@@ -119,7 +108,6 @@ export const MyBudget = ({ isWidget = false }) => {
             <h1 className="header">Budgetting</h1>
             <a className="sub-header">"Eksempel motto-tekst"</a>
           </section>
-          <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
         </>
       ) : (
         <></>
@@ -193,6 +181,7 @@ export const MyBudget = ({ isWidget = false }) => {
                   fetchBudgetsWithSpending={fetchBudgetsWithSpending}
                 />
               ))}
+              <AddWidget onAddWidget={handleAddWidget} />
             </div>
           ) : (
             <NoData />
