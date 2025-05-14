@@ -31,13 +31,14 @@ export const Login = () => {
       }
 
       const data = await response.json();
+      localStorage.setItem('token', data.token);
       console.log('Login successful:', data);
       // Redirect to home page
       location.reload();
     } catch (error) {
       console.error('Login failed', error);
     } finally {
-      setLoading(false); // End loading regardless of outcome
+      setLoading(false);
     }
   };
 
