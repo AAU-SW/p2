@@ -6,7 +6,9 @@ export const calculateTotalSpending = async () => {
     const expensesResponse = await axios.get(
       import.meta.env.VITE_API_URL + '/expenses',
       {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       },
     );
 
@@ -101,7 +103,9 @@ export const getBudgetsWithCurrentSpending = async () => {
     const budgetsResponse = await axios.get(
       import.meta.env.VITE_API_URL + '/budgets',
       {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       },
     );
 

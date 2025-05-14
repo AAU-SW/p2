@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { Button } from '../components/Button';
 import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/Login.css';
@@ -8,7 +8,6 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [, navigate] = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,19 +31,15 @@ export const Login = () => {
       }
 
       const data = await response.json();
+      localStorage.setItem('token', data.token);
       console.log('Login successful:', data);
       // Redirect to home page
-      window.location.href = '/p2/';
-      //navigate('/p2'); does not work as it needs full page refresh?
+      location.reload();
     } catch (error) {
       console.error('Login failed', error);
     } finally {
-      setLoading(false); // End loading regardless of outcome
+      setLoading(false);
     }
-  };
-
-  const goToSignup = () => {
-    navigate('/signup');
   };
 
   return (
@@ -88,14 +83,9 @@ export const Login = () => {
                   {loading ? 'Logging in...' : 'Log in'}
                 </Button>
 
-                <Button
-                  style={{ width: '100%' }}
-                  type="button"
-                  onClick={goToSignup}
-                  disabled={loading}
-                >
-                  Sign Up
-                </Button>
+                <p>
+                  Don't have a user? <Link href="/sign-up">Sign Up</Link>
+                </p>
               </div>
             </form>
           </div>

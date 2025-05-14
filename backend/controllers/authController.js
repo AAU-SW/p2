@@ -11,13 +11,7 @@ export const Signup = async (req, res, next) => {
 		}
 		const user = await User.create({ email, password, username, createdAt });
 		const token = createSecretToken(user._id);
-		res.cookie("token", token, {
-			withCredentials: true,
-			httpOnly: false,
-		});
-		res
-			.status(201)
-			.json({ message: "User signed up successfully", success: true, user });
+		res.status(201).json({ token, user });
 		return next();
 	} catch (error) {
 		console.error(error);
@@ -40,13 +34,7 @@ export const Login = async (req, res, next) => {
 			return res.status(403).json({ message: "Incorrect password" });
 		}
 		const token = createSecretToken(user._id);
-		res.cookie("token", token, {
-			withCredentials: true,
-			httpOnly: false,
-		});
-		res
-			.status(201)
-			.json({ message: "User logged in successfully", success: true });
+		res.status(201).json({ token });
 		next();
 	} catch (error) {
 		console.error(error);
@@ -55,12 +43,8 @@ export const Login = async (req, res, next) => {
 	}
 };
 
-export const Logout = async (req, res, next) => {
+export const Logout = async (_, res, next) => {
 	try {
-		res.cookie("token", "none", {
-			withCredentials: true,
-			httpOnly: false,
-		});
 		res
 			.status(200)
 			.json({ message: "User logged out successfully", success: true });

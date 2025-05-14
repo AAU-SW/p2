@@ -1,8 +1,9 @@
-import { Route, Switch, useLocation, Redirect } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { LearnMore } from './pages/LearnMore';
 import { Home } from './pages/Home';
 import { Advice } from './pages/Advice';
 import { TimePlan } from './pages/TimePlan';
@@ -14,58 +15,47 @@ import { Sidebar } from './components/SideBar';
 import { PrivateRoute } from './components/PrivateRoute';
 import { GlobalLoader } from './components/GlobalLoader';
 import { CookieConsent } from './components/CookieConsent';
-import { LearnMore } from './pages/LearnMore';
+import { checkAuth } from './utils/checkAuth';
 
 const App = () => {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const checkAuth = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(import.meta.env.VITE_API_URL + '/auth/', {
-        method: 'POST',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setIsAuthenticated(data.status === true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    } catch (error) {
-      console.error('Authentication check failed', error);
-      setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    checkAuth();
-    const redirect = sessionStorage.redirect;
-    if (redirect) {
-      sessionStorage.removeItem('redirect');
-      window.history.replaceState(null, '', redirect);
-    }
+    checkAuth()
+      .then((res) => setIsAuthenticated(res))
+      .finally(() => setIsLoaded(true));
   }, []);
 
-  if (loading) {
+  useEffect(() => {
+    if (!isLoaded) return;
+    const publicPaths = ['/login', '/sign-up'];
+
+    if (isAuthenticated) {
+      // logged in → avoid auth pages
+      if (publicPaths.includes(location)) {
+        setLocation('/', { replace: true });
+        return;
+      }
+    } else {
+      // not logged in → protect pages
+      if (!publicPaths.includes(location)) {
+        setLocation('/login', { replace: true });
+      }
+    }
+  }, [isAuthenticated, location, setLocation, isLoaded]);
+
+  if (!isLoaded) {
     return <GlobalLoader></GlobalLoader>;
   }
 
   return (
     <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
-      {!(
-        location === '/login' ||
-        location === '/sign-up' ||
-        location === '/learn-more'
-      ) && <Sidebar />}
+      {isAuthenticated && <Sidebar />}
       <div style={{ width: '100%' }}>
         <Switch>
-          {/* Public routes */}
+          {/* Public */}
           <Route path="/login">
             <Login />
           </Route>
@@ -76,7 +66,6 @@ const App = () => {
             <LearnMore />
           </Route>
 
-          {/* Protected routes */}
           <PrivateRoute
             path="/"
             isAuthenticated={isAuthenticated}
@@ -84,7 +73,6 @@ const App = () => {
           >
             <Home />
           </PrivateRoute>
-
           <PrivateRoute
             path="/timeplan"
             isAuthenticated={isAuthenticated}
@@ -92,7 +80,6 @@ const App = () => {
           >
             <TimePlan />
           </PrivateRoute>
-
           <PrivateRoute
             path="/advice"
             isAuthenticated={isAuthenticated}
@@ -100,7 +87,6 @@ const App = () => {
           >
             <Advice />
           </PrivateRoute>
-
           <PrivateRoute
             path="/expenses"
             isAuthenticated={isAuthenticated}
@@ -108,7 +94,6 @@ const App = () => {
           >
             <Expenses />
           </PrivateRoute>
-
           <PrivateRoute
             path="/mybudget"
             isAuthenticated={isAuthenticated}
@@ -116,7 +101,6 @@ const App = () => {
           >
             <MyBudget />
           </PrivateRoute>
-
           <PrivateRoute
             path="/log-out"
             isAuthenticated={isAuthenticated}
@@ -124,7 +108,6 @@ const App = () => {
           >
             <LogOut />
           </PrivateRoute>
-
           <PrivateRoute
             path="/settings"
             isAuthenticated={isAuthenticated}
@@ -133,7 +116,6 @@ const App = () => {
             <Settings />
           </PrivateRoute>
 
-          {/* Not found route */}
           <PrivateRoute isAuthenticated={isAuthenticated} redirectPath="/login">
             <div>Not found</div>
           </PrivateRoute>

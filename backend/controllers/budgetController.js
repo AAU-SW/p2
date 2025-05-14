@@ -1,10 +1,10 @@
 import { Budget } from "../models/budgetSchema.js";
-import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
+import { getUserIdByHeaders } from "../util/auth/getUserIdByHeaders.js";
 
 // Create a new budget category
 export const createBudget = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		if (!userId) {
 			return res
 				.status(401)
@@ -37,7 +37,7 @@ export const createBudget = async (req, res) => {
 // Get all budgets for a user
 export const getBudgets = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		if (!userId) {
 			return res
 				.status(401)
@@ -54,7 +54,7 @@ export const getBudgets = async (req, res) => {
 // delete row in budget table
 export const deleteRow = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req); // Gets current logged in user by using cookie token within browser.
+		const userId = getUserIdByHeaders(req); // Gets current logged in user by using cookie token within browser.
 		if (!userId) {
 			return res
 				.status(401)

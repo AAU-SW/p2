@@ -1,17 +1,14 @@
 import { useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { Button } from '../components/Button';
 import InfographicImage from '../assets/Infographics_Login_Page.svg';
 import '../styles/SignUp.css';
 
 export const SignUp = () => {
-  // Sign up med username, email og password
-  // http://localhost:4000/auth/Signup
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [, navigate] = useLocation();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -23,6 +20,7 @@ export const SignUp = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify({ username, email, password }),
         },
       );
@@ -32,9 +30,9 @@ export const SignUp = () => {
       }
 
       const data = await response.json();
+      localStorage.setItem('token', data.token);
       console.log('Sign up successful:', data);
-      // Redirect til login page (eller home page ????)
-      navigate('/login');
+      location.reload();
     } catch (error) {
       setError(error.message);
     }
@@ -74,6 +72,9 @@ export const SignUp = () => {
               <Button style={{ width: '100%' }} type="submit">
                 Sign up
               </Button>
+              <p>
+                Already have a user? <Link href="/login">Login</Link>
+              </p>
             </form>
           </div>
         </div>
