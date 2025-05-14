@@ -7,6 +7,22 @@ import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
 
+const NoData = () => (
+  <div
+    style={{
+      width: '100%',
+      padding: '40px',
+      textAlign: 'center',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '8px',
+      margin: '20px 0',
+    }}
+  >
+    <h3>No Budget Data Available</h3>
+    <p>Add budget categories to start tracking your expenses</p>
+  </div>
+);
+
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [budgetSections, setBudgetSections] = useState([]);
@@ -131,70 +147,58 @@ export const MyBudget = ({ isWidget = false }) => {
         </Card>
       </section>
 
-      <form onSubmit={handleSubmit}>
-        <Modal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title="Add Budget Category"
-          onSubmitClick={handleSubmit}
-          submitButtonText="Save Budget"
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              gap: '5px',
-            }}
-          >
-            <select name="type" required>
-              {BUDGET_CATEGORIES.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
+      {!isWidget ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <Modal
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              title="Add Budget Category"
+              onSubmitClick={handleSubmit}
+              submitButtonText="Save Budget"
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: '5px',
+                }}
+              >
+                <select name="type" required>
+                  {BUDGET_CATEGORIES.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
 
-            <input
-              name="maxSpending"
-              type="number"
-              placeholder="maxSpending"
-            ></input>
-          </div>
-        </Modal>
-      </form>
-      {budgetSections.length > 0 ? (
-        <div className="budget-widgets-wrapper">
-          {budgetSections.map((widget) => (
-            <BudgetWidget
-              key={widget._id}
-              id={widget._id}
-              title={widget.title}
-              currentSpending={widget.currentSpending || 0}
-              maxSpending={widget.maxSpending}
-              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
-            />
-          ))}
-        </div>
-      ) : (
-        <NoData />
-      )}
+                <input
+                  name="maxSpending"
+                  type="number"
+                  placeholder="Budget limit"
+                ></input>
+              </div>
+            </Modal>
+          </form>
+          {budgetSections.length > 0 ? (
+            <div className="budget-widgets-wrapper">
+              {budgetSections.map((widget) => (
+                <BudgetWidget
+                  key={widget._id}
+                  id={widget._id}
+                  title={widget.title}
+                  currentSpending={widget.currentSpending || 0}
+                  maxSpending={widget.maxSpending}
+                  fetchBudgetsWithSpending={fetchBudgetsWithSpending}
+                />
+              ))}
+            </div>
+          ) : (
+            <NoData />
+          )}
+        </>
+      ) : null}
     </>
   );
 };
-
-const NoData = () => (
-  <div
-    style={{
-      width: '100%',
-      padding: '40px',
-      textAlign: 'center',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      margin: '20px 0',
-    }}
-  >
-    <h3>No Budget Data Available</h3>
-    <p>Add budget categories to start tracking your expenses</p>
-  </div>
-);
