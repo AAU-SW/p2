@@ -141,58 +141,58 @@ export const MyBudget = ({ isWidget = false }) => {
         </Card>
       </section>
 
-  {!isWidget ?(
-    <>
-      <form onSubmit={handleSubmit}>
-        <Modal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title="Add Budget Category"
-          onSubmitClick={handleSubmit}
-          submitButtonText="Save Budget"
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              gap: '5px',
-            }}
-          >
-            <select name="type" required>
-              {BUDGET_CATEGORIES.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
+      {!isWidget ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <Modal
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              title="Add Budget Category"
+              onSubmitClick={handleSubmit}
+              submitButtonText="Save Budget"
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: '5px',
+                }}
+              >
+                <select name="type" required>
+                  {BUDGET_CATEGORIES.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
 
-            <input
-              name="maxSpending"
-              type="number"
-              placeholder="maxSpending"
-            ></input>
-          </div>
-        </Modal>
-      </form>
-      {budgetSections.length > 0 ? (
-        <div className="budget-widgets-wrapper">
-          {budgetSections.map((widget) => (
-            <BudgetWidget
-              key={widget._id}
-              id={widget._id}
-              title={widget.title}
-              currentSpending={widget.currentSpending || 0}
-              maxSpending={widget.maxSpending}
-              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
-              />
-            ))}
-          </div>
-        ) : (
-          <NoData />
-        )}
-      </>
-    ) : null} 
+                <input
+                  name="maxSpending"
+                  type="number"
+                  placeholder="maxSpending"
+                ></input>
+              </div>
+            </Modal>
+          </form>
+          {budgetSections.length > 0 ? (
+            <div className="budget-widgets-wrapper">
+              {budgetSections.map((widget) => (
+                <BudgetWidget
+                  key={widget._id}
+                  id={widget._id}
+                  title={widget.title}
+                  currentSpending={widget.currentSpending || 0}
+                  maxSpending={widget.maxSpending}
+                  fetchBudgetsWithSpending={fetchBudgetsWithSpending}
+                />
+              ))}
+            </div>
+          ) : (
+            <NoData />
+          )}
+        </>
+      ) : null}
     </>
   );
-}
+};

@@ -80,4 +80,3 @@ export const Expenses = ({ isWidget }) => {
     </div>
   );
 };
-
