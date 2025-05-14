@@ -13,10 +13,6 @@ export const MyBudget = ({ isWidget = false }) => {
   const [budgetSections, setBudgetSections] = useState([]);
   const [income, setIncome] = useState(0);
 
-  const handleAddWidget = (newWidget) => {
-    setBudgetSections((prevSections) => [...prevSections, newWidget]);
-  };
-
   const fetchBudgetsWithSpending = async () => {
     try {
       const updatedBudgets = await getBudgetsWithCurrentSpending();
@@ -99,7 +95,7 @@ export const MyBudget = ({ isWidget = false }) => {
       console.error('Error creating budget:', error);
     }
   }
-
+  console.log(modalOpen);
   return (
     <>
       {!isWidget ? (
@@ -181,7 +177,7 @@ export const MyBudget = ({ isWidget = false }) => {
                   fetchBudgetsWithSpending={fetchBudgetsWithSpending}
                 />
               ))}
-              <AddWidget onAddWidget={handleAddWidget} />
+              <AddWidget onClick={()=> setModalOpen(true)} />
             </div>
           ) : (
             <NoData />
@@ -191,3 +187,19 @@ export const MyBudget = ({ isWidget = false }) => {
     </>
   );
 };
+
+const NoData = () => (
+  <div
+    style={{
+      width: '100%',
+      padding: '40px',
+      textAlign: 'center',
+      backgroundColor: '#f9f9f9',
+      borderRadius: '8px',
+      margin: '20px 0',
+    }}
+  >
+    <h3>No Budget Data Available</h3>
+    <p>Add budget categories to start tracking your expenses</p>
+  </div>
+);

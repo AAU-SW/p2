@@ -1,57 +1,17 @@
 .add-widget {
   display: flex;
   flex-direction: row;
-  height: max-content;
+  height: 196.5px;
   min-width: 255px;
   width: 100%;
 }
-
-.budget-widgets-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
-}
-
-@media only screen and (max-width: 1080px) {
-  .budget-widgets-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media only screen and (max-width: 830px) {
-  .budget-widgets-wrapper {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.progress-bar-container {
-  margin-left: 20px;
-  margin-right: 10px;
-}
-
-/* Base progress element */
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  border-radius: 5px;
-  -webkit-appearance: none;
-  appearance: none;
-  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Firefox */
-.progress-bar::-moz-progress-bar {
-  background-color: #7b61ff;
-  border-radius: 5px;
-}
-
-/* Chrome, Safari, Edge */
-.progress-bar::-webkit-progress-value {
-  background-color: #7b61ff;
-  border-radius: 5px;
-}
-
-.budget-widget-delete {
+.circle-center{
   display: flex;
-  flex-direction: row;
-  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  
+}
+.circle-center svg {
+  font-size: 3rem; 
+  color:blue;
 }
