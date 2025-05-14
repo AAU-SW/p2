@@ -8,7 +8,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
   const [modal, setModal] = useState(false);
   // Table State
   const [allRows, setAllRows] = useState([]);
-  const [table, setTable] = useState(true);
+  const [table, setTable] = useState(false);
 
   const [type, setType] = useState('Variable income');
   // Pagination bar
@@ -122,30 +122,20 @@ export const TimeplanTable = ({ setWidgetData }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ display: 'flex' }}>
-        <button
-          className="add-job-button"
-          style={{
-            color: table ? 'white' : 'grey', // Change color based on `table` state
-          }}
-          onClick={() => setTable(true)}
-        >
-          Fixed
-        </button>
-        <button
-          className="add-job-button"
-          style={{
-            color: !table ? 'white' : 'grey', // Change color based on `table` state
-          }}
-          onClick={() => setTable(false)}
-        >
-          Variable
-        </button>
-        <button
-          className="add-job-placement add-job-button"
-          onClick={() => setModal(true)}
-        >
-          + Add income
-        </button>
+        <div className="toggle-slab-container">
+          <button
+            className={`toggle-slab-button ${!table ? 'active' : ''}`}
+            onClick={() => setTable(false)}
+          >
+            Variable Income
+          </button>
+          <button
+            className={`toggle-slab-button ${table ? 'active' : ''}`}
+            onClick={() => setTable(true)}
+          >
+            Fixed Income
+          </button>
+        </div>
       </div>
       <section className="table-container">
         <table>
@@ -156,7 +146,15 @@ export const TimeplanTable = ({ setWidgetData }) => {
                   <th>Job</th>
                   <th>Interval</th>
                   <th>Total pay</th>
-                  <th></th>
+                  <th>
+                    {' '}
+                    <button
+                      className="add-job-placement add-job-button"
+                      onClick={() => setModal(true)}
+                    >
+                      + Add income
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -192,6 +190,15 @@ export const TimeplanTable = ({ setWidgetData }) => {
                   <th>Hours</th>
                   <th>Total pay</th>
                   <th></th>
+                  <th>
+                    {' '}
+                    <button
+                      className="add-job-placement add-job-button"
+                      onClick={() => setModal(true)}
+                    >
+                      + Add income
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody>

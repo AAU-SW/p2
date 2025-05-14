@@ -9,7 +9,7 @@ import axios from 'axios';
 export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
-  const [isFixed, setIsFixed] = useState(true);
+  const [isFixed, setIsFixed] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 4;
@@ -83,16 +83,16 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
     <div style={{ width: '100%' }}>
       <div className="toggle-slab-container">
         <button
-          className={`toggle-slab-button ${isFixed ? 'active' : ''}`}
-          onClick={() => setIsFixed(true)}
-        >
-          Fixed Expenses
-        </button>
-        <button
           className={`toggle-slab-button ${!isFixed ? 'active' : ''}`}
           onClick={() => setIsFixed(false)}
         >
           Variable Expenses
+        </button>
+        <button
+          className={`toggle-slab-button ${isFixed ? 'active' : ''}`}
+          onClick={() => setIsFixed(true)}
+        >
+          Fixed Expenses
         </button>
       </div>
       <section className="table-container">

@@ -179,3 +179,40 @@ tfoot {
   width: 20px;
   height: 20px;
 }
+
+.toggle-slab-container {
+  display: flex;
+  justify-content: space-between; /* Space out buttons evenly */
+  align-items: center; /* Vertically align buttons */
+  width: 100%; /* Ensure the container spans the full width */
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 10px; /* Add padding for better spacing */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.toggle-slab-button {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  background-color: #e9ecef;
+  color: #495057;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.toggle-slab-button.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.toggle-slab-button:not(.active):hover {
+  background-color: #dee2e6;
+}
