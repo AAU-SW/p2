@@ -26,7 +26,9 @@ export const MyBudget = ({ isWidget = false }) => {
       const response = await axios.get(
         import.meta.env.VITE_API_URL + '/timeplans/',
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         },
       );
       // Calculate total income
@@ -75,7 +77,11 @@ export const MyBudget = ({ isWidget = false }) => {
           maxSpending,
           categories: [title], // Use the title as the category
         },
-        { withCredentials: true },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
       );
 
       // Fetch updated budgets with spending to ensure accuracy

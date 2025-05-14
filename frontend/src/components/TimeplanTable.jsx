@@ -44,7 +44,9 @@ export const TimeplanTable = ({ setWidgetData }) => {
       const response = await axios.get(
         import.meta.env.VITE_API_URL + '/timeplans/',
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         },
       );
       setAllRows(response.data);
@@ -77,7 +79,9 @@ export const TimeplanTable = ({ setWidgetData }) => {
         import.meta.env.VITE_API_URL + '/timeplans/',
         { type, job, hours, wage, fixedIncome, jobInterval },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         },
       );
       await fetchTimeplans();
@@ -91,7 +95,9 @@ export const TimeplanTable = ({ setWidgetData }) => {
   const deleteRow = async (id) => {
     try {
       await axios.delete(import.meta.env.VITE_API_URL + '/timeplans/' + id, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       fetchTimeplans();
     } catch (error) {

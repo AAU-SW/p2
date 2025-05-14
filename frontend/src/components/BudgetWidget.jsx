@@ -20,7 +20,9 @@ export const BudgetWidget = ({
   const deleteRow = async (id) => {
     try {
       await axios.delete(import.meta.env.VITE_API_URL + '/budgets/' + id, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       fetchBudgetsWithSpending();
     } catch (error) {

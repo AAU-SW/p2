@@ -50,7 +50,9 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
 
     try {
       await axios.post(import.meta.env.VITE_API_URL + '/expenses', newExpense, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       fetchExpenses();
     } catch (error) {
@@ -64,7 +66,9 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const deleteRow = async (id) => {
     try {
       await axios.delete(import.meta.env.VITE_API_URL + '/expenses/' + id, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       fetchExpenses();
     } catch (error) {

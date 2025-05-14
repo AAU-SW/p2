@@ -7,7 +7,9 @@ export const Settings = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(import.meta.env.VITE_API_URL + '/user', {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setData(response.data);
     } catch (error) {
@@ -46,7 +48,11 @@ export const Settings = () => {
           username: formData.name,
           email: formData.email,
         },
-        { withCredentials: true },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
       );
       alert('User updated successfully');
       fetchData();
@@ -146,7 +152,9 @@ export const Settings = () => {
                 );
                 if (isConfirmed) {
                   await axios.delete(import.meta.env.VITE_API_URL + '/user', {
-                    withCredentials: true,
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
                   });
                   location.reload();
                 }
