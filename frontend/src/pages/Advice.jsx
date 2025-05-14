@@ -132,7 +132,8 @@ export const Advice = () => {
                   {overBudgetItems.map((budget, index) => (
                     <li key={index}>
                       <strong>{budget.title}</strong>: You have spent{' '}
-                      {DKKFormat.format(budget.currentSpending)} out of {DKKFormat.format(budget.maxSpending)}
+                      {DKKFormat.format(budget.currentSpending)} out of{' '}
+                      {DKKFormat.format(budget.maxSpending)}
                     </li>
                   ))}
                 </ul>
