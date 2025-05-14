@@ -180,7 +180,11 @@ export const MyBudget = ({ isWidget = false }) => {
               <AddWidget onClick={() => setModalOpen(true)} />
             </div>
           ) : (
-            <AddWidget onClick={() => setModalOpen(true)} />
+            <AddWidget
+              style={{ maxWidth: '350px' }}
+              noData
+              onClick={() => setModalOpen(true)}
+            />
           )}
         </>
       ) : null}
