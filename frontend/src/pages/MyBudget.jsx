@@ -122,7 +122,7 @@ export const MyBudget = ({ isWidget = false }) => {
           <CardDetails>{totalSpent.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
-          <CardHeader title="Remaining"></CardHeader>
+          <CardHeader title="Remaining of budget"></CardHeader>
           <CardDetails>{totalRemaining.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
