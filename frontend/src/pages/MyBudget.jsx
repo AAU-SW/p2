@@ -176,7 +176,7 @@ export const MyBudget = ({ isWidget = false }) => {
                 <input
                   name="maxSpending"
                   type="number"
-                  placeholder="maxSpending"
+                  placeholder="Budget limit"
                 ></input>
               </div>
             </Modal>
