@@ -1,10 +1,10 @@
 import { Expense } from "../models/expenses.js";
-import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
+import { getUserIdByHeaders } from "../util/auth/getUserIdByHeaders.js";
 import { BUDGET_CATEGORIES } from "../util/BUDGET_CATEGORIES.js";
 
 export const addExpense = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		if (!userId) {
 			return res
 				.status(401)
@@ -40,7 +40,7 @@ export const addExpense = async (req, res) => {
 
 export const getExpenses = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		if (!userId) {
 			return res
 				.status(401)
@@ -55,7 +55,7 @@ export const getExpenses = async (req, res) => {
 
 export const deleteRow = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		if (!userId) {
 			return res
 				.status(401)

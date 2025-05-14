@@ -30,6 +30,7 @@ export const SignUp = () => {
       }
 
       const data = await response.json();
+      localStorage.setItem('token', data.token);
       console.log('Sign up successful:', data);
       location.reload();
     } catch (error) {
