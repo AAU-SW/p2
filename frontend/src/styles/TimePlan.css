@@ -11,7 +11,7 @@ table {
 th {
   border-top: 2px solid rgb(235, 235, 235); /* Add a solid line above the table header */
   font-size: 22px;
-  font-weight: 200;
+  font-weight: bolder;
   text-transform: uppercase;
   font-family: 'Inter', sans-serif;
 }

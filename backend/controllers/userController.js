@@ -1,9 +1,9 @@
-import { getUserIdByCookies } from "../util/auth/getUserIdByCookies.js";
+import { getUserIdByHeaders } from "../util/auth/getUserIdByHeaders.js";
 import { User } from "../models/users.js";
 
 export const getUser = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		const user = await User.findById(userId);
 		if (!user) return res.status(404).send({ message: "User not found" });
 		res.json(user);
@@ -14,7 +14,7 @@ export const getUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		const { username, email } = req.body;
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
 		const user = await User.findByIdAndUpdate(userId, { username, email });
@@ -29,7 +29,7 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
 	try {
-		const userId = getUserIdByCookies(req);
+		const userId = getUserIdByHeaders(req);
 		if (!userId) return res.status(401).json({ message: "Unauthorized" });
 		const user = await User.findByIdAndDelete(userId);
 		if (!user) return res.status(404).json({ message: "User not found" });

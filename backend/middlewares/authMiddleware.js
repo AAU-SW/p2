@@ -3,7 +3,8 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 
 export const userVerification = (req, res) => {
-	const token = req.cookies.token;
+	const rawToken = req.header("Authorization");
+	const token = rawToken.split("Bearer ")[1];
 	if (!token) {
 		return res.json({ status: false });
 	}
