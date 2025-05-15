@@ -1,0 +1,21 @@
+.add-widget {
+  display: flex;
+  flex-direction: row;
+  height: 196.5px;
+  min-width: 255px;
+  width: 100%;
+}
+
+.circle-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 0px;
+}
+
+.circle-center svg {
+  font-size: 3rem;
+  color: blue;
+}

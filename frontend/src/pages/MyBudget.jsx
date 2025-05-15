@@ -6,22 +6,7 @@ import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
-
-const NoData = () => (
-  <div
-    style={{
-      width: '100%',
-      padding: '40px',
-      textAlign: 'center',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      margin: '20px 0',
-    }}
-  >
-    <h3>No Budget Data Available</h3>
-    <p>Add budget categories to start tracking your expenses</p>
-  </div>
-);
+import { AddWidget } from '../components/AddWidget';
 
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -110,7 +95,7 @@ export const MyBudget = ({ isWidget = false }) => {
       console.error('Error creating budget:', error);
     }
   }
-
+  console.log(modalOpen);
   return (
     <>
       {!isWidget ? (
@@ -119,7 +104,6 @@ export const MyBudget = ({ isWidget = false }) => {
             <h1 className="header">Budgetting</h1>
             <a className="sub-header">"Eksempel motto-tekst"</a>
           </section>
-          <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
         </>
       ) : (
         <></>
@@ -138,7 +122,7 @@ export const MyBudget = ({ isWidget = false }) => {
           <CardDetails>{totalSpent.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
-          <CardHeader title="Remaining"></CardHeader>
+          <CardHeader title="Remaining of budget"></CardHeader>
           <CardDetails>{totalRemaining.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
@@ -193,9 +177,14 @@ export const MyBudget = ({ isWidget = false }) => {
                   fetchBudgetsWithSpending={fetchBudgetsWithSpending}
                 />
               ))}
+              <AddWidget onClick={() => setModalOpen(true)} />
             </div>
           ) : (
-            <NoData />
+            <AddWidget
+              style={{ maxWidth: '350px' }}
+              noData
+              onClick={() => setModalOpen(true)}
+            />
           )}
         </>
       ) : null}
