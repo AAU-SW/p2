@@ -22,7 +22,9 @@ export const TimePlan = () => {
     <div>
       <section>
         <h1 className="header">Income</h1>
-        <a className="sub-header">"Grow your income, guide your budget, and own your future"</a>
+        <a className="sub-header">
+          "Grow your income, guide your budget, and own your future"
+        </a>
       </section>
       <div class="flex justify-center items-center w-full">
         <Card style={{ width: '100%' }}>

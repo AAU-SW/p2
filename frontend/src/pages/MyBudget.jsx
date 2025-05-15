@@ -101,7 +101,9 @@ export const MyBudget = ({ isWidget = false }) => {
         <>
           <section>
             <h1 className="header">Budgetting</h1>
-            <a className="sub-header">"Budget with purpose, spend with confidence, live with freedom"</a>
+            <a className="sub-header">
+              "Budget with purpose, spend with confidence, live with freedom"
+            </a>
           </section>
           <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
         </>
