@@ -50,7 +50,9 @@ export const Expenses = ({ isWidget }) => {
       {!isWidget && (
         <section>
           <h1 className="header">Expenses</h1>
-          <a className="sub-header">"Control your spending, shape your freedom"</a>
+          <a className="sub-header">
+            "Control your spending, shape your freedom"
+          </a>
         </section>
       )}
 
