@@ -53,18 +53,18 @@ export const Sidebar = () => {
             }}
           >
             <SidebarLink text="Overview" icon={<FaHome />} href="/" />
-            <SidebarLink text="Advice" icon={<MdPeople />} href="/advice" />
             <SidebarLink
               text="Expenses"
               icon={<FaMoneyBill />}
               href="/expenses"
             />
-            <SidebarLink text="Budget" icon={<FaChartPie />} href="/mybudget" />
             <SidebarLink
               text="Income"
               icon={<FaBusinessTime />}
               href="/timeplan"
             />
+            <SidebarLink text="Budget" icon={<FaChartPie />} href="/mybudget" />
+            <SidebarLink text="Advice" icon={<MdPeople />} href="/advice" />
           </ul>
         </div>
         <ul
