@@ -36,6 +36,7 @@ export const BudgetWidget = ({
         <CardContent>
           <CardHeader title={title}>
             <button
+              className="budget-delete-button"
               onClick={() => {
                 deleteRow(id);
               }}
@@ -43,6 +44,7 @@ export const BudgetWidget = ({
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
+                marginRight: '-10px',
               }}
             >
               <FiTrash />

@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '../components/Button';
+import { GlobalLoader } from '../components/GlobalLoader';
 import '../styles/Settings.css';
+
 export const Settings = () => {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+
   const fetchData = async () => {
     try {
+      setLoading(true);
+
       const response = await axios.get(import.meta.env.VITE_API_URL + '/user', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -14,6 +20,8 @@ export const Settings = () => {
       setData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -62,13 +70,24 @@ export const Settings = () => {
     }
   };
 
+  if (loading) {
+    return <GlobalLoader></GlobalLoader>;
+  }
+
   if (!formData) return <>No data!</>;
 
   return (
     <div className="app-container">
       <div className="main-content">
         <div className="header">
-          <h1 className="page-title">Settings</h1>
+          <h1
+            style={{
+              fontSize: '36px',
+              marginLeft: '0px',
+            }}
+          >
+            Settings
+          </h1>
           <div className="user-section">
             <div className="user-info">
               <div className="user-avatar-placeholder">

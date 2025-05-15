@@ -4,9 +4,9 @@
 }
 
 .main-content {
+  position: relative;
   flex: 1;
-  padding: 20px 30px;
-  background-color: #f5f7fa;
+  margin: 10px 0;
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -16,17 +16,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
-  margin-left: 0;
-  padding-top: 10px;
-}
-
-.page-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-  height: auto;
+  font-size: 36px;
+  margin-left: 10px;
+  line-height: 10px;
 }
 
 .user-section {
@@ -74,11 +66,16 @@
 }
 
 .settings-card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  margin: 8px;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
 }
 
 .section-title {
