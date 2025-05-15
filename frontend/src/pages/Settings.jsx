@@ -68,7 +68,15 @@ export const Settings = () => {
     <div className="app-container">
       <div className="main-content">
         <div className="header">
-          <h1 className="page-title">Settings</h1>
+          <h1
+            className="page-title"
+            style={{
+              fontSize: '36px',
+              marginLeft: '-10px',
+            }}
+          >
+            Settings
+          </h1>
           <div className="user-section">
             <div className="user-info">
               <div className="user-avatar-placeholder">

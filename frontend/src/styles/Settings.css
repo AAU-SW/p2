@@ -4,6 +4,7 @@
 }
 
 .main-content {
+  position: relative;
   flex: 1;
   padding: 20px 30px;
   background-color: #f5f7fa;
@@ -16,17 +17,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
-  margin-left: 0;
-  padding-top: 10px;
-}
-
-.page-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-  height: auto;
+  font-size: 36px;
+  margin-left: 10px;
+  line-height: 10px;
 }
 
 .user-section {

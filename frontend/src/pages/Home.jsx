@@ -72,7 +72,12 @@ export const Home = () => {
     <>
       <div>
         <section>
-          <h1 className="header">Overview</h1>
+          <h1
+            className="header"
+            style={{ marginBottom: '38px', marginLeft: '10px' }}
+          >
+            Overview
+          </h1>{' '}
         </section>
         <Card>
           <CardHeader title="Budgets" />
