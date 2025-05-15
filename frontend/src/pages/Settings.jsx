@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '../components/Button';
+import { GlobalLoader } from '../components/GlobalLoader';
 import '../styles/Settings.css';
+
 export const Settings = () => {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+
   const fetchData = async () => {
     try {
+      setLoading(true);
+
       const response = await axios.get(import.meta.env.VITE_API_URL + '/user', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -14,6 +20,8 @@ export const Settings = () => {
       setData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -61,6 +69,10 @@ export const Settings = () => {
       alert('User updated failed');
     }
   };
+
+  if (loading) {
+    return <GlobalLoader></GlobalLoader>;
+  }
 
   if (!formData) return <>No data!</>;
 
