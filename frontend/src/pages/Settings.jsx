@@ -69,10 +69,9 @@ export const Settings = () => {
       <div className="main-content">
         <div className="header">
           <h1
-            className="page-title"
             style={{
               fontSize: '36px',
-              marginLeft: '-10px',
+              marginLeft: '0px',
             }}
           >
             Settings
