@@ -1,0 +1,25 @@
+.custom-progress-bar-container {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 15px; /* Rounded corners */
+  overflow: hidden; /* Ensure the filled bar stays within the container */
+}
+
+.custom-progress-bar {
+  height: 100%;
+  background-color: #7b61ff; /* Purple color for the filled portion */
+  border-radius: 15px; /* Rounded corners */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Text color */
+  font-weight: bold;
+  font-size: 14px;
+  transition: width 0.3s ease; /* Smooth transition for width changes */
+}
+
+.custom-progress-bar-text {
+  pointer-events: none; /* Prevent interaction with the text */
+}

@@ -6,6 +6,7 @@ import { BUDGET_CATEGORIES } from '../utils/BUDGET_CATEGORIES';
 import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
+import { AddWidget } from '../components/AddWidget';
 
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -94,7 +95,7 @@ export const MyBudget = ({ isWidget = false }) => {
       console.error('Error creating budget:', error);
     }
   }
-
+  console.log(modalOpen);
   return (
     <>
       {!isWidget ? (
@@ -105,7 +106,6 @@ export const MyBudget = ({ isWidget = false }) => {
               "Budget with purpose, spend with confidence, live with freedom"
             </a>
           </section>
-          <Button onClick={() => setModalOpen(true)}>Add new budget</Button>
         </>
       ) : (
         <></>
@@ -124,7 +124,7 @@ export const MyBudget = ({ isWidget = false }) => {
           <CardDetails>{totalSpent.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
-          <CardHeader title="Remaining"></CardHeader>
+          <CardHeader title="Remaining of budget"></CardHeader>
           <CardDetails>{totalRemaining.toLocaleString()} kr.</CardDetails>
         </Card>
         <Card style={{ width: '100%' }}>
@@ -133,70 +133,63 @@ export const MyBudget = ({ isWidget = false }) => {
         </Card>
       </section>
 
-      <form onSubmit={handleSubmit}>
-        <Modal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title="Add Budget Category"
-          onSubmitClick={handleSubmit}
-          submitButtonText="Save Budget"
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              gap: '5px',
-            }}
-          >
-            <select name="type" required>
-              {BUDGET_CATEGORIES.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
+      {!isWidget ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <Modal
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              title="Add Budget Category"
+              onSubmitClick={handleSubmit}
+              submitButtonText="Save Budget"
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: '5px',
+                }}
+              >
+                <select name="type" required>
+                  {BUDGET_CATEGORIES.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
 
-            <input
-              name="maxSpending"
-              type="number"
-              placeholder="maxSpending"
-            ></input>
-          </div>
-        </Modal>
-      </form>
-      {budgetSections.length > 0 ? (
-        <div className="budget-widgets-wrapper">
-          {budgetSections.map((widget) => (
-            <BudgetWidget
-              key={widget._id}
-              id={widget._id}
-              title={widget.title}
-              currentSpending={widget.currentSpending || 0}
-              maxSpending={widget.maxSpending}
-              fetchBudgetsWithSpending={fetchBudgetsWithSpending}
+                <input
+                  name="maxSpending"
+                  type="number"
+                  placeholder="Budget limit"
+                ></input>
+              </div>
+            </Modal>
+          </form>
+          {budgetSections.length > 0 ? (
+            <div className="budget-widgets-wrapper">
+              {budgetSections.map((widget) => (
+                <BudgetWidget
+                  key={widget._id}
+                  id={widget._id}
+                  title={widget.title}
+                  currentSpending={widget.currentSpending || 0}
+                  maxSpending={widget.maxSpending}
+                  fetchBudgetsWithSpending={fetchBudgetsWithSpending}
+                />
+              ))}
+              <AddWidget onClick={() => setModalOpen(true)} />
+            </div>
+          ) : (
+            <AddWidget
+              style={{ maxWidth: '350px' }}
+              noData
+              onClick={() => setModalOpen(true)}
             />
-          ))}
-        </div>
-      ) : (
-        <NoData />
-      )}
+          )}
+        </>
+      ) : null}
     </>
   );
 };
-
-const NoData = () => (
-  <div
-    style={{
-      width: '100%',
-      padding: '40px',
-      textAlign: 'center',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      margin: '20px 0',
-    }}
-  >
-    <h3>No Budget Data Available</h3>
-    <p>Add budget categories to start tracking your expenses</p>
-  </div>
-);
