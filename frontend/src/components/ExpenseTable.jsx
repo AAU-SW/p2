@@ -9,7 +9,8 @@ import axios from 'axios';
 export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const [rows, setRows] = useState([]);
   const [modal, setModal] = useState(false);
-  const [isFixed, setIsFixed] = useState(true);
+  const [isFixed, setIsFixed] = useState(false);
+  const [type, setType] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 4;
@@ -17,6 +18,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
   const endIndex = startIndex + rowsPerPage;
   const currentRows = rows.slice(startIndex, endIndex);
   const totalPages = Math.ceil(rows.length / rowsPerPage);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -83,16 +85,16 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
     <div style={{ width: '100%' }}>
       <div className="toggle-slab-container">
         <button
-          className={`toggle-slab-button ${isFixed ? 'active' : ''}`}
-          onClick={() => setIsFixed(true)}
-        >
-          Fixed Expenses
-        </button>
-        <button
           className={`toggle-slab-button ${!isFixed ? 'active' : ''}`}
           onClick={() => setIsFixed(false)}
         >
           Variable Expenses
+        </button>
+        <button
+          className={`toggle-slab-button ${isFixed ? 'active' : ''}`}
+          onClick={() => setIsFixed(true)}
+        >
+          Fixed Expenses
         </button>
       </div>
       <section className="table-container">
@@ -159,6 +161,27 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
           title="Add Expense"
           submitButtonText="Add expense"
         >
+          <select
+            style={{ marginBottom: '10px' }}
+            name="type"
+            required
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="" disabled>
+              Select type of expense
+            </option>
+            <option value="Fixed expense">Fixed expense</option>
+            <option value="Variable expense">Variable expense</option>
+          </select>
+
+          <select style={{ marginBottom: '10px' }} name="expenseType" required>
+            {BUDGET_CATEGORIES.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
           <input
             name="expense"
             placeholder="E.g. rent, subscriptions"
@@ -173,28 +196,8 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
               gap: '8px',
               fontSize: '14px',
               fontWeight: '500',
-              paddingBottom: '10px',
             }}
-          >
-            <input
-              name="recurring"
-              type="checkbox"
-              style={{
-                width: '16px',
-                height: '16px',
-                cursor: 'pointer',
-                margin: '0',
-              }}
-            />
-            Recurring
-          </label>
-          <select name="expenseType" required>
-            {BUDGET_CATEGORIES.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+          ></label>
         </Modal>
       </form>
     </div>
