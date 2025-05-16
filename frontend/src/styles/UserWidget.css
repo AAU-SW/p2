@@ -18,3 +18,21 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  margin: 0;
+  font-size: 14px;
+  height: 20px;
+}
+
+.user-email {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
