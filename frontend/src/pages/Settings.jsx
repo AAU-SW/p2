@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '../components/Button';
 import { GlobalLoader } from '../components/GlobalLoader';
+import { UserWidget } from '../components/UserWidget';
 import '../styles/Settings.css';
 
 export const Settings = () => {
@@ -88,17 +89,7 @@ export const Settings = () => {
           >
             Settings
           </h1>
-          <div className="user-section">
-            <div className="user-info">
-              <div className="user-avatar-placeholder">
-                {formData.name?.charAt(0).toUpperCase()}
-              </div>
-              <div className="user-details">
-                <p className="user-name">{formData.name}</p>
-                <p className="user-email">{formData.email}</p>
-              </div>
-            </div>
-          </div>
+          <UserWidget />
         </div>
         <div className="settings-card">
           <h2 className="section-title">Account Information</h2>

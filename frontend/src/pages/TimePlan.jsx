@@ -2,6 +2,7 @@ import '../styles/TimePlan.css';
 import { TimeplanTable } from '../components/TimeplanTable';
 import { Card, CardContent, CardHeader, CardDetails } from '../components/Card';
 import { useCallback, useState } from 'react';
+import { UserWidget } from '../components/UserWidget';
 
 export const TimePlan = () => {
   const [data, setData] = useState({
@@ -21,7 +22,10 @@ export const TimePlan = () => {
   return (
     <div>
       <section>
-        <h1 className="header">Income</h1>
+        <h1 className="header">
+          Income
+          <UserWidget />
+        </h1>
         <a className="sub-header">
           "Grow your income, guide your budget, and own your future"
         </a>

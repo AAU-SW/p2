@@ -6,6 +6,7 @@ import axios from 'axios';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { Card, CardHeader, CardContent, CardDetails } from '../components/Card';
 import { AddWidget } from '../components/AddWidget';
+import { UserWidget } from '../components/UserWidget';
 
 export const MyBudget = ({ isWidget = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -100,7 +101,10 @@ export const MyBudget = ({ isWidget = false }) => {
       {!isWidget ? (
         <>
           <section>
-            <h1 className="header">Budgetting</h1>
+            <h1 className="header">
+              Budgetting
+              <UserWidget />
+            </h1>
             <a className="sub-header">
               "Budget with purpose, spend with confidence, live with freedom"
             </a>
