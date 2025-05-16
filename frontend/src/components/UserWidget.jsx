@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Card } from './Card';
 import '../styles/UserWidget.css';
 
 export const UserWidget = ({ style }) => {
@@ -24,20 +25,35 @@ export const UserWidget = ({ style }) => {
     fetchData();
   }, []);
 
-  if (loading) return null; // or a spinner
-  if (!data) return <div>No user data</div>;
-
   return (
-    <div className="user-section" style={style}>
+    <Card style={style}>
       <div className="user-info">
         <div className="user-avatar-placeholder">
-          {data.username?.charAt(0).toUpperCase()}
+          {loading ? '' : data?.username?.charAt(0).toUpperCase()}
         </div>
         <div className="user-details">
-          <p className="user-name">{data.username}</p>
-          <p className="user-email">{data.email}</p>
+          <p
+            className="user-name"
+            style={
+              loading
+                ? { background: '#eee', width: 80, height: 18, margin: 0 }
+                : {}
+            }
+          >
+            {loading ? '' : data?.username}
+          </p>
+          <p
+            className="user-email"
+            style={
+              loading
+                ? { background: '#eee', width: 120, height: 14, margin: 0 }
+                : {}
+            }
+          >
+            {loading ? '' : data?.email}
+          </p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
