@@ -46,7 +46,7 @@ export const ExpenseTable = ({ expenses, fetchExpenses }) => {
     const amount = parseFloat(formData.get('amount')) || 0;
     const date = formData.get('date');
     const expenseType = formData.get('expenseType');
-    const recurring = formData.get('recurring') === 'on';
+    const recurring = type === 'Fixed expense';
 
     const newExpense = { expense, amount, date, expenseType, recurring };
 
