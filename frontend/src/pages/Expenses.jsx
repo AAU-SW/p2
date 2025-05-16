@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ExpenseTable } from '../components/ExpenseTable';
 import { Card, CardContent, CardDetails, CardHeader } from '../components/Card';
+import { UserWidget } from '../components/UserWidget';
 import axios from 'axios';
 
 export const Expenses = ({ isWidget }) => {
@@ -49,7 +50,10 @@ export const Expenses = ({ isWidget }) => {
     <div>
       {!isWidget && (
         <section>
-          <h1 className="header">Expenses</h1>
+          <h1 className="header">
+            Expenses
+            <UserWidget />
+          </h1>
           <a className="sub-header">
             "Control your spending, shape your freedom"
           </a>

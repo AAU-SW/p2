@@ -44,7 +44,8 @@ tfoot {
   flex-direction: column;
   margin-left: 10px;
   font-size: 36px;
-  line-height: 10px;
+  margin-bottom: 0px;
+  margin-top: 3px;
 }
 .sub-header {
   display: flex;

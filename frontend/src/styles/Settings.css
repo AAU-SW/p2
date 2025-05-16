@@ -9,6 +9,7 @@
   margin: 10px 0;
   min-height: 100vh;
   box-sizing: border-box;
+  margin-top: 25px;
 }
 
 .header {
@@ -18,51 +19,8 @@
   align-items: center;
   font-size: 36px;
   margin-left: 10px;
-  line-height: 10px;
-}
-
-.user-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-avatar-placeholder {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: #27667b;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-name {
-  font-weight: 600;
-  margin: 0;
-  font-size: 14px;
-  height: 20px;
-}
-
-.user-email {
-  margin: 0;
-  font-size: 12px;
-  color: #666;
+  margin-bottom: 0px;
+  margin-top: 3px;
 }
 
 .settings-card {
