@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import axios from 'axios';
 import { RecommendationsWidget } from '../components/RecommendationsWidget';
+import { UserWidget } from '../components/UserWidget';
 
 export const Home = () => {
   const [budgetSections, setBudgetSections] = useState([]);
@@ -72,11 +73,9 @@ export const Home = () => {
     <>
       <div>
         <section>
-          <h1
-            className="header"
-            style={{ marginBottom: '38px', marginLeft: '10px' }}
-          >
+          <h1 className="header">
             Overview
+            <UserWidget />
           </h1>{' '}
         </section>
         <Card>

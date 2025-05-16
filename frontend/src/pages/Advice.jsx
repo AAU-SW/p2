@@ -1,6 +1,7 @@
 import { Card, CardDetails } from '../components/Card';
 import { getBudgetsWithCurrentSpending } from '../utils/calculate';
 import { useState, useEffect } from 'react';
+import { UserWidget } from '../components/UserWidget';
 import axios from 'axios';
 import '../styles/progressBarWithText.css';
 import '../styles/Advice.css';
@@ -74,7 +75,10 @@ export const Advice = () => {
   return (
     <>
       <section>
-        <h1 className="header">Advice</h1>
+        <h1 className="header">
+          Advice
+          <UserWidget />
+        </h1>
       </section>
       <section style={{ display: 'flex', flexDirection: 'row' }}>
         <Card style={{ width: '40%' }}>

@@ -1,3 +1,11 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  font-size: 36px;
+  line-height: 10px;
+}
+
 /* Content Section */
 .advice-card-content h5 {
   font-size: 1.2rem;
