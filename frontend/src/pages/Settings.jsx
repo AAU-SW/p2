@@ -84,6 +84,7 @@ export const Settings = () => {
             style={{
               fontSize: '36px',
               marginLeft: '0px',
+              marginTop: '-15px',
             }}
           >
             Settings

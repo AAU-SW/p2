@@ -23,14 +23,22 @@
 
 .user-section {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  margin: 8px;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
+  margin-right: 12px;
 }
 
 .user-avatar-placeholder {
