@@ -76,7 +76,7 @@ export const NecessaryWorkHoursWidget = () => {
             <CardContent>{DKKFormat.format(income)}</CardContent>
           </Card>
           <Card style={{ width: '100%' }}>
-            <CardHeader title="Total Spendature" />
+            <CardHeader title="Total Spending" />
             <CardContent>{DKKFormat.format(totalSpent)}</CardContent>
           </Card>
           <Card style={{ width: '100%' }}>
