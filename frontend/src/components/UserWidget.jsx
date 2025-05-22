@@ -26,7 +26,7 @@ export const UserWidget = ({ style }) => {
   }, []);
 
   return (
-    <Card style={style}>
+    <Card style={{ ...style, maxWidth: 'max-content' }}>
       <div className="user-info">
         <div className="user-avatar-placeholder">
           {loading ? '' : data?.username?.charAt(0).toUpperCase()}

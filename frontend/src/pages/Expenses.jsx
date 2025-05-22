@@ -47,21 +47,15 @@ export const Expenses = ({ isWidget }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {!isWidget && (
-        <section>
-          <h1 className="header">
-            Expenses
-            <UserWidget />
-          </h1>
-          <p className="sub-header">
-            "Control your spending, shape your freedom"
-          </p>
-        </section>
+        <p className="sub-header">
+          "Control your spending, shape your freedom"
+        </p>
       )}
 
       {!isWidget && (
-        <div class="flex justify-center items-center w-full">
+        <div style={{ display: 'flex', gap: '16px' }}>
           <Card style={{ width: '100%' }}>
             <CardContent>
               <CardHeader title="Total expenses"></CardHeader>

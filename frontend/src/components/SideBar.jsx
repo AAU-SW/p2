@@ -63,7 +63,7 @@ export const Sidebar = () => {
               icon={<FaBusinessTime />}
               href="/timeplan"
             />
-            <SidebarLink text="Budget" icon={<FaChartPie />} href="/mybudget" />
+            <SidebarLink text="Budget" icon={<FaChartPie />} href="/budget" />
             <SidebarLink text="Advice" icon={<MdPeople />} href="/advice" />
           </ul>
         </div>

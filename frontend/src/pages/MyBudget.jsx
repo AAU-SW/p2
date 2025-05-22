@@ -97,24 +97,21 @@ export const MyBudget = ({ isWidget = false }) => {
   }
   console.log(modalOpen);
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {!isWidget ? (
-        <>
-          <section>
-            <h1 className="header">
-              Budgetting
-              <UserWidget />
-            </h1>
-            <p className="sub-header">
-              "Budget with purpose, spend with confidence, live with freedom"
-            </p>
-          </section>
-        </>
+        <p className="sub-header">
+          "Budget with purpose, spend with confidence, live with freedom"
+        </p>
       ) : (
         <></>
       )}
       <section
-        style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          textAlign: 'center',
+          gap: '16px',
+        }}
       >
         <Card style={{ width: '100%' }}>
           <CardContent>
@@ -138,14 +135,14 @@ export const MyBudget = ({ isWidget = false }) => {
 
       {!isWidget ? (
         <>
-          <form onSubmit={handleSubmit}>
-            <Modal
-              isOpen={modalOpen}
-              onClose={() => setModalOpen(false)}
-              title="Add Budget Category"
-              onSubmitClick={handleSubmit}
-              submitButtonText="Save Budget"
-            >
+          <Modal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title="Add Budget Category"
+            onSubmitClick={handleSubmit}
+            submitButtonText="Save Budget"
+          >
+            <form onSubmit={handleSubmit}>
               <div
                 style={{
                   display: 'flex',
@@ -168,10 +165,10 @@ export const MyBudget = ({ isWidget = false }) => {
                   placeholder="Budget limit"
                 ></input>
               </div>
-            </Modal>
-          </form>
+            </form>
+          </Modal>
           {budgetSections.length > 0 ? (
-            <div className="budget-widgets-wrapper">
+            <div style={{ display: 'flex', gap: '16px' }}>
               {budgetSections.map((widget) => (
                 <BudgetWidget
                   key={widget._id}
@@ -193,6 +190,6 @@ export const MyBudget = ({ isWidget = false }) => {
           )}
         </>
       ) : null}
-    </>
+    </div>
   );
 };

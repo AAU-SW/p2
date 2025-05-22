@@ -20,17 +20,18 @@ export const TimePlan = () => {
     currency: 'DKK',
   });
   return (
-    <div>
-      <section>
-        <h1 className="header">
-          Income
-          <UserWidget />
-        </h1>
-        <p className="sub-header">
-          "Grow your income, guide your budget, and own your future"
-        </p>
-      </section>
-      <div class="flex justify-center items-center w-full">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <p className="sub-header">
+        "Grow your income, guide your budget, and own your future"
+      </p>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '16px',
+        }}
+      >
         <Card style={{ width: '100%' }}>
           <CardContent>
             <CardHeader title="Total hours"></CardHeader>

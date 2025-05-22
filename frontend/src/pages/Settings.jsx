@@ -4,6 +4,7 @@ import { Button } from '../components/Button';
 import { GlobalLoader } from '../components/GlobalLoader';
 import { UserWidget } from '../components/UserWidget';
 import '../styles/Settings.css';
+import { Card, CardHeader } from '../components/Card';
 
 export const Settings = () => {
   const [data, setData] = useState();
@@ -80,19 +81,8 @@ export const Settings = () => {
   return (
     <div className="app-container">
       <div className="main-content">
-        <div className="header">
-          <h1
-            style={{
-              fontSize: '36px',
-              marginLeft: '0px',
-            }}
-          >
-            Settings
-          </h1>
-          <UserWidget />
-        </div>
-        <div className="settings-card">
-          <h2 className="section-title">Account Information</h2>
+        <Card>
+          <CardHeader title="Account Information" />
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
@@ -116,7 +106,7 @@ export const Settings = () => {
                 />
               </div>
             </div>
-            <h2 className="section-title">Preferences</h2>
+            <CardHeader title="Preferences" />
             <div className="form-row three-columns">
               <div className="form-group">
                 <label className="form-label">Currency</label>
@@ -145,8 +135,8 @@ export const Settings = () => {
               <Button type="submit">Save Changes</Button>
             </div>
           </form>
-        </div>
-        <div className="settings-card">
+        </Card>
+        <Card className="settings-card">
           <div className="danger-zone">
             <h3 className="danger-title">Delete Account</h3>
             <p className="danger-text">
@@ -173,7 +163,7 @@ export const Settings = () => {
               Delete Account
             </Button>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

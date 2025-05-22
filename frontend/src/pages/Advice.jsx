@@ -70,13 +70,7 @@ export const Advice = () => {
 
   return (
     <>
-      <section>
-        <h1 className="header">
-          Advice
-          <UserWidget />
-        </h1>
-      </section>
-      <section style={{ display: 'flex', flexDirection: 'row' }}>
+      <section style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
         <Card style={{ width: '40%' }}>
           <CardDetails>
             <div className="advice-card-content">
@@ -111,7 +105,13 @@ export const Advice = () => {
             </div>
           </CardDetails>
         </Card>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateRows: 'repeat(2, 1fr)',
+            gap: '16px',
+          }}
+        >
           <RecommendationsWidget />
           <NecessaryWorkHoursWidget />
         </div>
