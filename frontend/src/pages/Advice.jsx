@@ -111,9 +111,9 @@ export const Advice = () => {
             </div>
           </CardDetails>
         </Card>
-        <div style={{ display: 'flex', flexDirection: 'column'}}>
-        <RecommendationsWidget />
-        <NecessaryWorkHoursWidget />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <RecommendationsWidget />
+          <NecessaryWorkHoursWidget />
         </div>
       </section>
     </>

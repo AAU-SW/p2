@@ -86,7 +86,8 @@ export const NecessaryWorkHoursWidget = () => {
         </div>
         <p>
           With your latest hourly wage, you need to work {hoursNeeded} more
-          hours to cover your total spending. <span style={{ color: 'grey' }}>(Not including taxes)</span>
+          hours to cover your total spending.{' '}
+          <span style={{ color: 'grey' }}>(Not including taxes)</span>
         </p>
       </CardContent>
     </Card>

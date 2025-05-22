@@ -31,7 +31,7 @@ export const RecommendationsWidget = () => {
       <CardHeader title="Over-Budget Warnings" />
       <CardDetails>
         {overBudgetItems.length > 0 ? (
-          <ul style={{ marginTop: 0}}>
+          <ul style={{ marginTop: 0 }}>
             {overBudgetItems.map((budget, index) => (
               <li key={index}>
                 <strong>{budget.title}</strong>: You have spent{' '}
