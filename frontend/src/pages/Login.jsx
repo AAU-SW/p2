@@ -12,7 +12,7 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true); // Start loading
+      setLoading(true);
 
       const response = await fetch(
         import.meta.env.VITE_API_URL + '/auth/login',
@@ -26,11 +26,12 @@ export const Login = () => {
         },
       );
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
       const data = await response.json();
+      if (!response.ok) {
+        alert('Error logging in: ', data.message);
+        console.error('Error logging in: ', data);
+        throw Error(data.message);
+      }
       localStorage.setItem('token', data.token);
       console.log('Login successful:', data);
       // Redirect to home page

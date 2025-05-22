@@ -1,5 +1,6 @@
 import { Timeplan } from "../models/timeplan.js";
 import { getUserIdByHeaders } from "../util/auth/getUserIdByHeaders.js";
+import { getFirstDateInMonth } from "../util/getFirstDateInMonth.js";
 
 export const getTimeplan = async (req, res) => {
 	try {
@@ -9,8 +10,15 @@ export const getTimeplan = async (req, res) => {
 				.status(401)
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
-		const timeplans = await Timeplan.find({ user: userId }); // Finds the timeplan of the logged user.
-		res.status(200).json(timeplans);
+		const timeplans = await Timeplan.find({ user: userId });
+		const firstDateInMonth = getFirstDateInMonth();
+		const filteredTimeplans = timeplans.filter((t) => {
+			if (t.type === "Variable income") {
+				return new Date(t.workedAt) >= firstDateInMonth;
+			}
+			return true;
+		});
+		res.status(200).json(filteredTimeplans);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -26,15 +34,18 @@ export const postTimeplan = async (req, res) => {
 		const {
 			type,
 			job,
+			date,
 			wage = null,
 			hours = null,
 			jobInterval = null,
 			fixedIncome = null,
 		} = req.body; // Required values to submit a timeplan model, optional fields default to null
+
 		const newTimeplan = await Timeplan.create({
 			type,
 			job,
 			wage,
+			workedAt: date,
 			hours,
 			jobInterval,
 			fixedIncome,

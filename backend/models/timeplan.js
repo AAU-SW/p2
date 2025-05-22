@@ -21,10 +21,14 @@ const timeplanSchema = new mongoose.Schema({
 	fixedIncome: {
 		type: Number,
 	},
+	workedAt: {
+		type: Date,
+		default: new Date(),
+	},
 	user: {
-		type: mongoose.Schema.Types.ObjectId, // Reference to the User model
-		ref: "User", // Name of the User model
-		required: true, // Ensure every timeplan is associated with a user
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+		required: true,
 	},
 });
 

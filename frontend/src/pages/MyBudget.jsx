@@ -105,9 +105,9 @@ export const MyBudget = ({ isWidget = false }) => {
               Budgetting
               <UserWidget />
             </h1>
-            <a className="sub-header">
+            <p className="sub-header">
               "Budget with purpose, spend with confidence, live with freedom"
-            </a>
+            </p>
           </section>
         </>
       ) : (

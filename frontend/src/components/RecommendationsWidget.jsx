@@ -27,22 +27,19 @@ export const RecommendationsWidget = () => {
   }, []);
 
   return (
-    <Card>
-      <CardHeader title="Recommendations" />
+    <Card style={{ height: '100%' }}>
+      <CardHeader title="Over-Budget Warnings" />
       <CardDetails>
         {overBudgetItems.length > 0 ? (
-          <div>
-            <h5>Over-Budget Warnings</h5>
-            <ul>
-              {overBudgetItems.map((budget, index) => (
-                <li key={index}>
-                  <strong>{budget.title}</strong>: You have spent{' '}
-                  {DKKFormat.format(budget.currentSpending)} out of{' '}
-                  {DKKFormat.format(budget.maxSpending)}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul style={{ marginTop: 0 }}>
+            {overBudgetItems.map((budget, index) => (
+              <li key={index}>
+                <strong>{budget.title}</strong>: You have spent{' '}
+                {DKKFormat.format(budget.currentSpending)} out of{' '}
+                {DKKFormat.format(budget.maxSpending)}
+              </li>
+            ))}
+          </ul>
         ) : (
           <p>Great job! You are staying within your budgets.</p>
         )}

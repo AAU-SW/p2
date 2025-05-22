@@ -53,7 +53,7 @@ const App = () => {
   return (
     <main style={{ display: 'flex', height: '100%', overflowX: 'hidden' }}>
       {isAuthenticated && <Sidebar />}
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', overflowY: 'scroll' }}>
         <Switch>
           {/* Public */}
           <Route path="/login">

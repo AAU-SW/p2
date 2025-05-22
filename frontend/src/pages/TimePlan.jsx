@@ -26,9 +26,9 @@ export const TimePlan = () => {
           Income
           <UserWidget />
         </h1>
-        <a className="sub-header">
+        <p className="sub-header">
           "Grow your income, guide your budget, and own your future"
-        </a>
+        </p>
       </section>
       <div class="flex justify-center items-center w-full">
         <Card style={{ width: '100%' }}>

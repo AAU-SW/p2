@@ -1,6 +1,7 @@
 import { Expense } from "../models/expenses.js";
 import { getUserIdByHeaders } from "../util/auth/getUserIdByHeaders.js";
 import { BUDGET_CATEGORIES } from "../util/BUDGET_CATEGORIES.js";
+import { getFirstDateInMonth } from "../util/getFirstDateInMonth.js";
 
 export const addExpense = async (req, res) => {
 	try {
@@ -47,7 +48,14 @@ export const getExpenses = async (req, res) => {
 				.json({ error: "Unauthorized: Invalid or missing user ID" });
 		}
 		const expenses = await Expense.find({ user: userId });
-		res.status(200).json(expenses);
+		const firstDateInMonth = getFirstDateInMonth();
+		const filteredExpenses = expenses.filter((e) => {
+			if (!e.recurring) {
+				return new Date(e.date) >= firstDateInMonth;
+			}
+			return true;
+		});
+		res.status(200).json(filteredExpenses);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
