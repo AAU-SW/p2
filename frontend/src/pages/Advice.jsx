@@ -6,6 +6,7 @@ import axios from 'axios';
 import '../styles/progressBarWithText.css';
 import '../styles/Advice.css';
 import { RecommendationsWidget } from '../components/RecommendationsWidget';
+import { NecessaryWorkHoursWidget } from '../components/NecessaryWorkHoursWidget';
 
 export const Advice = () => {
   const [budgetSections, setBudgetSections] = useState([]);
@@ -67,11 +68,6 @@ export const Advice = () => {
   const BudgetCoverageScore = 100 * Math.min(1, totalBudget / income);
   const SpendingRatioScore = 100 * (1 - Math.min(1, totalSpent / income));
 
-  // Should we use a general score for all three?
-  const FinancialHealthScore = Math.trunc(
-    BudgetUtilizationScore + BudgetCoverageScore + SpendingRatioScore,
-  );
-
   return (
     <>
       <section>
@@ -115,7 +111,10 @@ export const Advice = () => {
             </div>
           </CardDetails>
         </Card>
+        <div style={{ display: 'flex', flexDirection: 'column'}}>
         <RecommendationsWidget />
+        <NecessaryWorkHoursWidget />
+        </div>
       </section>
     </>
   );

@@ -68,6 +68,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
     // Retrieval of data from form, and ensuring that numbers is floats.
     const type = formData.get('type');
     const job = formData.get('job');
+    const date = formData.get('workedAt');
     const hours = parseFloat(formData.get('hours')) || 0;
     const wage = parseFloat(formData.get('wage')) || 0;
     const fixedIncome = parseFloat(formData.get('fixedIncome'));
@@ -77,7 +78,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
     try {
       await axios.post(
         import.meta.env.VITE_API_URL + '/timeplans/',
-        { type, job, hours, wage, fixedIncome, jobInterval },
+        { type, job, hours, date, wage, fixedIncome, jobInterval },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -88,7 +89,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
     } catch (error) {
       console.error('Error adding new schema', error);
     }
-    form.reset(); // Ensures input forms is reset after submitting.
+    form.reset();
     setModal(false);
   }
 
@@ -262,7 +263,7 @@ export const TimeplanTable = ({ setWidgetData }) => {
           </select>
           {type === 'Variable income' ? (
             <>
-              <InputFields />
+              <VariableIncomeInputFields />
             </>
           ) : (
             <>
@@ -283,12 +284,13 @@ export const TimeplanTable = ({ setWidgetData }) => {
   );
 };
 
-export const InputFields = () => {
+export const VariableIncomeInputFields = () => {
   return (
     <>
       <input name="job" placeholder="Job" required />
       <input name="hours" type="number" placeholder="Hours" required />
       <input name="wage" type="number" placeholder="Wage" required />
+      <input name="workedAt" type="date" placeholder="Wage" required />
     </>
   );
 };

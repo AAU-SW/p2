@@ -45,7 +45,7 @@ export const calculateTotalSpending = async () => {
       0,
     );
     const totalActivities = activities.reduce(
-      (sum, activity) => sum + activity.price,
+      (sum, activity) => sum + activity.amount,
       0,
     );
     const combinedTotal = totalExpenses + totalActivities;

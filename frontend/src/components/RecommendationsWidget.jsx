@@ -27,7 +27,7 @@ export const RecommendationsWidget = () => {
   }, []);
 
   return (
-    <Card>
+    <Card style={{ height: '100%' }}>
       <CardHeader title="Recommendations" />
       <CardDetails>
         {overBudgetItems.length > 0 ? (

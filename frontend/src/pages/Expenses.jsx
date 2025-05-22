@@ -54,9 +54,9 @@ export const Expenses = ({ isWidget }) => {
             Expenses
             <UserWidget />
           </h1>
-          <a className="sub-header">
+          <p className="sub-header">
             "Control your spending, shape your freedom"
-          </a>
+          </p>
         </section>
       )}
 

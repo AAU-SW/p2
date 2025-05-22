@@ -7,21 +7,19 @@
   padding: 16px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  /* border: 1px solid rgba(0, 0, 0, 0.1); */
   overflow: hidden;
 }
 .card-header {
-  font-size: 14px; /* Smaller font size for the header */
-  color: #6c757d; /* Grey color for the header text */
-  text-align: left; /* Center-align the text */
-  padding: 0 16px;
+  font-size: 14px;
+  color: #6c757d;
+  text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .card-details {
-  font-size: 26px; /* Smaller font size for the header */
-  color: #000000; /* Grey color for the header text */
-  text-align: left; /* Center-align the text */
+  font-size: 26px;
+  color: #000000;
+  text-align: left;
   margin-left: 20px;
 }
