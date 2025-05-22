@@ -135,14 +135,14 @@ export const MyBudget = ({ isWidget = false }) => {
 
       {!isWidget ? (
         <>
-          <Modal
-            isOpen={modalOpen}
-            onClose={() => setModalOpen(false)}
-            title="Add Budget Category"
-            onSubmitClick={handleSubmit}
-            submitButtonText="Save Budget"
-          >
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
+            <Modal
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              title="Add Budget Category"
+              onSubmitClick={handleSubmit}
+              submitButtonText="Save Budget"
+            >
               <div
                 style={{
                   display: 'flex',
@@ -165,8 +165,8 @@ export const MyBudget = ({ isWidget = false }) => {
                   placeholder="Budget limit"
                 ></input>
               </div>
-            </form>
-          </Modal>
+            </Modal>
+          </form>
           {budgetSections.length > 0 ? (
             <div style={{ display: 'flex', gap: '16px' }}>
               {budgetSections.map((widget) => (
