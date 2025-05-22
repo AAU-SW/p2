@@ -67,10 +67,10 @@ export const NecessaryWorkHoursWidget = () => {
   if (amountOverSpent < 0) return null;
 
   return (
-    <Card style={{ height: 'max-content', flexShrink: 0 }}>
+    <Card style={{ minHeight: 'max-content', flexShrink: 0 }}>
       <CardHeader title="Work Hours Needed to Cover Spending" />
       <CardContent>
-        <div class="flex">
+        <div style={{ display: 'flex', gap: '16px' }}>
           <Card style={{ width: '100%' }}>
             <CardHeader title="Income" />
             <CardContent>{DKKFormat.format(income)}</CardContent>

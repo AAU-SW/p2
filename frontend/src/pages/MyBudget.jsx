@@ -97,24 +97,14 @@ export const MyBudget = ({ isWidget = false }) => {
   }
   console.log(modalOpen);
   return (
-    <>
-      {!isWidget ? (
-        <>
-          <section>
-            <h1 className="header">
-              Budgetting
-              <UserWidget />
-            </h1>
-            <p className="sub-header">
-              "Budget with purpose, spend with confidence, live with freedom"
-            </p>
-          </section>
-        </>
-      ) : (
-        <></>
-      )}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <section
-        style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          textAlign: 'center',
+          gap: '16px',
+        }}
       >
         <Card style={{ width: '100%' }}>
           <CardContent>
@@ -171,7 +161,13 @@ export const MyBudget = ({ isWidget = false }) => {
             </Modal>
           </form>
           {budgetSections.length > 0 ? (
-            <div className="budget-widgets-wrapper">
+            <div
+              style={{
+                display: 'grid',
+                gap: '16px',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              }}
+            >
               {budgetSections.map((widget) => (
                 <BudgetWidget
                   key={widget._id}
@@ -193,6 +189,6 @@ export const MyBudget = ({ isWidget = false }) => {
           )}
         </>
       ) : null}
-    </>
+    </div>
   );
 };

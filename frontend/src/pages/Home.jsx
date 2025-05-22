@@ -71,22 +71,21 @@ export const Home = () => {
 
   return (
     <>
-      <div>
-        <section>
-          <h1 className="header">
-            Overview
-            <UserWidget />
-          </h1>{' '}
-        </section>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <Card>
           <CardHeader title="Budgets" />
           <MyBudget isWidget={true} />
         </Card>
-      </div>
-      <section style={{ display: 'flex', flexDirection: 'row' }}>
-        <div style={{ width: '40%' }}>
-          <div className="budget-widget">
-            <Card style={{ width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+          <div
+            style={{
+              width: '40%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+            }}
+          >
+            <Card>
               <CardHeader title="Total spending / Budget" />
               <CardContent>
                 <div className="progress-bar-container">
@@ -113,10 +112,8 @@ export const Home = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
 
-          <div className="budget-widget">
-            <Card style={{ width: '100%' }}>
+            <Card>
               <CardHeader title="Budget / Income" />
               <CardContent>
                 <div className="progress-bar-container">
@@ -144,9 +141,9 @@ export const Home = () => {
               </CardContent>
             </Card>
           </div>
+          <RecommendationsWidget />
         </div>
-        <RecommendationsWidget />
-      </section>
+      </div>
     </>
   );
 };
