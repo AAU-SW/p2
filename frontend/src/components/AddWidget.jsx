@@ -6,7 +6,7 @@ export const AddWidget = ({ onClick, noData }) => {
   return (
     <>
       {noData ? (
-        <Card style={{ minWidth: '33%' }}>
+        <Card>
           <CardContent>
             <button
               type="submit"
@@ -27,7 +27,7 @@ export const AddWidget = ({ onClick, noData }) => {
           </CardContent>
         </Card>
       ) : (
-        <Card style={{ width: '100%' }}>
+        <Card>
           <CardContent>
             <button
               type="submit"

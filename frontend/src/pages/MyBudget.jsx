@@ -168,7 +168,13 @@ export const MyBudget = ({ isWidget = false }) => {
             </Modal>
           </form>
           {budgetSections.length > 0 ? (
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div
+              style={{
+                display: 'grid',
+                gap: '16px',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              }}
+            >
               {budgetSections.map((widget) => (
                 <BudgetWidget
                   key={widget._id}
