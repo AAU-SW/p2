@@ -30,10 +30,12 @@ const App = () => {
     {
       route: '/expenses',
       title: 'Expenses',
+      subTitle: 'Control your spending, shape your freedom',
     },
     {
       route: '/budget',
       title: 'Budgets',
+      subTitle: 'Budget with purpose, spend with confidence, live with freedom',
     },
     {
       route: '/settings',
@@ -46,6 +48,7 @@ const App = () => {
     {
       route: '/timeplan',
       title: 'Income',
+      subTitle: 'Grow your income, guide your budget, and own your future',
     },
   ];
 
@@ -94,7 +97,7 @@ const App = () => {
         }}
       >
         {isAuthenticated && currentRoute && (
-          <Header title={currentRoute.title} />
+          <Header title={currentRoute.title} subTitle={currentRoute.subTitle} />
         )}
         <Switch>
           {/* Public */}

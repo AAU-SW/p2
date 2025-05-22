@@ -98,13 +98,6 @@ export const MyBudget = ({ isWidget = false }) => {
   console.log(modalOpen);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      {!isWidget ? (
-        <p className="sub-header">
-          "Budget with purpose, spend with confidence, live with freedom"
-        </p>
-      ) : (
-        <></>
-      )}
       <section
         style={{
           display: 'flex',

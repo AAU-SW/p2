@@ -21,9 +21,6 @@ export const TimePlan = () => {
   });
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <p className="sub-header">
-        "Grow your income, guide your budget, and own your future"
-      </p>
       <div
         style={{
           display: 'flex',

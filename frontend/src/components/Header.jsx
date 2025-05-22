@@ -1,6 +1,6 @@
 import { UserWidget } from './UserWidget';
 
-export const Header = ({ title }) => {
+export const Header = ({ title, subTitle }) => {
   return (
     <div
       style={{
@@ -10,7 +10,10 @@ export const Header = ({ title }) => {
         padding: '16px 0',
       }}
     >
-      <h1>{title}</h1>
+      <div>
+        <h1>{title}</h1>
+        <p className="sub-header">{subTitle}</p>
+      </div>
       <UserWidget />
     </div>
   );
