@@ -28,8 +28,9 @@ export const Login = () => {
 
       const data = await response.json();
       if (!response.ok) {
-        alert(data.message);
-        throw Error(data);
+        alert('Error logging in: ', data.message);
+        console.error('Error logging in: ', data);
+        throw Error(data.message);
       }
       localStorage.setItem('token', data.token);
       console.log('Login successful:', data);
