@@ -64,32 +64,42 @@ export const NecessaryWorkHoursWidget = () => {
   const amountOverSpent = totalSpent - income;
   const hoursNeeded = Math.ceil(amountOverSpent / lastWage);
 
-  if (amountOverSpent < 0) return null;
-
-  return (
-    <Card style={{ minHeight: 'max-content', flexShrink: 0 }}>
-      <CardHeader title="Work Hours Needed to Cover Spending" />
-      <CardContent>
-        <div style={{ display: 'flex', gap: '16px' }}>
-          <Card style={{ width: '100%' }}>
-            <CardHeader title="Income" />
-            <CardContent>{DKKFormat.format(income)}</CardContent>
-          </Card>
-          <Card style={{ width: '100%' }}>
-            <CardHeader title="Total Spending" />
-            <CardContent>{DKKFormat.format(totalSpent)}</CardContent>
-          </Card>
-          <Card style={{ width: '100%' }}>
-            <CardHeader title="Overspent" />
-            <CardContent>{DKKFormat.format(amountOverSpent)}</CardContent>
-          </Card>
-        </div>
-        <p>
-          With your latest hourly wage, you need to work {hoursNeeded} more
-          hours to cover your total spending.{' '}
-          <span style={{ color: 'grey' }}>(Not including taxes)</span>
-        </p>
-      </CardContent>
-    </Card>
-  );
+  if (amountOverSpent < 0) {
+    return (
+      <Card style={{ minHeight: 'max-content', flexShrink: 0 }}>
+        <CardHeader title="Income Covers Your Spending" />
+        <CardContent>
+          Good job, your income covers your total spending this month.
+        </CardContent>
+      </Card>
+    );
+  } else {
+    return (
+      <Card style={{ minHeight: 'max-content', flexShrink: 0 }}>
+        <CardHeader title="Work Hours Needed to Cover Spending" />
+        <CardContent>
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <Card style={{ width: '100%' }}>
+              <CardHeader title="Income" />
+              <CardContent>{DKKFormat.format(income)}</CardContent>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <CardHeader title="Total Spending" />
+              <CardContent>{DKKFormat.format(totalSpent)}</CardContent>
+            </Card>
+            <Card style={{ width: '100%' }}>
+              <CardHeader title="Overspent" />
+              <CardContent>{DKKFormat.format(amountOverSpent)}</CardContent>
+            </Card>
+          </div>
+          <p>
+            With your latest hourly wage, you need to work
+            <strong>{hoursNeeded}</strong> more hours to cover your total
+            spending.{' '}
+            <span style={{ color: 'grey' }}>(Not including taxes)</span>
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
 };
